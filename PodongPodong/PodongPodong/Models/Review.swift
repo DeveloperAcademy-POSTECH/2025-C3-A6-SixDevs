@@ -8,11 +8,11 @@
 import Foundation
 
 struct Review {
-    let id: UUID
+    let id: UUID = UUID()
     let star: Int
     let contents: [ReviewContent]
-    let toUser: User  // User email
-    let fromUser: User    // User email
+    let toUser: User  // 받는 사람
+    let fromUser: User    // 주는 사람
     
     enum ReviewContent {
         case review1
