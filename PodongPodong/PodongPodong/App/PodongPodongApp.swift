@@ -38,7 +38,7 @@ struct PodongPodongApp: App {
 
 private extension PodongPodongApp {
     func setupSendbird() {
-        let APP_ID = "APP_ID"    // Specify your Sendbird application ID.
+        let APP_ID = Bundle.main.sendbirdAppId    // Specify your Sendbird application ID.
         
         SendbirdUI.initialize(
             applicationId: APP_ID
@@ -61,7 +61,7 @@ private extension PodongPodongApp {
     
     func setupCurrentUser() {
         // Set current user.
-        SBUGlobals.currentUser = SBUUser(userId: "USER_ID")
-        SBUGlobals.accessToken = "ACCESS_TOKEN"
+        SBUGlobals.currentUser = SBUUser(userId: "rlawlsgur716") // FIXME: - 테스트 계정
+        //SBUGlobals.accessToken = "ACCESS_TOKEN"
     }
 }

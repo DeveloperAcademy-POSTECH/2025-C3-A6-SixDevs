@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SendbirdSwiftUI
 
 struct ChatListView: View {
+    @StateObject var provider = GroupChannelListViewProvider()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GroupChannelListView(provider: provider)
     }
 }
 
