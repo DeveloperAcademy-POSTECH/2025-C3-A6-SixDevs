@@ -10,9 +10,9 @@ import SwiftUI
 struct TextFieldView: View {
     @Binding var text: String
     let placeholder: String
+    let height: CGFloat
     private(set) var suffixText: String? = nil
     private(set) var icon: Image? = nil
-    let height: CGFloat
 
     var body: some View {
         HStack(spacing: 12) {
@@ -66,21 +66,21 @@ struct TextFieldView: View {
     TextFieldView(
         text: .constant(""),
         placeholder: "날짜를 입력해주세요",
-        icon: Image(systemName: "calendar"),
-        height: 44
+        height: 44,
+        icon: Image(systemName: "calendar")
     )
     
     TextFieldView(
         text: .constant(""),
         placeholder: "이메일을 입력해주세요",
-        suffixText: "@postech.ac.kr",
-        height: 44
+        height: 44,
+        suffixText: "@postech.ac.kr"
     )
     
     TextFieldView(
         text: .constant(""),
         placeholder: "개수를 입력해주세요",
-        suffixText: "g",
-        height: 44
+        height: 44,
+        suffixText: "g"
     )
 }

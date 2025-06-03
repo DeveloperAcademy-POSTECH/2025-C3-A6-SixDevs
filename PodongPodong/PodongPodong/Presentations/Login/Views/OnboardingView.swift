@@ -18,7 +18,7 @@ struct OnboardingView: View {
                     Image(systemName: "globe")
                         .imageScale(.large)
                         .foregroundStyle(.tint)
-                    NavigationLink(destination: LoginView()) {
+                    NavigationLink(destination: EmailInputView()) {
                         ActionButtonView(title: "포스텍 이메일 인증하기", isEnabled: true)
                     }
                 }
