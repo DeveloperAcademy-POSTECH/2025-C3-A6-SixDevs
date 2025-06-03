@@ -10,13 +10,14 @@ import Foundation
 struct Party {
     
     // 파티 생성시 만들어져야할 데이터
-    /// id(UUID), 작성자, 파티원,  생성일, 업데이트일
+    /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
     let id: UUID = UUID() // .toString
     let writen: User // User email (파티 만든사람)
     let member: [User] = []
     let createdAt: Date = Date() // 글 작성 시간
     let updatedAt: Date = Date()
     let status: PartyStatus = .recruiting // 파티 상태
+    let waitingMembers: [User] = [] // 파티 참여 대기 인원
     
     // 유저가 입력해야할 데이터(필수)
     /// 제목, 카테고리, 구매방식, 모집인원, 구매처, 총 가격, 무게 및 수량
