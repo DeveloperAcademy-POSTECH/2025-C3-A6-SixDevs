@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ActionButtonView: View {
-    var title: String
-    var isEnabled: Bool = true
-    var action: () -> Void
+    let title: String
+    @State var isEnabled: Bool = true
+    let action: () -> Void
     
     var body: some View {
         Button(action: action) {
@@ -26,6 +26,6 @@ struct ActionButtonView: View {
 }
 
 #Preview {
-    ActionButtonView(title: "실행하기", action: {})
+    ActionButtonView(title: "실행하기", action: { })
     ActionButtonView(title: "실행하기", isEnabled: false, action: {})
 }

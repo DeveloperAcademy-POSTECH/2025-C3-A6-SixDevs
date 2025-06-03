@@ -9,9 +9,9 @@ import SwiftUI
 
 struct TextFieldView: View {
     @Binding var text: String
-    var placeholder: String = "정보를 입력해주세요"
-    var suffixText: String? = nil
-    var icon: Image? = nil
+    let placeholder: String
+    private(set) var suffixText: String? = nil
+    private(set) var icon: Image? = nil
     let height: CGFloat
 
     var body: some View {

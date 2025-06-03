@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CancelActionButtonView: View {
-    var cancelTitle: String = "취소"
-    var actionTitle: String = "액션"
-    var onCancel: () -> Void = {}
-    var onAction: () -> Void = {}
+    let cancelTitle: String
+    let actionTitle: String
+    let onCancel: () -> Void
+    let onAction: () -> Void
 
     var body: some View {
         HStack(spacing: 11) {
