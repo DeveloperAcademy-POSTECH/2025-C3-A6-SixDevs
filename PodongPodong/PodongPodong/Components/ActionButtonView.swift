@@ -16,7 +16,7 @@ struct ActionButtonView: View {
         Button(action: action) {
             Text(title)
                 .font(.pretendardSemibold18)
-                .foregroundColor(isEnabled ? .secondary : .gray30)
+                .foregroundColor(isEnabled ? .secondary : .gray40)
                 .frame(width: 361, height: 56)
                 .background(isEnabled ? Color.primaryColor : Color.gray10)
                 .cornerRadius(12)
