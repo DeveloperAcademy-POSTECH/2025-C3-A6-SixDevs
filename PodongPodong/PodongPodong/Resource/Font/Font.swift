@@ -43,6 +43,7 @@ extension Font {
     static var pretendardBold18: Font { .pretend(type: .bold, size: 18) }
     static var pretendardBold20: Font { .pretend(type: .bold, size: 20) }
     static var pretendardBold24: Font { .pretend(type: .bold, size: 24) }
+    static var pretendardBold28: Font { .pretend(type: .bold, size: 28) }
     
     // SemiBold
     static var pretendardSemibold13: Font { .pretend(type: .semibold, size: 13) }
