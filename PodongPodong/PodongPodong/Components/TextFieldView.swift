@@ -10,6 +10,7 @@ import SwiftUI
 struct TextFieldView: View {
     @Binding var text: String
     var placeholder: String = "정보를 입력해주세요"
+    var suffixText: String? = nil
     var icon: Image? = nil
     let height: CGFloat
 
@@ -18,13 +19,12 @@ struct TextFieldView: View {
             if let icon = icon {
                 icon
                     .resizable()
-                    .renderingMode(.template)
                     .foregroundColor(.gray60)
                     .frame(width: 22, height: 22)
             }
 
             TextField(
-                "",
+                "TextField",
                 text: $text,
                 prompt: Text(placeholder)
                     .font(.pretendardMedium16)
@@ -32,6 +32,12 @@ struct TextFieldView: View {
             )
             .font(.pretendardSemibold18)
             .foregroundColor(.black)
+
+            if let suffix = suffixText {
+                Text(suffix)
+                    .font(.pretendardSemibold16)
+                    .foregroundColor(.gray70)
+            }
         }
         .padding(.horizontal, 16)
         .frame(width: 361, height: height)
@@ -45,8 +51,6 @@ struct TextFieldView: View {
 }
 
 #Preview {
-    @Previewable var inputText = ""
-    
     TextFieldView(
         text: .constant(""),
         placeholder: "정보를 입력해주세요",
@@ -63,6 +67,20 @@ struct TextFieldView: View {
         text: .constant(""),
         placeholder: "날짜를 입력해주세요",
         icon: Image(systemName: "calendar"),
+        height: 44
+    )
+    
+    TextFieldView(
+        text: .constant(""),
+        placeholder: "이메일을 입력해주세요",
+        suffixText: "@postech.ac.kr",
+        height: 44
+    )
+    
+    TextFieldView(
+        text: .constant(""),
+        placeholder: "개수를 입력해주세요",
+        suffixText: "g",
         height: 44
     )
 }
