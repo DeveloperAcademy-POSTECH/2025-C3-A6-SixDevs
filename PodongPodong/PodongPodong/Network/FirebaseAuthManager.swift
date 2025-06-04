@@ -13,7 +13,7 @@ final class FirebaseAuthManager {
     static let shared = FirebaseAuthManager()
     private init() {}
     
-    func sendSignInLink(to email: String) async throws -> Bool {
+    func sendSignInLink(to email: String) async throws {
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.url = URL(string: "https://podongpodong-696db.firebaseapp.com/?email=\(email)")
@@ -21,7 +21,5 @@ final class FirebaseAuthManager {
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
         
         try await Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings)
-        
-        return true
     }
 }

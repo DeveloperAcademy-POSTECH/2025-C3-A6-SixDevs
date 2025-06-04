@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct EmailInputView: View {
-    @State var id: String = ""
+    @State private var viewModel = LoginViewModel()
+    
     var isButtonEnabled: Bool {
-        !id.trimmingCharacters(in: .whitespaces).isEmpty
+        !viewModel.id.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
     var body: some View {
@@ -20,12 +21,13 @@ struct EmailInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 20)
             
-            TextFieldView(text: $id, placeholder: "아이디", suffixText: "@postech.ac.kr")
+            TextFieldView(text: $viewModel.id, placeholder: "아이디", suffixText: "@postech.ac.kr")
                 .frame(width: 361, height: 48)
             
             Spacer()
+            
             Button(action: {
-                print("✅ 인증 메일 발송")
+                viewModel.sendEmailAuth()
             }) {
                 ActionButtonView(
                     title: "인증메일 발송하기",
@@ -34,6 +36,7 @@ struct EmailInputView: View {
                 .frame(width: 351)
             }
             .disabled(!isButtonEnabled)
+            
         }
         .padding(.top, 50)
         .padding(.bottom, 20)
