@@ -122,10 +122,8 @@ extension Party {
             
             // 5. 오프라인 장보기 파티
             Party(
-                id: UUID(),
                 writen: User.sampleUsers[8], // 유기농만먹어요
                 member: Array(User.sampleUsers[9...10]), // 2명 참여
-                createdAt: Calendar.current.date(byAdding: .hour, value: -3, to: Date())!,
                 updatedAt: Date(),
                 status: .recruiting,
                 waitingMembers: [User.sampleUsers[11]], // 1명 대기
