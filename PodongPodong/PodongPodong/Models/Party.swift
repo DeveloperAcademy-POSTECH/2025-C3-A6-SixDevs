@@ -37,7 +37,7 @@ struct Party: Codable {
     let description: String?
     
     // 부가적인 데이터
-    private(set) var comments: [PartyComment] = [] // 댓글
+    var comments: [PartyComment] = [] // 댓글
     let chatURL: String? // 채팅 딥링크를 위한 부분
     
     init(
