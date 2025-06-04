@@ -15,7 +15,8 @@ struct ActionButtonView: View {
         Text(title)
             .font(.pretendardSemibold18)
             .foregroundColor(isEnabled ? .secondary : .gray40)
-            .frame(width: 361, height: 56)
+            .padding(.vertical, 16)
+            .frame(maxWidth: .infinity)
             .background(isEnabled ? Color.primaryColor : Color.gray10)
             .cornerRadius(12)
     }
@@ -23,5 +24,7 @@ struct ActionButtonView: View {
 
 #Preview {
     ActionButtonView(title: "실행하기", isEnabled: true)
+        .frame(width: 351)
     ActionButtonView(title: "실행하기", isEnabled: false)
+        .frame(width: 160)
 }

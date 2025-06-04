@@ -10,7 +10,6 @@ import SwiftUI
 struct TextFieldView: View {
     @Binding var text: String
     let placeholder: String
-    let height: CGFloat
     private(set) var suffixText: String? = nil
     private(set) var icon: Image? = nil
 
@@ -40,7 +39,8 @@ struct TextFieldView: View {
             }
         }
         .padding(.horizontal, 16)
-        .frame(width: 361, height: height)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
@@ -54,33 +54,28 @@ struct TextFieldView: View {
     TextFieldView(
         text: .constant(""),
         placeholder: "정보를 입력해주세요",
-        height: 44
-    )
+    ).frame(width: 361, height: 100)
     
     TextFieldView(
         text: .constant(""),
         placeholder: "링크를 입력해주세요",
-        height: 44
-    )
+    ).frame(width: 160, height: 44)
     
     TextFieldView(
         text: .constant(""),
         placeholder: "날짜를 입력해주세요",
-        height: 44,
         icon: Image(systemName: "calendar")
-    )
+    ).frame(width: 361, height: 44)
     
     TextFieldView(
         text: .constant(""),
         placeholder: "이메일을 입력해주세요",
-        height: 44,
         suffixText: "@postech.ac.kr"
-    )
+    ).frame(width: 361, height: 48)
     
     TextFieldView(
         text: .constant(""),
         placeholder: "개수를 입력해주세요",
-        height: 44,
         suffixText: "g"
-    )
+    ).frame(width: 361, height: 48)
 }
