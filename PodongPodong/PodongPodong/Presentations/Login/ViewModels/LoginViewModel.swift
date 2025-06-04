@@ -24,7 +24,7 @@ final class LoginViewModel {
                 try await FirebaseAuthManager.shared.sendSignInLink(to: id+email)
             } catch {
                 errorMessage = error.localizedDescription
-                print(errorMessage)
+                print(errorMessage ?? "")
             }
             
             isLoading = false
