@@ -91,9 +91,9 @@ struct PartyDetailView: View {
             HStack {
                 Text("32분 전")
                 Spacer()
-                Text("조회 100")
-                Text("관심 4")
-                Text("댓글 42")
+                Text("조회 \(party.viewCount)")
+                Text("관심 \(party.likeCount)")
+                Text("댓글 \(party.comments.count)")
             }
             .font(.pretend(type: .semibold, size: 12))
             .foregroundStyle(.secondary)
@@ -120,13 +120,14 @@ struct PartyDetailView: View {
             } else {
                 Text("")
             }
-            
-            
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("온라인 구매")
-                    .font(.pretend(type: .medium, size: 14))
-                    .foregroundStyle(.gray04)
+
+                party.purchaseChannel == .online
+                    ? Text("온라인 구매").font(.pretend(type: .medium, size: 14))
+                        .foregroundStyle(.gray04)
+                    : Text("오프라인 구매").font(.pretend(type: .medium, size: 14))
+                        .foregroundStyle(.gray04)
 
                 if let url = URL(string: party.purchaseLocation) {
                     Label {
@@ -169,8 +170,7 @@ struct PartyDetailView: View {
                         info: location
                     )
                 }
-                
-                
+
             }
         }
     }
@@ -185,7 +185,7 @@ struct PartyDetailView: View {
                 Spacer()
 
                 Button {
-
+                    // 채팅방 디테일 뷰 만들고 구현 예정
                 } label: {
                     Text("채팅방")
                     Image(systemName: "chevron.right")
@@ -225,16 +225,7 @@ struct PartyDetailView: View {
                 .font(.pretend(type: .semibold, size: 14))
                 .foregroundStyle(.second)
             }
-            CommentView(
-                userName: "삼겹살만취급함",
-                commentText: "상처투성이의 손을 맞잡고 다시 비틀비틀 짝짜꿍",
-                createdAt: "2일전"
-            )
-            CommentView(
-                userName: "삼겹살만취급함",
-                commentText: "상처투성이의 손을 맞잡고 다시 비틀비틀 짝짜꿍",
-                createdAt: "2일전"
-            )
+            CommentView(comments: party.comments)
         }
     }
 
@@ -248,6 +239,7 @@ struct PartyDetailView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
+                    // 상태에 따른 버튼 변경은 추후 구현
                     Text("파티 마감하기")
                         .font(.pretend(type: .semibold, size: 18))
                 }
