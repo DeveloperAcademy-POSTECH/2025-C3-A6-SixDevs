@@ -11,6 +11,7 @@
 		C97F5B4E2DECDFB000889652 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B4D2DECDFB000889652 /* FirebaseFirestore */; };
 		C97F5B502DECDFB100889652 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B4F2DECDFB100889652 /* FirebaseFunctions */; };
 		C97F5B522DECDFB100889652 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B512DECDFB100889652 /* FirebaseMessaging */; };
+		EE2A7C5D2DEEF2970080D112 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97F5B522DECDFB100889652 /* FirebaseMessaging in Frameworks */,
+				EE2A7C5D2DEEF2970080D112 /* FirebaseAuth in Frameworks */,
 				C97F5B502DECDFB100889652 /* FirebaseFunctions in Frameworks */,
 				C97F5B4B2DECDD9600889652 /* SendbirdSwiftUI in Frameworks */,
 				C97F5B4E2DECDFB000889652 /* FirebaseFirestore in Frameworks */,
@@ -93,6 +95,7 @@
 				C97F5B4D2DECDFB000889652 /* FirebaseFirestore */,
 				C97F5B4F2DECDFB100889652 /* FirebaseFunctions */,
 				C97F5B512DECDFB100889652 /* FirebaseMessaging */,
+				EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */,
 			);
 			productName = PodongPodong;
 			productReference = C97F5A4C2DEC6D2800889652 /* PodongPodong.app */;
@@ -408,6 +411,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C97F5B4C2DECDFB000889652 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

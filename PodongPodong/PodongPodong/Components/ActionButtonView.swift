@@ -9,23 +9,19 @@ import SwiftUI
 
 struct ActionButtonView: View {
     let title: String
-    @State var isEnabled: Bool = true
-    let action: () -> Void
+    let isEnabled: Bool
     
     var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.pretendardSemibold18)
-                .foregroundColor(isEnabled ? .secondary : .gray40)
-                .frame(width: 361, height: 56)
-                .background(isEnabled ? Color.primaryColor : Color.gray10)
-                .cornerRadius(12)
-        }
-        .disabled(!isEnabled)
+        Text(title)
+            .font(.pretendardSemibold18)
+            .foregroundColor(isEnabled ? .secondary : .gray40)
+            .frame(width: 361, height: 56)
+            .background(isEnabled ? Color.primaryColor : Color.gray10)
+            .cornerRadius(12)
     }
 }
 
 #Preview {
-    ActionButtonView(title: "실행하기", action: { })
-    ActionButtonView(title: "실행하기", isEnabled: false, action: {})
+    ActionButtonView(title: "실행하기", isEnabled: true)
+    ActionButtonView(title: "실행하기", isEnabled: false)
 }
