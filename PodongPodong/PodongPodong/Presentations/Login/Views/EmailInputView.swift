@@ -8,35 +8,43 @@
 import SwiftUI
 
 struct EmailInputView: View {
-    @State var id: String = ""
+    @State private var viewModel = LoginViewModel()
+    
     var isButtonEnabled: Bool {
-        !id.trimmingCharacters(in: .whitespaces).isEmpty
+        !viewModel.id.trimmingCharacters(in: .whitespaces).isEmpty
     }
     
     var body: some View {
-        VStack(spacing: 60) {
-            Text("포스텍 이메일을\n입력해주세요")
-                .font(.pretendardBold28)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 20)
-            
-            TextFieldView(text: $id, placeholder: "아이디", suffixText: "@postech.ac.kr")
-                .frame(width: 361, height: 48)
-            
-            Spacer()
-            Button(action: {
-                print("✅ 인증 메일 발송")
-            }) {
-                ActionButtonView(
-                    title: "인증메일 발송하기",
-                    isEnabled: isButtonEnabled
-                )
-                .frame(width: 351)
+        NavigationStack {
+            VStack(spacing: 60) {
+                Text("포스텍 이메일을\n입력해주세요")
+                    .font(.pretendardBold28)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 20)
+                
+                TextFieldView(text: $viewModel.id, placeholder: "아이디", suffixText: "@postech.ac.kr")
+                    .frame(width: 361, height: 48)
+                
+                Spacer()
+                
+                Button(action: {
+                    viewModel.sendEmailAuth()
+                }) {
+                    ActionButtonView(
+                        title: "인증메일 발송하기",
+                        isEnabled: isButtonEnabled
+                    )
+                    .frame(width: 351)
+                }
+                .disabled(!isButtonEnabled)
+                
             }
-            .disabled(!isButtonEnabled)
+            .padding(.top, 50)
+            .padding(.bottom, 20)
+            .navigationDestination(isPresented: $viewModel.isSendEmail) {
+                EmailSentView()
+            }
         }
-        .padding(.top, 50)
-        .padding(.bottom, 20)
     }
 }
 
