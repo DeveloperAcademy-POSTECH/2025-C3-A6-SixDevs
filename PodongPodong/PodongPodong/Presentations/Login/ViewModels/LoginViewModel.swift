@@ -11,11 +11,11 @@ import Observation
 @Observable
 final class LoginViewModel {
     var id: String = ""
-    var email: String = "@postech.ac.kr"
+    let email: String = "@postech.ac.kr"
     
-    private(set) var isLoading: Bool = false
-    private(set) var errorMessage: String? = nil
-    private(set) var isSendEmail: Bool = false
+    var isLoading: Bool = false
+    var errorMessage: String? = nil
+    var isSendEmail: Bool = false
     
     func sendEmailAuth() {
         Task {
@@ -24,6 +24,7 @@ final class LoginViewModel {
                 try await FirebaseAuthManager.shared.sendSignInLink(to: id+email)
             } catch {
                 errorMessage = error.localizedDescription
+                print(errorMessage)
             }
             
             isLoading = false
