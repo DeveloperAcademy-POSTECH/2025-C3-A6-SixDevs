@@ -19,7 +19,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5FAE3F5C2DEEB77D009C626E /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
+		C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -32,7 +32,7 @@
 		C97F5A4E2DEC6D2800889652 /* PodongPodong */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5FAE3F5C2DEEB77D009C626E /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
+				C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
 			);
 			path = PodongPodong;
 			sourceTree = "<group>";
@@ -162,6 +162,8 @@
 /* Begin XCBuildConfiguration section */
 		C97F5A582DEC6D2900889652 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -225,6 +227,8 @@
 		};
 		C97F5A592DEC6D2900889652 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
