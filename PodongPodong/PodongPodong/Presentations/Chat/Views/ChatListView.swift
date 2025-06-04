@@ -30,7 +30,7 @@ struct ChatListView: View {
                             ChatListItem(
                                 title: channel.name,
                                 memberCount: Int(memberCount),
-                                profileImage: "person.circle.fill",
+                                profileImage: "", // TODO: Assets 이미지로 교체하기
                                 lastMessage: message,
                                 lastMessageDate: date,
                                 unreadMessageCount: unreadMessageCount
@@ -38,6 +38,7 @@ struct ChatListView: View {
                         }
                     }
                 }
+                .listStyle(.plain)
             }
             .navigationTitle("채팅 목록")
             .navigationDestination(for: String.self) { channelURL in

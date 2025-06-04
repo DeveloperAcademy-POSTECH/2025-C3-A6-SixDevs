@@ -8,9 +8,9 @@
 import Foundation
 
 extension Date {
-    var mmdd: String {
+    var md: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd"
+        formatter.dateFormat = "M월 d일"
         return formatter.string(from: self)
     }
 }
