@@ -10,7 +10,6 @@ import SendbirdSwiftUI
 import SendbirdChatSDK
 
 struct ChatListView: View {
-    @State private var selectedChannelURL: String? = nil
     private var chatListVM = ChatListViewModel(userId: "rlawlsgur716")
     
     var body: some View {
