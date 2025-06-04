@@ -8,8 +8,8 @@
 struct User {
     let email: String // UUID
     let nickName: String // 앱 활동 이름
-    let profileImage: ProfileImage    // Asset 에서 불러오기
-    let reviewRating: Double // 리뷰 평점
+    var profileImage: ProfileImage    // Asset 에서 불러오기
+    var reviewRating: Double // 리뷰 평점
 
     // TODO: Asset 이름과 동일하게 수정하기
     enum ProfileImage {
