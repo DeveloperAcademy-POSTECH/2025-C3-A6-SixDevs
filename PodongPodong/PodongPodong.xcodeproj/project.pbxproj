@@ -11,6 +11,7 @@
 		C97F5B4E2DECDFB000889652 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B4D2DECDFB000889652 /* FirebaseFirestore */; };
 		C97F5B502DECDFB100889652 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B4F2DECDFB100889652 /* FirebaseFunctions */; };
 		C97F5B522DECDFB100889652 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C97F5B512DECDFB100889652 /* FirebaseMessaging */; };
+		EE2A7C5D2DEEF2970080D112 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,7 +19,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5FAE3F5C2DEEB77D009C626E /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
+		C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -31,7 +32,7 @@
 		C97F5A4E2DEC6D2800889652 /* PodongPodong */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5FAE3F5C2DEEB77D009C626E /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
+				C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
 			);
 			path = PodongPodong;
 			sourceTree = "<group>";
@@ -44,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97F5B522DECDFB100889652 /* FirebaseMessaging in Frameworks */,
+				EE2A7C5D2DEEF2970080D112 /* FirebaseAuth in Frameworks */,
 				C97F5B502DECDFB100889652 /* FirebaseFunctions in Frameworks */,
 				C97F5B4B2DECDD9600889652 /* SendbirdSwiftUI in Frameworks */,
 				C97F5B4E2DECDFB000889652 /* FirebaseFirestore in Frameworks */,
@@ -93,6 +95,7 @@
 				C97F5B4D2DECDFB000889652 /* FirebaseFirestore */,
 				C97F5B4F2DECDFB100889652 /* FirebaseFunctions */,
 				C97F5B512DECDFB100889652 /* FirebaseMessaging */,
+				EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */,
 			);
 			productName = PodongPodong;
 			productReference = C97F5A4C2DEC6D2800889652 /* PodongPodong.app */;
@@ -159,6 +162,8 @@
 /* Begin XCBuildConfiguration section */
 		C97F5A582DEC6D2900889652 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -222,6 +227,8 @@
 		};
 		C97F5A592DEC6D2900889652 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -408,6 +415,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C97F5B4C2DECDFB000889652 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		EE2A7C5C2DEEF2970080D112 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
