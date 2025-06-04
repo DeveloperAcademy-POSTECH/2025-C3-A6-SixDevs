@@ -10,6 +10,11 @@ extension Bundle {
     var sendbirdAppId: String {
         return infoDictionary?["SendbirdAppId"] as? String ?? ""
     }
+    
+    var testChannel: String {
+        return infoDictionary?["TestChannel"] as? String ?? ""
+    }
+
 }
 
 

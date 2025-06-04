@@ -10,29 +10,39 @@ import SendbirdSwiftUI
 import SendbirdChatSDK
 
 struct ChatListView: View {
+    @State private var selectedChannelURL: String? = nil
     private var chatListVM = ChatListViewModel(userId: "rlawlsgur716")
     
     var body: some View {
-        GroupChannelListView(provider: chatListVM.getProvider()) // 데이터 트리거 역활만
-            .frame(width: 0, height: 0)
-            .hidden()
-        
-        List {
-            ForEach(chatListVM.filteredChannels, id: \.channelURL) { channel in
-                if let lastMessage = channel.lastMessage as? UserMessage {
-                    let memberCount = channel.memberCount
-                    let message = lastMessage.message
-                    let date = Date(timeIntervalSince1970: TimeInterval(lastMessage.createdAt) / 1000)
-                    let unreadMessageCount = Int(channel.unreadMessageCount)
-                    ChatListItem(
-                        title: channel.name,
-                        memberCount: Int(memberCount),
-                        profileImage: "person.circle.fill",
-                        lastMessage: message,
-                        lastMessageDate: date,
-                        unreadMessageCount: unreadMessageCount
-                    )
+        NavigationStack { // FIXME: - 임시 스택
+            VStack(spacing: 0) {
+                GroupChannelListView(provider: chatListVM.getProvider()) // 데이터 트리거 용도
+                    .frame(width: 0, height: 0)
+                    .hidden()
+                List(chatListVM.filteredChannels, id: \.channelURL) { channel in
+                    if let lastMessage = channel.lastMessage as? UserMessage {
+                        let memberCount = channel.memberCount
+                        let message = lastMessage.message
+                        let date = Date(timeIntervalSince1970: TimeInterval(lastMessage.createdAt) / 1000)
+                        let unreadMessageCount = Int(channel.unreadMessageCount)
+                        NavigationLink(
+                            value: channel.channelURL
+                        ) {
+                            ChatListItem(
+                                title: channel.name,
+                                memberCount: Int(memberCount),
+                                profileImage: "person.circle.fill",
+                                lastMessage: message,
+                                lastMessageDate: date,
+                                unreadMessageCount: unreadMessageCount
+                            )
+                        }
+                    }
                 }
+            }
+            .navigationTitle("채팅 목록")
+            .navigationDestination(for: String.self) { channelURL in
+                ChatView(provider: GroupChannelViewProvider(channelURL: channelURL))
             }
         }
     }

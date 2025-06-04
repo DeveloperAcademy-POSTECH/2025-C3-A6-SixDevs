@@ -15,7 +15,6 @@
 
 /* Begin PBXFileReference section */
 		C97F5A4C2DEC6D2800889652 /* PodongPodong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodongPodong.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C97F5DF02DEDBD5100889652 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -160,7 +159,8 @@
 /* Begin XCBuildConfiguration section */
 		C97F5A582DEC6D2900889652 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C97F5DF02DEDBD5100889652 /* Config.xcconfig */;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -224,7 +224,8 @@
 		};
 		C97F5A592DEC6D2900889652 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C97F5DF02DEDBD5100889652 /* Config.xcconfig */;
+			baseConfigurationReferenceAnchor = C97F5A4E2DEC6D2800889652 /* PodongPodong */;
+			baseConfigurationReferenceRelativePath = Data/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
