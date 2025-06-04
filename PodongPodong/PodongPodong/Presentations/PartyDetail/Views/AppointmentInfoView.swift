@@ -19,7 +19,7 @@ struct AppointmentInfoView: View {
             Text(info)
                 .font(.pretend(type: .medium, size: 15))
         }
-        .padding(.trailing, 32)
+        .padding(.trailing, 25)
     }
 }
 

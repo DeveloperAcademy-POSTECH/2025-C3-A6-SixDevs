@@ -50,7 +50,7 @@ extension Party {
                 status: .inProgress,
                 waitingMembers: [], // 대기자 없음
                 title: "신선한 연어 사시미 2kg",
-                category: .seafood,
+                category: FoodCategory.seafood,
                 orderType: .groupPurchase,
                 recruitmentCount: 4,
                 purchaseChannel: .offline,
@@ -76,7 +76,7 @@ extension Party {
                 status: .recruiting,
                 waitingMembers: Array(User.sampleUsers[0...4]), // 5명 대기중
                 title: "유기농 채소 박스 (4인분)",
-                category: .vegetable,
+                category: FoodCategory.vegetable,
                 orderType: .personalShopping,
                 recruitmentCount: 4,
                 purchaseChannel: .online,
@@ -102,7 +102,7 @@ extension Party {
                 status: .completed,
                 waitingMembers: [],
                 title: "제주 한라봉 5kg (완료)",
-                category: .fruit,
+                category: FoodCategory.fruit,
                 orderType: .groupPurchase,
                 recruitmentCount: 5,
                 purchaseChannel: .online,
@@ -128,7 +128,7 @@ extension Party {
                 status: .recruiting,
                 waitingMembers: [User.sampleUsers[11]], // 1명 대기
                 title: "이마트 대용량 냉동식품 공구",
-                category: .etc,
+                category: FoodCategory.etc,
                 orderType: .personalShopping,
                 recruitmentCount: 4,
                 purchaseChannel: .offline,

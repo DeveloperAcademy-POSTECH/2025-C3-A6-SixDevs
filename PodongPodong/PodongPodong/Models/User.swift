@@ -4,9 +4,11 @@
 //
 //  Created by 김진혁 on 6/1/25.
 //
+import Foundation
 
-struct User {
-    let email: String // UUID
+struct User: Identifiable {
+    let id: UUID = UUID()
+    let email: String
     let nickName: String // 앱 활동 이름
     var profileImage: ProfileImage    // Asset 에서 불러오기
     var reviewRating: Double // 리뷰 평점
