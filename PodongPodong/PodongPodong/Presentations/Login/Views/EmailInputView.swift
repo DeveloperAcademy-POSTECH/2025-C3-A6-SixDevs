@@ -20,7 +20,8 @@ struct EmailInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 20)
             
-            TextFieldView(text: $id, placeholder: "아이디", height: 48, suffixText: "@postech.ac.kr")
+            TextFieldView(text: $id, placeholder: "아이디", suffixText: "@postech.ac.kr")
+                .frame(width: 361, height: 48)
             
             Spacer()
             Button(action: {
@@ -30,6 +31,7 @@ struct EmailInputView: View {
                     title: "인증메일 발송하기",
                     isEnabled: isButtonEnabled
                 )
+                .frame(width: 351)
             }
             .disabled(!isButtonEnabled)
         }
