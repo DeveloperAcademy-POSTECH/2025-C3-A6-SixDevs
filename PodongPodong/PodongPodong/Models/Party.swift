@@ -17,6 +17,8 @@ struct Party {
     var updatedAt: Date = Date()
     var status: PartyStatus = .recruiting // 파티 상태
     var waitingMembers: [User] = [] // 파티 참여 대기 인원
+    var viewCount: Int = 1
+    var likeCount: Int = 0
     
     // 유저가 입력해야할 데이터(필수)
     /// 제목, 카테고리, 구매방식, 모집인원, 구매처, 총 가격, 무게 및 수량
@@ -40,7 +42,6 @@ struct Party {
     var chatURL: String? // 채팅 딥링크를 위한 부분
     
     // MARK: - 파티 추가 데이터
-    
     enum OrderType {
         case groupPurchase   // 공동구매
         case personalShopping  // 장보기
