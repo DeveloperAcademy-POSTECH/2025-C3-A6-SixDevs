@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct Party {
+struct Party: Codable {
     
     // 파티 생성시 만들어져야할 데이터
     /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
-    let id: UUID = UUID() // .toString
+    private var id: UUID = UUID() // .toString
     let writen: User // User email (파티 만든사람)
-    let member: [User] = []
-    let createdAt: Date = Date() // 글 작성 시간
-    let updatedAt: Date = Date()
-    let status: PartyStatus = .recruiting // 파티 상태
-    let waitingMembers: [User] = [] // 파티 참여 대기 인원
+    private(set) var member: [User] = []
+    private(set) var createdAt: Date = Date() // 글 작성 시간
+    private(set) var updatedAt: Date = Date()
+    private(set) var status: PartyStatus = .recruiting // 파티 상태
+    private(set) var waitingMembers: [User] = [] // 파티 참여 대기 인원
     
     // 유저가 입력해야할 데이터(필수)
     /// 제목, 카테고리, 구매방식, 모집인원, 구매처, 총 가격, 무게 및 수량
@@ -37,35 +37,70 @@ struct Party {
     let description: String?
     
     // 부가적인 데이터
-    let comments: [PartyComment] = [] // 댓글
+    var comments: [PartyComment] = [] // 댓글
     let chatURL: String? // 채팅 딥링크를 위한 부분
+    
+    init(
+        writen: User,
+        title: String,
+        category: FoodCategory,
+        orderType: OrderType,
+        recruitmentCount: Int,
+        purchaseChannel: PurchaseChannel,
+        purchaseLocation: String,
+        totalPrice: Int,
+        weightAndCount: WeightAndCount,
+        amount: Int,
+        appointment: Appointment,
+        description: String?,
+        chatURL: String?
+    ) {
+        self.writen = writen
+        self.title = title
+        self.category = category
+        self.orderType = orderType
+        self.recruitmentCount = recruitmentCount
+        self.purchaseChannel = purchaseChannel
+        self.purchaseLocation = purchaseLocation
+        self.totalPrice = totalPrice
+        self.weightAndCount = weightAndCount
+        self.amount = amount
+        self.appointment = appointment
+        self.description = description
+        self.chatURL = chatURL
+    }
     
     // MARK: - 파티 추가 데이터
     
-    enum OrderType {
+    enum OrderType: Codable {
         case groupPurchase   // 공동구매
         case personalShopping  // 장보기
     }
     
-    enum PurchaseChannel {
+    enum PurchaseChannel: Codable {
         case online
         case offline
     }
     
-    enum PartyStatus {
+    enum PartyStatus: Codable {
         case recruiting // 모집중
         case inProgress // 진행중
         case completed  // 종료
     }
     
-    enum WeightAndCount {
+    enum WeightAndCount: Codable {
         case weight
         case count
     }
     
-    struct Appointment {
+    struct Appointment: Codable{
         var date: Date?
         var time: Date?
         var location: String?
     }
+}
+
+extension Party: EntityRepresentable {
+    var entityName: CollectionType { .party }
+    var documentID: String { id.uuidString }
 }
