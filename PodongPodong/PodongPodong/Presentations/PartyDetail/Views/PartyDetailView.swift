@@ -15,12 +15,11 @@ struct PartyDetailView: View {
     private var participantMemberNumber = 3
     private var commentNumber = 42
 
+    // MARK: - Main Content
     var body: some View {
-        ScrollView {
-            ZStack(alignment: .topLeading) {
-                Color.clear.ignoresSafeArea()
-
-                // 보여지는 뷰
+        ZStack(alignment: .topLeading) {
+            Color.clear.ignoresSafeArea()
+            ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     headerView
                     contentView
@@ -29,35 +28,52 @@ struct PartyDetailView: View {
                     commentListView
                     bottomButtonView
                 }
-
                 .padding()
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundStyle(.black)
-                    }
-                }
-
-                ToolbarItem(placement: .principal) {
-                    Text("파티 상세 보기")
-                        .font(.pretend(type: .bold, size: 18))
-                }
-
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(.black)
-                    }
-
-                }
+                navigationToolbarItems
             }
+        }
+    }
+
+    // MARK: - Navigation Toolbar
+    @ToolbarContentBuilder
+    private var navigationToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            backButton
+        }
+
+        ToolbarItem(placement: .principal) {
+            navigationTitle
+        }
+
+        ToolbarItem(placement: .topBarTrailing) {
+            moreOptionsButton
+        }
+    }
+
+    // MARK: - Toolbar 컴포넌트
+    private var backButton: some View {
+        Button {
+            dismiss()
+        } label: {
+            Image(systemName: "chevron.left")
+                .foregroundStyle(.black)
+        }
+    }
+
+    private var navigationTitle: some View {
+        Text("파티 상세 보기")
+            .font(.pretend(type: .bold, size: 18))
+    }
+
+    private var moreOptionsButton: some View {
+        Button {
+            // 더보기 액션 추가 예정
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundStyle(.black)
         }
     }
 
