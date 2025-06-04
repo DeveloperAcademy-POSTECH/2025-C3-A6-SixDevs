@@ -40,6 +40,36 @@ struct Party: Codable {
     private(set) var comments: [PartyComment] = [] // 댓글
     let chatURL: String? // 채팅 딥링크를 위한 부분
     
+    init(
+        writen: User,
+        title: String,
+        category: FoodCategory,
+        orderType: OrderType,
+        recruitmentCount: Int,
+        purchaseChannel: PurchaseChannel,
+        purchaseLocation: String,
+        totalPrice: Int,
+        weightAndCount: WeightAndCount,
+        amount: Int,
+        appointment: Appointment,
+        description: String?,
+        chatURL: String?
+    ) {
+        self.writen = writen
+        self.title = title
+        self.category = category
+        self.orderType = orderType
+        self.recruitmentCount = recruitmentCount
+        self.purchaseChannel = purchaseChannel
+        self.purchaseLocation = purchaseLocation
+        self.totalPrice = totalPrice
+        self.weightAndCount = weightAndCount
+        self.amount = amount
+        self.appointment = appointment
+        self.description = description
+        self.chatURL = chatURL
+    }
+    
     // MARK: - 파티 추가 데이터
     
     enum OrderType: Codable {
