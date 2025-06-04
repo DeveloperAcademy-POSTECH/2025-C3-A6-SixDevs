@@ -10,7 +10,6 @@ import Foundation
 struct PartyComment {
     let id: UUID = UUID()
     let user: User
-    let isPublic: Bool
     let content: String
     let createdAt: Date = Date()
 }
