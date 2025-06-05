@@ -9,43 +9,31 @@ import SwiftUI
 
 struct PartyListView: View {
     @State private var viewModel = PartyListViewModel()
-    @State private var selectedTab: Tab = .공동구매
-
-    enum Tab: Int, CaseIterable, Identifiable {
-        case 공동구매 = 0, 장보기
-        var id: Int { rawValue }
-        var title: String {
-            switch self {
-            case .공동구매: return "공동구매"
-            case .장보기:   return "장보기"
-            }
-        }
-    }
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 GeometryReader { geo in
                     let totalWidth = geo.size.width
-                    let tabCount = CGFloat(Tab.allCases.count)
+                    let tabCount = CGFloat(PartyListTab.allCases.count)
                     let indicatorWidth = totalWidth / tabCount
-
+                    
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
-                            ForEach(Tab.allCases) { tab in
+                            ForEach(PartyListTab.allCases) { tab in
                                 Button {
                                     withAnimation(.easeInOut) {
-                                        selectedTab = tab
+                                        viewModel.selectedTab = tab
                                     }
                                 } label: {
                                     Text(tab.title)
                                         .font(
-                                            selectedTab == tab
+                                            viewModel.selectedTab == tab
                                             ? .pretendardBold18
                                             : .pretendardMedium18
                                         )
                                         .foregroundColor(
-                                            selectedTab == tab
+                                            viewModel.selectedTab == tab
                                             ? Color.secondary
                                             : Color.gray40
                                         )
@@ -56,37 +44,36 @@ struct PartyListView: View {
                         }
                         .frame(width: totalWidth)
                         .background(Color.white)
-
+                        
                         Rectangle()
                             .fill(Color.secondary)
                             .frame(width: indicatorWidth, height: 3)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(x: indicatorWidth * CGFloat(selectedTab.rawValue))
-                            .animation(.easeInOut, value: selectedTab)
+                            .offset(x: indicatorWidth * CGFloat(viewModel.selectedTab.rawValue))
+                            .animation(.easeInOut, value: viewModel.selectedTab)
                     }
                     .frame(width: totalWidth, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .frame(height: 47)
                 .overlay(Divider(), alignment: .bottom)
-
-                // PageTabViewStyle을 이용한 TabView
-                TabView(selection: $selectedTab) {
+                
+                TabView(selection: $viewModel.selectedTab) {
                     VStack {
                         Spacer()
                         Text("공동구매 콘텐츠")
                             .font(.pretendardMedium18)
                         Spacer()
                     }
-                    .tag(Tab.공동구매)
-
+                    .tag(PartyListTab.공동구매)
+                    
                     VStack {
                         Spacer()
                         Text("장보기 콘텐츠")
                             .font(.pretendardMedium18)
                         Spacer()
                     }
-                    .tag(Tab.장보기)
+                    .tag(PartyListTab.장보기)
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             }
@@ -111,11 +98,11 @@ extension PartyListView {
                 .foregroundColor(.primaryColor)
         }
     }
-
+    
     struct PartyListNavBarButtons: View {
         let searchButtonAction: () -> Void
         let bellButtonAction: () -> Void
-
+        
         var body: some View {
             HStack(spacing: 16) {
                 Button(action: searchButtonAction) {
