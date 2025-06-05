@@ -36,13 +36,13 @@ struct PartyDetailBottomView: View {
             // 파티 참여/마감
         } label: {
             RoundedRectangle(cornerRadius: 12)
-                .fill(.main)
+                .fill(Color.primaryColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
                     Text(buttonTitle)
                         .font(.pretend(type: .semibold, size: 18))
-                        .foregroundStyle(Color.second)
+                        .foregroundStyle(Color.secondary)
                 }
         }
     }

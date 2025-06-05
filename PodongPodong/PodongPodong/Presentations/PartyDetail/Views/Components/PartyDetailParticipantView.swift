@@ -23,7 +23,7 @@ struct PartyDetailParticipantView: View {
     private var headerSection: some View {
         HStack {
             Text("참여 인원(\(party.member.count))")
-                .foregroundStyle(.second)
+                .foregroundStyle(Color.secondary)
                 .font(.pretend(type: .bold, size: 16))
 
             Spacer()
@@ -35,7 +35,7 @@ struct PartyDetailParticipantView: View {
                 Image(systemName: "chevron.right")
             }
             .font(.pretend(type: .semibold, size: 14))
-            .foregroundStyle(.second)
+            .foregroundStyle(Color.secondary)
         }
     }
 
@@ -53,7 +53,7 @@ struct PartyDetailParticipantView: View {
     private var dividerSection: some View {
         Rectangle()
             .frame(height: 6)
-            .foregroundStyle(.participantMemberBackground)
+            .foregroundStyle(Color.gray00)
             .padding(.top, 20)
     }
 }
@@ -66,7 +66,7 @@ struct EnhancedParticipantMemberView: View {
 
     var body: some View {
         ZStack {
-            Color(.participantMemberBackground)
+            Color(Color.gray00)
             VStack(alignment: .leading, spacing: 35) {
                 hostSection
                 memberSection
@@ -83,7 +83,7 @@ struct EnhancedParticipantMemberView: View {
             Image(systemName: "crown")
         }
         .font(.pretend(type: .semibold, size: 16))
-        .foregroundStyle(.second)
+        .foregroundStyle(Color.secondary)
     }
 
     // MARK: - Member Section
@@ -91,7 +91,7 @@ struct EnhancedParticipantMemberView: View {
         ForEach(members, id: \.self) { member in
             HStack {
                 Text(member)
-                    .foregroundStyle(.second)
+                    .foregroundStyle(Color.secondary)
                     .font(.pretend(type: .semibold, size: 16))
                 Spacer()
 
@@ -107,7 +107,7 @@ struct EnhancedParticipantMemberView: View {
         ForEach(waitingMembers, id: \.self) { waitingMember in
             HStack {
                 Text(waitingMember)
-                    .foregroundStyle(.second)
+                    .foregroundStyle(Color.secondary)
                     .font(.pretend(type: .semibold, size: 16))
                 Spacer()
 
@@ -152,11 +152,11 @@ struct EnhancedParticipantMemberView: View {
                 // 멤버 수락하기
             } label: {
                 Text("수락")
-                    .foregroundStyle(.second)
+                    .foregroundStyle(Color.secondary)
                     .font(.pretend(type: .semibold, size: 12))
                     .padding(.vertical, 6)
                     .padding(.horizontal, 12)
-                    .background(.main)
+                    .background(Color.primaryColor)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }

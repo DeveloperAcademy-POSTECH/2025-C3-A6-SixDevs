@@ -36,7 +36,7 @@ struct PartyDetailHeaderView: View {
             Text("댓글 \(party.comments.count)")
         }
         .font(.pretend(type: .semibold, size: 12))
-        .foregroundStyle(.secondary)
+        .foregroundStyle(Color.gray60)
     }
 }
 
