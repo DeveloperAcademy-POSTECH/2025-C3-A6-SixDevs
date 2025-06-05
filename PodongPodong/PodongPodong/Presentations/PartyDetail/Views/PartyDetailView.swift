@@ -15,7 +15,7 @@ struct PartyDetailView: View {
 
     // MARK: - Main Content
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack(alignment: .bottom) {
             Color.clear.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
@@ -24,7 +24,7 @@ struct PartyDetailView: View {
                     PartyDetailAppointmentView(party: party)
                     PartyDetailParticipantView(party: party, currentUser: currentUser)
                     PartyDetailCommentView(party: party, currentUser: currentUser)
-                    PartyDetailBottomView(party: party, currentUser: currentUser)
+                    Spacer().frame(height: 50)
                 }
                 .padding()
             }
@@ -32,6 +32,12 @@ struct PartyDetailView: View {
             .toolbar {
                 navigationToolbarItems
             }
+            
+            PartyDetailBottomView(party: party, currentUser: currentUser)
+                .frame(height: 30)
+                .padding()
+                .padding(.bottom, 10)
+                .background(Color.white)
         }
     }
 
