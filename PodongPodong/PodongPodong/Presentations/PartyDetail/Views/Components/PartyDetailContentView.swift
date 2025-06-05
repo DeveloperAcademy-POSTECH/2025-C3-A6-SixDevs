@@ -15,31 +15,6 @@ struct PartyDetailContentView: View {
             infoSection
             descriptionSection
             purchaseSection
-
-            //            VStack(alignment: .leading, spacing: 8) {
-            //
-            //                party.purchaseChannel == .online
-            //                    ? Text("온라인 구매").font(.pretend(type: .medium, size: 14))
-            //                        .foregroundStyle(.gray04)
-            //                    : Text("오프라인 구매").font(.pretend(type: .medium, size: 14))
-            //                        .foregroundStyle(.gray04)
-            //
-            //                if let url = URL(string: party.purchaseLocation) {
-            //                    Label {
-            //                        party.purchaseLocation.limitTo(25)
-            //                            .font(.pretend(type: .medium, size: 15))
-            //                    } icon: {
-            //                        Image(systemName: "map")
-            //                            .font(.pretend(type: .regular, size: 14))
-            //                    }
-            //                } else {
-            //                    Text("구매처 정보 없음")
-            //                        .font(.pretend(type: .medium, size: 15))
-            //                        .foregroundStyle(.gray04)
-            //                }
-            //            }
-            //            .padding(.top, 20)
-
         }
     }
 
