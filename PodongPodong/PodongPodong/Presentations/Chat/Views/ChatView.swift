@@ -98,6 +98,34 @@ struct ChatView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal, 8)
                 }
+            },
+            inputItem: {
+                .init()
+                .addButton { _ in
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(width: 30, height: 30)
+                        .foregroundStyle(Color.primaryColor)
+                        .overlay {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.white)
+                        }
+                }
+                .sendButton { _ in
+                    Circle()
+                        .foregroundStyle(Color.primaryColor)
+                        .frame(width: 34, height: 34)
+                        .overlay(
+                            Image(systemName: "arrow.up")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.white)
+                        )
+                        .padding(.bottom, 4)
+                }
             }
         )
     }
