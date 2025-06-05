@@ -25,26 +25,20 @@ struct RadioButton: View {
                 VStack{
                     HStack{
                         Text(label)
-                            .font(
-                            Font.custom("Pretendard", size: 16)
-                            .weight(.medium)
-                            )
-                            .foregroundColor(Color(red: 0.54, green: 0.54, blue: 0.54))
+                            .font(.pretendardMedium16)
+                            .foregroundColor(Color.gray60)
                             .frame(width: 73, height:22, alignment: .leading)
                         Spacer()
                     }
                     HStack{
                         Text(description)
-                            .font(
-                            Font.custom("Pretendard", size: 12)
-                            .weight(.medium)
-                            )
-                            .foregroundColor(Color(red: 0.54, green: 0.54, blue: 0.54))
+                            .font(.pretendardRegular12)
+                            .foregroundColor(Color.gray60)
                         Spacer()
                     }
                 }
                 Circle()
-                    .strokeBorder(isSelected ? Color(red:1, green:0.84, blue:0.47) : Color.white, lineWidth: 5)
+                    .strokeBorder(isSelected ? Color.primaryColor : Color.white, lineWidth: 7)
                     .background(Circle().fill(Color.white))
                     .frame(width:26 , height:26)
                 Spacer()
@@ -52,10 +46,10 @@ struct RadioButton: View {
         }//button의 끝
         .frame(width: 361, height: 82)
         .buttonStyle(.plain)
-        .background(isSelected ? Color(red: 1, green: 0.98, blue: 0.93) : .white)
+        .background(isSelected ? Color.primaryLight1 : .white)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(isSelected ? Color(red:1, green: 0.84, blue: 0.47) : Color(red: 0.67, green:0.67, blue: 0.67), lineWidth: 2)
+                .stroke(isSelected ? Color.primaryColor : Color.gray50, lineWidth: 2)
         )
 
         .clipShape(RoundedRectangle(cornerRadius: 8))
