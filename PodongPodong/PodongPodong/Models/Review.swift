@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Review {
-    let id: UUID = UUID()
+struct Review: Codable {
+    var id: UUID = UUID()
     let star: Int
     let contents: [ReviewContent]
     let toUser: User  // 받는 사람
     let fromUser: User    // 주는 사람
     
-    enum ReviewContent {
+    enum ReviewContent: Codable {
         case review1
         case review2
         case review3
@@ -35,3 +35,7 @@ struct Review {
     }
 }
 
+extension Review: EntityRepresentable {
+    var entityName: CollectionType { .review }
+    var documentID: String { id.uuidString }
+}
