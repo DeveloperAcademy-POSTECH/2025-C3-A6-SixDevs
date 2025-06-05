@@ -14,7 +14,7 @@ struct PartyDetailAppointmentView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("약속")
                 .font(.pretend(type: .medium, size: 14))
-                .foregroundStyle(.gray04)
+                .foregroundStyle(Color.gray40)
 
             HStack {
                 // 날짜, 시간 선택 기능 구현 후 수정 예정
