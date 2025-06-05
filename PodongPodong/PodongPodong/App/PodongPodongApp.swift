@@ -31,11 +31,7 @@ struct PodongPodongApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            RootView()
-            
-            NavigationStack {
-                PartyDetailView()
-            }
+            RootView()
         }
     }
 }

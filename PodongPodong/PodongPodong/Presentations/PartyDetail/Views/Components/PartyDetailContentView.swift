@@ -72,7 +72,7 @@ struct PartyDetailContentView: View {
             } else {
                 Text("구매처 정보 없음")
                     .font(.pretend(type: .medium, size: 15))
-                    .foregroundStyle(.gray04)
+                    .foregroundStyle(Color.gray40)
             }
         }
     }
@@ -111,7 +111,7 @@ private struct InfoRowView: View {
         HStack(spacing: 15) {
             Text(title)
                 .font(.pretend(type: .medium, size: 14))
-                .foregroundStyle(.gray04)
+                .foregroundStyle(Color.gray40)
 
             Text(info)
                 .font(.pretend(type: .medium, size: 16))

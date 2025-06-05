@@ -81,6 +81,7 @@ struct EnhancedParticipantMemberView: View {
         HStack {
             Text(host)
             Image(systemName: "crown")
+            Spacer()
         }
         .font(.pretend(type: .semibold, size: 16))
         .foregroundStyle(Color.secondary)
