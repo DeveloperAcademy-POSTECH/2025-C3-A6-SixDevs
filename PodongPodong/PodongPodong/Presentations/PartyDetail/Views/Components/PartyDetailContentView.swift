@@ -52,7 +52,12 @@ struct PartyDetailContentView: View {
 
     // MARK: - Online Purchase Section
     private var onlinePurchaseSection: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            Text("온라인 구매")
+                .font(.pretend(type: .medium, size: 14))
+                .foregroundStyle(Color.gray60)
+            
             if let url = URL(string: party.purchaseLocation) {
                 Label {
                     Link(
@@ -74,7 +79,12 @@ struct PartyDetailContentView: View {
 
     // MARK: - Offline Purchase Section
     private var offlinePurchaseSection: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 8) {
+            
+            Text("오프라인 구매")
+                .font(.pretend(type: .medium, size: 14))
+                .foregroundStyle(Color.gray60)
+            
             Label {
                 Text(party.purchaseLocation.limitTo(20))
                     .font(.pretend(type: .medium, size: 15))
