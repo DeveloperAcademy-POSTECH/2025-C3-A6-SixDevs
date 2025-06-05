@@ -43,72 +43,63 @@ struct ChatView: View {
                         if isMyMessage {
                             Spacer()
                             HStack(alignment: .bottom, spacing: 4) {
-                                Button {
-                                    // TODO: 채팅 이벤트 만들기
-                                } label: {
-                                    Text(config.message.createdAt.toChatTimeString())
-                                        .font(.pretendardMedium12)
-                                        .foregroundColor(Color.gray60)
-                                    
-                                    Text(config.message.message)
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal, 16)
-                                        .font(.pretendardMedium16)
-                                        .background(Color.primaryColor)
-                                        .foregroundColor(Color.black)
-                                        .cornerRadius(18)
-                                }
+                                
+                                Text(config.message.createdAt.toChatTimeString())
+                                    .font(.pretendardMedium12)
+                                    .foregroundColor(Color.gray60)
+                                
+                                Text(config.message.message)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 16)
+                                    .font(.pretendardMedium16)
+                                    .background(Color.primaryColor)
+                                    .foregroundColor(Color.black)
+                                    .cornerRadius(18)
+                                
                             }
                         } else {
                             HStack(alignment: .top) {
                                 
-                                Button {
-                                    // Action
-                                    
-                                } label: {
-                                    if let urlString = profileImageURL,
-                                       let url = URL(string: urlString) {
-                                        AsyncImage(url: url) { phase in
-                                            if let image = phase.image {
-                                                image.resizable()
-                                            } else {
-                                                Circle().fill(Color.gray.opacity(0.4))
-                                            }
+                                
+                                if let urlString = profileImageURL,
+                                   let url = URL(string: urlString) {
+                                    AsyncImage(url: url) { phase in
+                                        if let image = phase.image {
+                                            image.resizable()
+                                        } else {
+                                            Circle().fill(Color.gray.opacity(0.4))
                                         }
+                                    }
+                                    .frame(width: 30, height: 30)
+                                    .clipShape(Circle())
+                                } else {
+                                    Circle()
+                                        .fill(Color.primaryColor)
                                         .frame(width: 30, height: 30)
-                                        .clipShape(Circle())
-                                    } else {
-                                        Circle()
-                                            .fill(Color.primaryColor)
-                                            .frame(width: 30, height: 30)
-                                    }
-                                    
-                                    
-                                    
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text(config.message.sender?.nickname ?? "x")
-                                            .font(.pretendardSemibold14)
-                                            .foregroundStyle(Color.gray80)
-                                        
-                                        HStack(alignment: .bottom, spacing: 4) {
-                                            Text(config.message.message)
-                                                .padding(.vertical, 10)
-                                                .padding(.horizontal, 16)
-                                                .font(.pretendardMedium16)
-                                                .background(Color.gray10)
-                                                .foregroundColor(.black)
-                                                .cornerRadius(18)
-                                            Text(config.message.createdAt.toChatTimeString())
-                                                .font(.pretendardMedium12)
-                                                .foregroundColor(Color.gray60)
-                                        }
-                                    }
                                 }
                                 
                                 
                                 
-                                Spacer()
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(config.message.sender?.nickname ?? "x")
+                                        .font(.pretendardSemibold14)
+                                        .foregroundStyle(Color.gray80)
+                                    
+                                    HStack(alignment: .bottom, spacing: 4) {
+                                        Text(config.message.message)
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 16)
+                                            .font(.pretendardMedium16)
+                                            .background(Color.gray10)
+                                            .foregroundColor(.black)
+                                            .cornerRadius(18)
+                                        Text(config.message.createdAt.toChatTimeString())
+                                            .font(.pretendardMedium12)
+                                            .foregroundColor(Color.gray60)
+                                    }
+                                }
                             }
+                            Spacer()
                         }
                     }
                     .padding(.vertical, 8)
