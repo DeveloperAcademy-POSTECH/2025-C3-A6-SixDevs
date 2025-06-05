@@ -20,5 +20,10 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "a h시"
         return dateFormatter.string(from: self)
+      
+    var mmdd: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd"
+        return formatter.string(from: self)
     }
 }

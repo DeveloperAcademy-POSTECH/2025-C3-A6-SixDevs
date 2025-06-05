@@ -6,10 +6,44 @@
 //
 
 import SwiftUI
+import SendbirdSwiftUI
+import SendbirdChatSDK
 
 struct ChatListView: View {
+    private var chatListVM = ChatListViewModel(userId: "rlawlsgur716")
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack { // FIXME: - 임시 스택
+            VStack(spacing: 0) {
+                GroupChannelListView(provider: chatListVM.getProvider()) // 데이터 트리거 용도
+                    .frame(width: 0, height: 0)
+                    .hidden()
+                List(chatListVM.filteredChannels, id: \.channelURL) { channel in
+                    if let lastMessage = channel.lastMessage as? UserMessage {
+                        let memberCount = channel.memberCount
+                        let message = lastMessage.message
+                        let date = Date(timeIntervalSince1970: TimeInterval(lastMessage.createdAt) / 1000)
+                        let unreadMessageCount = Int(channel.unreadMessageCount)
+                        NavigationLink(
+                            value: channel.channelURL
+                        ) {
+                            ChatListItem(
+                                title: channel.name,
+                                memberCount: Int(memberCount),
+                                profileImage: "person.circle.fill",
+                                lastMessage: message,
+                                lastMessageDate: date,
+                                unreadMessageCount: unreadMessageCount
+                            )
+                        }
+                    }
+                }
+            }
+            .navigationTitle("채팅 목록")
+            .navigationDestination(for: String.self) { channelURL in
+                ChatView(provider: GroupChannelViewProvider(channelURL: channelURL))
+            }
+        }
     }
 }
 

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct User: Identifiable {
+struct User: Identifiable, Codable {
     let id: UUID = UUID()
     let email: String
     let nickName: String // 앱 활동 이름
@@ -14,7 +14,7 @@ struct User: Identifiable {
     var reviewRating: Double // 리뷰 평점
 
     // TODO: Asset 이름과 동일하게 수정하기
-    enum ProfileImage {
+    enum ProfileImage: Codable {
         case image1
         case image2
         case image3
@@ -33,4 +33,9 @@ struct User: Identifiable {
             }
         }
     }
+}
+
+extension User: EntityRepresentable {
+    var entityName: CollectionType { .user }
+    var documentID: String { email }
 }
