@@ -13,48 +13,10 @@ struct PartyListView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                GeometryReader { geo in
-                    let totalWidth = geo.size.width
-                    let tabCount = CGFloat(PartyListTab.allCases.count)
-                    let indicatorWidth = totalWidth / tabCount
-                    
-                    VStack(spacing: 0) {
-                        HStack(spacing: 0) {
-                            ForEach(PartyListTab.allCases) { tab in
-                                Button {
-                                    withAnimation(.easeInOut) {
-                                        viewModel.selectedTab = tab
-                                    }
-                                } label: {
-                                    Text(tab.title)
-                                        .font(
-                                            viewModel.selectedTab == tab
-                                            ? .pretendardBold18
-                                            : .pretendardMedium18
-                                        )
-                                        .foregroundColor(
-                                            viewModel.selectedTab == tab
-                                            ? Color.secondary
-                                            : Color.gray40
-                                        )
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 44)
-                                }
-                            }
-                        }
-                        .frame(width: totalWidth)
-                        .background(Color.white)
-                        
-                        Rectangle()
-                            .fill(Color.secondary)
-                            .frame(width: indicatorWidth, height: 3)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(x: indicatorWidth * CGFloat(viewModel.selectedTab.rawValue))
-                            .animation(.easeInOut, value: viewModel.selectedTab)
-                    }
-                    .frame(width: totalWidth, alignment: .leading)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                PartyListTabHeader(
+                    selectedTab: $viewModel.selectedTab
+                )
                 .frame(height: 47)
                 .overlay(Divider(), alignment: .bottom)
                 
@@ -88,9 +50,12 @@ struct PartyListView: View {
     }
 }
 
-// MARK: - navigationBar View Items
+// MARK: - SubView
 
 extension PartyListView {
+    
+    // MARK: NavigationBar View Items
+    
     struct PartyListNavBarTitle: View {
         var body: some View {
             Text("포동포동")
@@ -116,6 +81,59 @@ extension PartyListView {
                         .foregroundColor(.primary)
                 }
             }
+        }
+    }
+    
+    // MARK: HeaderView
+    
+    struct PartyListTabHeader: View {
+        @Binding var selectedTab: PartyListTab
+        
+        var body: some View {
+            GeometryReader { geo in
+                let totalWidth = geo.size.width
+                let tabCount = CGFloat(PartyListTab.allCases.count)
+                let indicatorWidth = totalWidth / tabCount
+                
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        ForEach(PartyListTab.allCases) { tab in
+                            Button {
+                                withAnimation(.easeInOut) {
+                                    selectedTab = tab
+                                }
+                            } label: {
+                                Text(tab.title)
+                                    .font(
+                                        selectedTab == tab
+                                        ? .pretendardBold18
+                                        : .pretendardMedium18
+                                    )
+                                    .foregroundColor(
+                                        selectedTab == tab
+                                        ? Color.secondary
+                                        : Color.gray40
+                                    )
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 44)
+                            }
+                        }
+                    }
+                    .frame(width: totalWidth)
+                    .background(Color.white)
+                    
+                    Rectangle()
+                        .fill(Color.secondary)
+                        .frame(width: indicatorWidth, height: 3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .offset(x: indicatorWidth * CGFloat(selectedTab.rawValue))
+                        .animation(.easeInOut, value: selectedTab)
+                }
+                .frame(width: totalWidth, alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: 47)
+            .overlay(Divider(), alignment: .bottom)
         }
     }
 }
