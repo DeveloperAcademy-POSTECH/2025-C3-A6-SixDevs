@@ -17,15 +17,15 @@ enum DummyData {
     
     static let party = Party(
         writen: user,
-        title: "부산에서 같이 장보기 해요",
+        title: "삼겹살 3kg 같이 사요",
         category: .meat,
-        orderType: .groupPurchase,
+        orderType: .personalShopping,
         recruitmentCount: 3,
         purchaseChannel: .online,
         purchaseLocation: "https://shopping.example.com/store/5678",
         totalPrice: 30000,
         weightAndCount: .weight,
-        amount: 2,
+        amount: 3000,
         appointment: Party.Appointment(
             date: Date().addingTimeInterval(3600 * 24),
             time: Date().addingTimeInterval(3600 * 25),

@@ -80,17 +80,39 @@ struct Party: Codable {
     enum PurchaseChannel: Codable {
         case online
         case offline
+        
+        var displayName: String {
+            switch self {
+            case .online: "온라인 구매"
+            case .offline: "오르파인 구매"
+            }
+        }
     }
     
     enum PartyStatus: Codable {
-        case recruiting // 모집중
+        case recruiting
         case inProgress // 진행중
         case completed  // 종료
+    
+        var displayName: String {
+            switch self {
+            case .recruiting: "모집중"
+            case .inProgress: "진행중"
+            case .completed: "종료"
+            }
+        }
     }
     
     enum WeightAndCount: Codable {
         case weight
         case count
+        
+        var displayName: String {
+            switch self {
+            case .weight: "g"
+            case .count: "개"
+            }
+        }
     }
     
     struct Appointment: Codable{
