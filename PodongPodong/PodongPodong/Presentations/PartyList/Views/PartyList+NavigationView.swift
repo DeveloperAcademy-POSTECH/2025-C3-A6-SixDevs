@@ -28,12 +28,12 @@ extension PartyListView {
                 Button(action: searchButtonAction) {
                     Image(systemName: "magnifyingglass")
                         .font(.system(size: 24))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.secondary)
                 }
                 Button(action: bellButtonAction) {
                     Image(systemName: "bell")
                         .font(.system(size: 24))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.secondary)
                 }
             }
         }
