@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Party: Codable {
+struct Party: Codable, Identifiable {
     
     // 파티 생성시 만들어져야할 데이터
     /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
-    private var id: UUID = UUID() // .toString
+    var id: UUID = UUID() // .toString
     let writen: User // User email (파티 만든사람)
     private(set) var member: [User] = []
     private(set) var createdAt: Date = Date() // 글 작성 시간
