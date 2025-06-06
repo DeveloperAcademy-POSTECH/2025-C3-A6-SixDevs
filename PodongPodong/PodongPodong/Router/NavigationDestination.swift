@@ -8,9 +8,7 @@
 import SwiftUI
 
 enum NavigationDestination: Hashable, Identifiable {
-      case login
-//    case home
-//    case chat
+    case chatView(channelURL: String)
     
     var id: Self { self }
     

@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+@Observable
 class NavigationRouter: ObservableObject, NavigationRoutable {
-    @Published var destination: [NavigationDestination] = []
+    var destination: [NavigationDestination] = []
     
     func push(to view: NavigationDestination) {
         self.destination.append(view)
