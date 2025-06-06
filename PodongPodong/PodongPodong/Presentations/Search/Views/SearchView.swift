@@ -8,53 +8,83 @@
 import SwiftUI
 
 struct SearchView: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    
-    @State var searchText: String = ""
+    @StateObject private var viewModel = SearchViewModel()
+    @State private var filterContentHeight: CGFloat = 250
+    @State private var isShowingPopover = false
     
     
     var body: some View {
-        
-        VStack {
+        VStack(spacing: 0) {
             // 1. 상단 검색바 (내비게이션, 검색 텍스트필드)
-            SearchHeaderView(text: searchText)
+            SearchHeaderView(text: $viewModel.searchText)
             
             // 2. 공동 구매 / 장보기 (탭버튼)
+            SearchTabHeader(
+                selectedTab: $viewModel.selectedTab,
+                purchaseChannel: $viewModel.purchaseChannel
+            )
+            .frame(height: 47)
+            .overlay(Divider(), alignment: .bottom)
             
+            // 3. (모집중-진행중만 보기 / 필터 버튼)
+            SearchList_FilterHeader(
+                isShowingNotCompletedPartyOnly: $viewModel.isShowingNotCompletedPartyOnly,
+                isFilterApplied: viewModel.isFilterApplied) {
+                    viewModel.isShowingNotCompletedPartyOnly ?
+                    (viewModel.isShowingNotCompletedPartyOnly = false) :
+                    (viewModel.isShowingNotCompletedPartyOnly = true)
+                } filterButtonAction: {
+                    viewModel.isShowingFilterView ?
+                    (viewModel.isShowingFilterView = false) :
+                    (viewModel.isShowingFilterView = true)
+                }
             
-            // 3. 검색 목록 (모집중-진행중만 보기 / 필터 버튼)
-            
-            
-            // 4. 필터 바텀 시트
-            
-            Spacer()
+            // 4. 검색 목록
+            TabView(selection: $viewModel.selectedTab) {
+                VStack {
+                    Spacer()
+                    
+                    VStack(spacing: 10) {
+                        Text("공동구매 콘텐츠")
+                            .font(.pretendardMedium18)
+                        Text("검색어: \(viewModel.searchText)")
+                        Text("모집중 - 진행중인 파티: \(viewModel.isShowingNotCompletedPartyOnly)")
+                        Text("카테고리: \(viewModel.foodCategory)")
+                        Text("구매처: \(viewModel.purchaseChannel)")
+                        Text("필터링뷰: \(viewModel.isShowingFilterView)")
+                    }
+                    
+                    Spacer()
+                }
+                .tag(PartyListTab.공동구매)
+                
+                VStack {
+                    Spacer()
+                    Text("장보기 콘텐츠")
+                        .font(.pretendardMedium18)
+                    Text("검색어: \(viewModel.searchText)")
+                    Text("모집중 - 진행중인 파티: \(viewModel.isShowingNotCompletedPartyOnly)")
+                    Text("카테고리: \(viewModel.foodCategory)")
+                    Text("구매처: \(viewModel.purchaseChannel)")
+                    Text("필터링뷰: \(viewModel.isShowingFilterView)")
+                    Spacer()
+                }
+                .tag(PartyListTab.장보기)
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
-        .border(Color.black)
         
+        // 5. 필터 바텀 시트
+        .sheet(isPresented: $viewModel.isShowingFilterView) {
+            SearchFilterView(viewModel: viewModel, initialFoodCategory: viewModel.foodCategory,
+                             initialPurchaseChannel: viewModel.purchaseChannel,                            contentHeight: $filterContentHeight)
+            .presentationDetents([.height(filterContentHeight)])
+            .presentationDragIndicator(.visible)
+        }
     }
 }
 
-struct SearchHeaderView: View {
-    @State var text: String
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Button {
-                //                dismiss()
-                print("이전 화면으로 이동하기")
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundStyle(.black)
-            }
-            SearchTextFieldView(
-                text: $text,
-                placeholder: "검색어를 입력해주세요"
-            )
-        }
-        .padding(.horizontal)
-    }
-}
+
 
 
 

@@ -77,10 +77,10 @@ struct Party: Codable {
         case personalShopping  // 장보기
     }
     
-    enum PurchaseChannel: Codable {
-        case online
-        case offline
-    }
+//    enum PurchaseChannel: Codable {
+//        case online
+//        case offline
+//    }
     
     enum PartyStatus: Codable {
         case recruiting // 모집중
