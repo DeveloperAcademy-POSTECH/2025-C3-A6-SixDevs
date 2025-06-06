@@ -21,21 +21,17 @@ struct PartyListView: View {
                 .overlay(Divider(), alignment: .bottom)
                 
                 TabView(selection: $viewModel.selectedTab) {
-                    VStack {
-                        Spacer()
-                        Text("공동구매 콘텐츠")
-                            .font(.pretendardMedium18)
-                        Spacer()
+                    ForEach(PartyListTab.allCases) { tab in
+                        List {
+                            ForEach(viewModel.currentParties) { party in
+                                PartyListItem(party: party)
+                                    .listRowSeparator(.hidden)
+                                    .padding(.vertical, 4)
+                            }
+                        }
+                        .listStyle(PlainListStyle())
+                        .tag(tab)
                     }
-                    .tag(PartyListTab.공동구매)
-                    
-                    VStack {
-                        Spacer()
-                        Text("장보기 콘텐츠")
-                            .font(.pretendardMedium18)
-                        Spacer()
-                    }
-                    .tag(PartyListTab.장보기)
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             }
