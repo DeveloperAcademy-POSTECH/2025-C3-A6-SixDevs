@@ -10,15 +10,15 @@ import Foundation
 struct Party: Codable {
     // 파티 생성시 만들어져야할 데이터
     /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
-    private var id: UUID = UUID() // .toString
-    let writen: User // User email (파티 만든사람)
-    private(set) var member: [User] = []
+    private(set) var id: UUID = UUID() // .toString
+    private(set) var writen: User // User email (파티 만든사람)
+    var member: [User] = []
     private(set) var createdAt: Date = Date() // 글 작성 시간
-    private(set) var updatedAt: Date = Date()
-    private(set) var status: PartyStatus = .recruiting // 파티 상태
-    private(set) var waitingMembers: [User] = [] // 파티 참여 대기 인원
-    private(set) var viewCount: Int = 1
-    private(set) var likeCount: Int = 0
+    var updatedAt: Date = Date()
+    var status: PartyStatus = .recruiting // 파티 상태
+    var waitingMembers: [User] = [] // 파티 참여 대기 인원
+    var viewCount: Int = 1
+    var likeCount: Int = 0
     
     // 유저가 입력해야할 데이터(필수)
     /// 제목, 카테고리, 구매방식, 모집인원, 구매처, 총 가격, 무게 및 수량
