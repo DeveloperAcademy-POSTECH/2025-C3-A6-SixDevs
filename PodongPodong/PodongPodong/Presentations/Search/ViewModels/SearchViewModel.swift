@@ -6,31 +6,54 @@
 //
 
 import Foundation
-import Observation
+import Combine
 
-@Observable
 final class SearchViewModel: ObservableObject {
     var selectedTab: PartyListTab = .공동구매
-    
-    var searchText: String = ""
-    var isLoading: Bool = false
-    var isShowingFilterView: Bool = false
-    
-    
-    
+
+    @Published var searchText: String = ""
+    @Published var isLoading: Bool = false
+    @Published var isShowingFilterView: Bool = false
+
     // MARK: 필터
-    var isShowingNotCompletedPartyOnly: Bool = false
-    var foodCategory: FoodCategory? = nil
-    var purchaseChannel: PurchaseChannel? = nil
+    @Published var isShowingNotCompletedPartyOnly: Bool = false
+    @Published var foodCategory: FoodCategory? = nil
+    @Published var purchaseChannel: PurchaseChannel? = nil
+
     var isFilterApplied: Bool {
         foodCategory != nil
         || purchaseChannel != nil
     }
-    
-    
-    private(set) var partyList: [Party] = []
-    
+
+    @Published private(set) var partyList: [Party] = []
+
+    private var cancellables = Set<AnyCancellable>()
+
     init() {
-        partyList.append(DummyData.party)
+        Publishers.CombineLatest4($isShowingNotCompletedPartyOnly, $foodCategory, $purchaseChannel, $searchText)
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .sink { [weak self] _, _, _, _ in
+                Task { await self?.fetchPartyList() }
+            }
+            .store(in: &cancellables)
+    }
+
+    @MainActor
+    func fetchPartyList() async {
+        do {
+            let parties: [Party] = try await FirestoreManager.shared.fetch(
+                as: Party.self,
+                .party,
+                whereFeild: "title",
+                equalData: searchText.isEmpty ? nil : searchText,
+//                count: 0
+            )
+            self.partyList = parties
+            print("====================")
+            print(parties)
+            print("====================")
+        } catch {
+            print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
+        }
     }
 }

@@ -9,23 +9,39 @@ import SwiftUI
 
 struct SearchTextFieldView: View {
     @Binding var text: String
+    @State var textFieldText: String = ""
     let placeholder: String
-
+    
     var body: some View {
         HStack(spacing: 12) {
             TextField(
                 "SearchTextField",
-                text: $text,
+                text: $textFieldText,
                 prompt: Text(placeholder)
                     .font(.pretendardMedium16)
                     .foregroundColor(.gray50)
             )
             .font(.pretendardSemibold18)
             .foregroundColor(.black)
+            .submitLabel(.search)
+            .autocorrectionDisabled()
+            .onSubmit {
+                text = textFieldText
+            }
+            
+            if !textFieldText.isEmpty {
+                Button(action: {
+                    textFieldText = ""
+                    text = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+                .padding(.trailing, 8)
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.gray10)
         .overlay(
             RoundedRectangle(cornerRadius: 8)

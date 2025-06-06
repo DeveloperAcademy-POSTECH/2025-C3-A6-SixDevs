@@ -22,6 +22,7 @@ extension SearchView {
                     HStack(spacing: 0) {
                         ForEach(PartyListTab.allCases) { tab in
                             Button {
+                                guard selectedTab != tab else { return }
                                 withAnimation(.easeInOut) {
                                     selectedTab = tab
                                     if tab.title == "장보기" {
