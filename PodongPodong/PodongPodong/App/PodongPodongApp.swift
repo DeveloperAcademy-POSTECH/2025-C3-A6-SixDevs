@@ -23,6 +23,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PodongPodongApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @State private var showHome = false
+    
     init() {
         setupSendbird()
         setupCurrentUser()
@@ -30,25 +32,53 @@ struct PodongPodongApp: App {
     
     var body: some Scene {
         WindowGroup {
-            // RootView()
-            EmailInputView()
-                .onOpenURL { url in
-                    FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
-                        switch result {
-                        case .success(let isNewUser):
-                            if isNewUser {
-                                // TODO: 신규 유저 => 닉네임 View 이동
-                                print("신규 유저")
+            if true { // FIXME: - 키체인 이메일 등록여부로 수정하기 (auto)
+                OnboardingView()
+                    .onOpenURL { url in
+                        FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
+                            switch result {
+                            case .success(let isNewUser):
+                                if isNewUser {
+                                    // TODO: 신규 유저 => 닉네임 View 이동
+                                    print("신규 유저")
+                                }
+                                else {
+                                    // TODO: 기존 유저 => 홈 View 이동
+                                    print("기존 유저")
+                                    self.showHome = true
+                                }
+                            case .failure(let error):
+                                print("error: \(error.localizedDescription)")
                             }
-                            else {
-                                // TODO: 기존 유저 => 홈 View 이동
-                                print("기존 유저")
-                            }
-                        case .failure(let error):
-                            print("error: \(error.localizedDescription)")
                         }
                     }
-                }
+                    .fullScreenCover(isPresented: $showHome) {
+                            RootView()
+                        }
+                // RootView()
+            }
+            else {
+                
+            }
+            // RootView()
+//            EmailInputView()
+//                .onOpenURL { url in
+//                    FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
+//                        switch result {
+//                        case .success(let isNewUser):
+//                            if isNewUser {
+//                                // TODO: 신규 유저 => 닉네임 View 이동
+//                                print("신규 유저")
+//                            }
+//                            else {
+//                                // TODO: 기존 유저 => 홈 View 이동
+//                                print("기존 유저")
+//                            }
+//                        case .failure(let error):
+//                            print("error: \(error.localizedDescription)")
+//                        }
+//                    }
+//                }
         }
     }
 }

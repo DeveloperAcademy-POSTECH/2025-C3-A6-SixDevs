@@ -7,9 +7,15 @@
 
 import SwiftUI
 
-enum NavigationDestination: Hashable, Identifiable {
+enum AuthNavigationDestination: Hashable, Identifiable {
+    case emailInput
+    case emailSent
+
+    var id: Self { self }
+}
+
+enum MainNavigationDestination: Hashable, Identifiable {
     case chatView(channelURL: String)
     
     var id: Self { self }
-    
 }

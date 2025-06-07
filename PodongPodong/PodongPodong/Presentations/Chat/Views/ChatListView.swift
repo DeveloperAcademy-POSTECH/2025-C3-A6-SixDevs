@@ -10,7 +10,7 @@ import SendbirdSwiftUI
 import SendbirdChatSDK
 
 struct ChatListView: View {
-    @EnvironmentObject var router: NavigationRouter
+    @EnvironmentObject var router: MainNavigationRouter
     @Environment(\.chatListVM) var chatListVM: ChatListViewModel
     
     var body: some View {
@@ -66,6 +66,6 @@ struct ChatListView: View {
 
 #Preview {
     ChatListView()
-        .environmentObject(NavigationRouter())
+        .environmentObject(MainNavigationRouter())
         .environment(ChatListViewModel(userId: "rlawlsgur716"))
 }
