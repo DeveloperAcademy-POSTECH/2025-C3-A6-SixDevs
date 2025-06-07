@@ -53,6 +53,7 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 // 메인 쓰레드에서만 실행되도록
 @MainActor
@@ -67,11 +68,13 @@ class PartyDetailViewModel: ObservableObject {
     @Published var currentUserRole: UserRole = .guest
     @Published var comments: [PartyComment] = []
 
+    // MARK: - Internal Properties
+    let firestoreManager = FirestoreManager.shared
+    let partyID: String
+    var viewCountUpdated = false
+
     // MARK: - Private 프로퍼티
-    private let firestoreManager = FirestoreManager.shared
     private var cancellables = Set<AnyCancellable>()
-    private var partyID: String
-    private var viewCountUpdated = false
 
     // MARK: - Inititialization
     init(partyID: String) {
@@ -85,15 +88,198 @@ class PartyDetailViewModel: ObservableObject {
         case member
         case waitingMember
         case guest
+
+        var buttonTitle: String {
+            switch self {
+            case .host:
+                return "파티 마감하기"
+            case .member:
+                return "참여중"
+            case .waitingMember:
+                return "참여 신청중"
+            case .guest:
+                return "파티 참여하기"
+            }
+        }
+
+        var isActionEnabled: Bool {
+            switch self {
+            case .host, .waitingMember, .guest:
+                return true
+            case .member:
+                return false
+            }
+        }
     }
-    
+
     // MARK: - 계산 관련 프로퍼티
-    var particiapntMemberCount: Int {
-        party?.member.count ?? 0
+    struct ViewConfiguration {
+        // Bottom View
+        let actionButtonTitle: String
+        let actionButtonColor: Color
+        let actionButtonTextColor: Color
+        let isActionButtonEnabled: Bool
+
+        // Header View
+        let showParticipantBadge: Bool
+        let showWaitingBadge: Bool
+        let partyTitle: String
+
+        // Participant View
+        let showChatButton: Bool
+        let showWaitingMembers: Bool
+        let canManageMembers: Bool
+        let participantCount: Int
+        let writen: User
+        let partyMembers: [User]
+        let waitingMembers: [User]
+    }
+
+    var viewConfiguration: ViewConfiguration {
+        guard let party = party else {
+            return ViewConfiguration(
+                actionButtonTitle: "로딩중...",
+                actionButtonColor: Color.gray20,
+                actionButtonTextColor: Color.gray80,
+                isActionButtonEnabled: false,
+                showParticipantBadge: false,
+                showWaitingBadge: false,
+                partyTitle: "제목없음",
+                showChatButton: false,
+                showWaitingMembers: false,
+                canManageMembers: false,
+                participantCount: 0,
+                writen: User.placeholder,
+                partyMembers: [User.placeholder],
+                waitingMembers: [User.placeholder]
+            )
+        }
+
+        // Bottom View Configuration
+        let (buttonTitle, buttonColor, textColor, isEnabled) =
+            getActionButtonConfiguration(for: party)
+
+        // Header View Configuration
+        let showParticipantBadge = currentUserRole == .member
+        let showWaitingBadge = currentUserRole == .waitingMember
+        let partyTitle = party.title
+
+        // Participant View Configuration
+        let showChatButton =
+            currentUserRole == .host || currentUserRole == .member
+        let showWaitingMembers = currentUserRole == .host
+        let canManageMembers = currentUserRole == .host
+        let participantCount = party.member.count + 1  // +1 for host
+        let writen = party.writen
+        let partyMembers = party.member
+        let waitingMembers = party.waitingMembers
+
+        return ViewConfiguration(
+            actionButtonTitle: buttonTitle,
+            actionButtonColor: buttonColor,
+            actionButtonTextColor: textColor,
+            isActionButtonEnabled: isEnabled,
+            showParticipantBadge: showParticipantBadge,
+            showWaitingBadge: showWaitingBadge,
+            partyTitle: partyTitle,
+            showChatButton: showChatButton,
+            showWaitingMembers: showWaitingMembers,
+            canManageMembers: canManageMembers,
+            participantCount: participantCount,
+            writen: writen,
+            partyMembers: partyMembers,
+            waitingMembers: waitingMembers
+        )
+    }
+
+    // MARK: - Private Configuration Methods
+    private func getActionButtonConfiguration(for party: Party) -> (
+        title: String, color: Color, textColor: Color, isEnabled: Bool
+    ) {
+        switch (currentUserRole, party.status) {
+        case (.host, .recruiting):
+            return ("파티 마감하기", .red00, .secondary, true)
+        case (.host, .inProgress):
+            return ("공구 종료하기", .red10, .secondary, true)
+        case (.host, .completed):
+            return ("공구가 종료되었습니다", .gray20, .gray80, false)
+
+        case (.member, .recruiting):
+            return ("파티 탈퇴하기", .red00, .red10, true)
+        case (.member, _):
+            return ("파티 탈퇴하기", .gray20, .gray80, false)
+
+        case (.waitingMember, .recruiting):
+            return ("참여 신청 취소", .red00, .red10, true)
+        case (.waitingMember, _):
+            return ("참여 신청 취소", .gray20, .gray80, false)
+
+        case (.guest, .recruiting):
+            return ("참여 신청하기", .primaryColor, .secondary, true)
+        case (.guest, _):
+            return ("모집이 마감되었습니다", .gray20, .gray80, false)
+        }
+    }
+
+    var buttonTitle: String {
+        viewConfiguration.actionButtonTitle
+    }
+
+    var isActionButtonEnabled: Bool {
+        viewConfiguration.isActionButtonEnabled
+    }
+
+    // --------------------------------------------------------------------------------------------------------------------------------------------
+
+    var participantMemberCount: Int {
+        guard let members = party?.member else { return 0 }
+        return members.isEmpty ? 0 : members.count + 1
     }
 
     var commentCount: Int {
         party?.comments.count ?? 0
+    }
+
+    var likeCount: Int {
+        party?.likeCount ?? 0
+    }
+
+    var viewCount: Int {
+        party?.viewCount ?? 0
+    }
+
+    var recruitmentCount: Int {
+        party?.recruitmentCount ?? 0
+    }
+
+    var createdDate: Date {
+        party?.createdAt ?? Date()
+    }
+
+    var categoryDisplayName: String {
+        party?.category.displayName ?? "카테고리 없음"
+    }
+
+    var partyDescription: String {
+        party?.description ?? ""
+    }
+
+    var isOnlinePurchase: Bool {
+        party?.purchaseChannel == .online
+    }
+
+    var purchaseLocation: String {
+        party?.purchaseLocation ?? ""
+    }
+
+    var purchaseURL: URL? {
+        URL(string: purchaseLocation)
+    }
+
+    func limitedPurchaseLocation(limit: Int) -> String {
+        purchaseLocation.count > limit
+            ? String(purchaseLocation.prefix(limit)) + "..."
+            : purchaseLocation
     }
 
     var isHost: Bool {
@@ -116,22 +302,9 @@ class PartyDetailViewModel: ObservableObject {
         return party.status != .recruiting
     }
 
-    var buttonTitle: String {
-        switch currentUserRole {
-        case .host:
-            return party?.status == .recruiting ? "파티 마감하기" : "공구 종료하기"
-        case .member:
-            return "참여중"
-        case .waitingMember:
-            return "참여 신청중"
-        case .guest:
-            return isRecruitmentComplete ? "모집 완료" : "파티 참여하기"
-        }
-    }
-
-    var isActionButtonEnabled: Bool {
-        guard let party = party else { return false }
-        return party.status != .completed
+    var waitingMemberIsEmpty: Bool {
+        guard let party = party else { return true }
+        return party.waitingMembers.isEmpty
     }
 
     // MARK: - Party Detail Info
@@ -331,7 +504,7 @@ class PartyDetailViewModel: ObservableObject {
                 content: trimmedContent
             )
             party.comments.append(comment)
-            
+
             try await firestoreManager.update(party)
             self.party = party
 
@@ -417,7 +590,7 @@ class PartyDetailViewModel: ObservableObject {
 
             try await firestoreManager.update(party)
             self.party = party
-            
+
         } catch {
             print("자동 마감 실패: \(error)")
         }
