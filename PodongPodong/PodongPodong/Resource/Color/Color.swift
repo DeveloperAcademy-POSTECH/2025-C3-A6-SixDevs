@@ -34,6 +34,14 @@ extension Color {
     // MARK: Common
     static let white = Color(hex: "FFFFFF")
     static let black = Color(hex: "000000")
+    
+    // MARK: Blues
+    static let blue00 = Color(hex: "D5E9FF")
+    static let blue10 = Color(hex: "2E5682")
+    
+    // MARK: Purples
+    static let purple00 = Color(hex: "F9E4FF")
+    static let purple10 = Color(hex: "8437E8")
 }
 
 
