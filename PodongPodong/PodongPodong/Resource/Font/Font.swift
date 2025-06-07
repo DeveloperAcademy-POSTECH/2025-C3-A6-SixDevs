@@ -41,12 +41,14 @@ extension Font {
     
     // Bold
     static var pretendardBold14: Font { .pretend(type: .bold, size: 14) }
+    static var pretendardBold16: Font { .pretend(type: .bold, size: 16) }
     static var pretendardBold18: Font { .pretend(type: .bold, size: 18) }
     static var pretendardBold20: Font { .pretend(type: .bold, size: 20) }
     static var pretendardBold24: Font { .pretend(type: .bold, size: 24) }
     static var pretendardBold28: Font { .pretend(type: .bold, size: 28) }
     
     // SemiBold
+    static var pretendardSemibold12: Font { .pretend(type: .semibold, size: 12) }
     static var pretendardSemibold13: Font { .pretend(type: .semibold, size: 13) }
     static var pretendardSemibold14: Font { .pretend(type: .semibold, size: 14) }
     static var pretendardSemibold16: Font { .pretend(type: .semibold, size: 16) }
@@ -56,6 +58,7 @@ extension Font {
     static var pretendardSemibold38: Font { .pretend(type: .semibold, size: 38) }
     
     // Medium
+    static var pretendardMedium12: Font  { .pretend(type: .medium, size: 12) }
     static var pretendardMedium14: Font  { .pretend(type: .medium, size: 14) }
     static var pretendardMedium16: Font  { .pretend(type: .medium, size: 16) }
     static var pretendardMedium18: Font  { .pretend(type: .medium, size: 18) }
