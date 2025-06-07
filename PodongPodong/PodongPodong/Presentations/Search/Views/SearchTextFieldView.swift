@@ -11,6 +11,7 @@ struct SearchTextFieldView: View {
     @Binding var text: String
     @State var textFieldText: String = ""
     let placeholder: String
+    @FocusState var isFocused
     
     var body: some View {
         HStack(spacing: 12) {
@@ -25,6 +26,7 @@ struct SearchTextFieldView: View {
             .foregroundColor(.black)
             .submitLabel(.search)
             .autocorrectionDisabled()
+            .focused($isFocused)
             .onSubmit {
                 text = textFieldText
             }

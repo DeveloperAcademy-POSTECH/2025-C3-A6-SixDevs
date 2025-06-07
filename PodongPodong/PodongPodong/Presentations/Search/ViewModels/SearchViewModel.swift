@@ -38,22 +38,24 @@ final class SearchViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    @MainActor
     func fetchPartyList() async {
-        do {
-            let parties: [Party] = try await FirestoreManager.shared.fetch(
-                as: Party.self,
-                .party,
-                whereFeild: "title",
-                equalData: searchText.isEmpty ? nil : searchText,
-//                count: 0
-            )
-            self.partyList = parties
-            print("====================")
-            print(parties)
-            print("====================")
-        } catch {
-            print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
+        Task {
+            do {
+                let parties: [Party] = try await FirestoreManager.shared.fetch(
+                    as: Party.self,
+                    .party,
+                    whereFeild: "title",
+                    // equalData: searchText.isEmpty ? nil : searchText,
+                    // count: 0
+                )
+                await MainActor.run {
+                    self.partyList = parties
+                }
+            } catch {
+                print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
+            }
         }
     }
+    
+    
 }

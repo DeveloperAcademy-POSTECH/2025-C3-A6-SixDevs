@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchHeaderView: View {
     @Binding var text: String
+    @FocusState var isFocused
     
     var body: some View {
         HStack(spacing: 12) {
@@ -22,7 +23,7 @@ struct SearchHeaderView: View {
             SearchTextFieldView(
                 text: $text,
                 placeholder: "검색어를 입력해주세요"
-            )
+            ).focused($isFocused)
         }
         .padding(.horizontal)
     }

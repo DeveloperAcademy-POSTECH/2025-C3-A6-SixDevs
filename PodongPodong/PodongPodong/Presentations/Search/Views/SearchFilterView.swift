@@ -16,14 +16,13 @@ struct SearchFilterView: View {
     @State private var selectedFoodCategory: FoodCategory?
     @State private var selectedPurchaseChannel: PurchaseChannel?
     @State private var isShowingPopover = false
-    
+
     var body: some View {
         VStack {
             VStack(spacing:24) {
                 Text("필터링")
                     .font(.pretendardBold20)
                     .foregroundColor(.gray80)
-                
                 VStack(spacing: 8) {
                     HStack{
                         Text("카테고리")
@@ -31,73 +30,12 @@ struct SearchFilterView: View {
                             .foregroundColor(.gray60)
                         Spacer()
                     }
-                    HStack(spacing: 10) {
-                        SelectableChipButtonView(
-                            title: "육류",
-                            isSelected: Binding(
-                                get: { selectedFoodCategory == .meat },
-                                set: { isSelected in
-                                    selectedFoodCategory = isSelected ? .meat : nil
-                                }
-                            ),
-                            action: {
-                                selectedFoodCategory = selectedFoodCategory != .meat ? .meat : nil
-                            }
-                        )
-                        SelectableChipButtonView(
-                            title: "채소",
-                            isSelected: Binding(
-                                get: { selectedFoodCategory == .vegetable },
-                                set: { isSelected in
-                                    selectedFoodCategory = isSelected ? .vegetable : nil
-                                }
-                            ),
-                            action: {
-                                selectedFoodCategory = selectedFoodCategory != .vegetable ? .vegetable : nil
-                            }
-                        )
-                        SelectableChipButtonView(
-                            title: "과일",
-                            isSelected: Binding(
-                                get: { selectedFoodCategory == .fruit },
-                                set: { isSelected in
-                                    selectedFoodCategory = isSelected ? .fruit : nil
-                                }
-                            ),
-                            action: {
-                                selectedFoodCategory = selectedFoodCategory != .fruit ? .fruit : nil
-                            }
-                        )
-                        SelectableChipButtonView(
-                            title: "해산물",
-                            isSelected: Binding(
-                                get: { selectedFoodCategory == .seafood },
-                                set: { isSelected in
-                                    selectedFoodCategory = isSelected ? .seafood : nil
-                                }
-                            ),
-                            action: {
-                                selectedFoodCategory = selectedFoodCategory != .seafood ? .seafood : nil
-                            }
-                        )
-                        SelectableChipButtonView(
-                            title: "기타",
-                            isSelected: Binding(
-                                get: { selectedFoodCategory == .etc },
-                                set: { isSelected in
-                                    selectedFoodCategory = isSelected ? .etc : nil
-                                }
-                            ),
-                            action: {
-                                selectedFoodCategory = selectedFoodCategory != .etc ? .etc : nil
-                            }
-                        )
-                        
-                        
-                    }
+                    CategoryTagsView(
+                        categories: FoodCategory.allCases,
+                        selectedCategory: $selectedFoodCategory
+                    )
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                
                 VStack(spacing: 8) {
                     HStack(spacing: 4) {
                         Text("구매처")
@@ -121,59 +59,37 @@ struct SearchFilterView: View {
                                 .padding(.horizontal, 8)
                                 .presentationBackground(Color.secondary)
                                 .presentationCompactAdaptation(.popover)
-                                
-
                         }
-                        
                         Spacer()
-                        
                     }
-                    
                     HStack(spacing: 10) {
-                        SelectableChipButtonView(
-                            title: "온라인",
-                            isSelected: Binding(
-                                get: { selectedPurchaseChannel == .online },
-                                set: { isSelected in
-                                    selectedPurchaseChannel = isSelected ? .online : nil
+                        ForEach(PurchaseChannel.allCases, id: \.self) { purchaseChannel in
+                            SelectableChipButtonView(
+                                title: purchaseChannel.displayName,
+                                isSelected: Binding(
+                                    get: { selectedPurchaseChannel == purchaseChannel },
+                                    set: { isSelected in
+                                        selectedPurchaseChannel = isSelected ? purchaseChannel : nil
+                                    }
+                                ),
+                                action: {
+                                    selectedPurchaseChannel = selectedPurchaseChannel != purchaseChannel ? purchaseChannel : nil
                                 }
-                            ),
-                            action: {
-                                selectedPurchaseChannel = selectedPurchaseChannel != .online ? .online : nil
-                            }
-                        ).disabled(viewModel.selectedTab == .장보기)
-                        
-                        SelectableChipButtonView(
-                            title: "오프라인",
-                            isSelected: Binding(
-                                get: { selectedPurchaseChannel == .offline },
-                                set: { isSelected in
-                                    selectedPurchaseChannel = isSelected ? .offline : nil
-                                }
-                            ),
-                            action: {
-                                selectedPurchaseChannel = selectedPurchaseChannel != .offline ? .offline : nil
-                            }
-                        ).disabled(viewModel.selectedTab == .장보기)
-                        
+                            ).disabled(viewModel.selectedTab == .장보기)
+                        }
                         Spacer()
                     }
-                    
                 }
-                
                 Button(action: {
                     viewModel.foodCategory = selectedFoodCategory
                     viewModel.purchaseChannel = selectedPurchaseChannel
                     viewModel.isShowingFilterView = false
-                    
                 }) {
                     ActionButtonView(
                         title: "필터 적용하기",
                         isEnabled: true
                     )
                 }
-                
-                
             }
         }
         .padding([.top, .leading, .trailing], 16)
