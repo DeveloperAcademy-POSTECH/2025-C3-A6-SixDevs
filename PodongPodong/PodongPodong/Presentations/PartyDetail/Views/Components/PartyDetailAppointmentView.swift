@@ -55,6 +55,8 @@ struct AppointmentInfoView: View {
 
             Text(info)
                 .font(.pretend(type: .medium, size: 15))
+                .lineLimit(1)
+                .minimumScaleFactor(8 / 15)
         }
         .padding(.trailing, 25)
     }
