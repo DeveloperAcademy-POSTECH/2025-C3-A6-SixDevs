@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SendbirdSwiftUI
 import FirebaseCore
 import FirebaseAuth
 
@@ -18,102 +17,57 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-
 @main
 struct PodongPodongApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @State private var showHome = false
+    @State private var appScreen: AppScreen = .onboarding // TODO: 키체인 여부에 따라 초기 상태 변경하기, 이메일 재발송 로직, 텍스트 필드 화면 터치 시 키보드 창 내리기
     
     init() {
-        setupSendbird()
-        setupCurrentUser()
+        SendbirdManager.shared.setupSendbird()
+        // TODO: 키체인에 등록된 id(이메일)가 있다면 여기서 init setupCurrentUser() 시간나면 라우터 합쳐보기
+        // setupCurrentUser()
     }
+    
+    // 닉네임 뷰
+    // 1. 닉네임을 입력받고, 그 정보를
+    // 2. 파이어베이스, Sendbird에 각각 등록해야 함.
+    // 3. 키체인까지... (자동 로그인)
     
     var body: some Scene {
         WindowGroup {
-            if true { // FIXME: - 키체인 이메일 등록여부로 수정하기 (auto)
+            switch appScreen {
+            case .onboarding:
                 OnboardingView()
                     .onOpenURL { url in
                         FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
                             switch result {
                             case .success(let isNewUser):
-                                if isNewUser {
-                                    // TODO: 신규 유저 => 닉네임 View 이동
-                                    print("신규 유저")
+                                if isNewUser { // 신규 유저
+                                    appScreen = .nicknameInput
                                 }
-                                else {
-                                    // TODO: 기존 유저 => 홈 View 이동
-                                    print("기존 유저")
-                                    self.showHome = true
+                                else { // 기존 유저
+                                    appScreen = .home
                                 }
                             case .failure(let error):
                                 print("error: \(error.localizedDescription)")
                             }
                         }
                     }
-                    .fullScreenCover(isPresented: $showHome) {
-                            RootView()
-                        }
-                // RootView()
+            case .nicknameInput:
+                NicknameInputView() {
+                    appScreen = .home
+                }
+            case .home:
+                RootView()
             }
-            else {
-                
-            }
-            // RootView()
-//            EmailInputView()
-//                .onOpenURL { url in
-//                    FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
-//                        switch result {
-//                        case .success(let isNewUser):
-//                            if isNewUser {
-//                                // TODO: 신규 유저 => 닉네임 View 이동
-//                                print("신규 유저")
-//                            }
-//                            else {
-//                                // TODO: 기존 유저 => 홈 View 이동
-//                                print("기존 유저")
-//                            }
-//                        case .failure(let error):
-//                            print("error: \(error.localizedDescription)")
-//                        }
-//                    }
-//                }
         }
     }
 }
 
-private extension PodongPodongApp {
-    func setupSendbird() {
-        let sendbirdAppId = Bundle.main.sendbirdAppId
-        SendbirdUI.initialize(
-            applicationId: sendbirdAppId
-        ) { params in
-            // This is the builder block where you can modify the initParameter.
-            //
-            // [example]
-            // params.needsSynchronous = false
-        } startHandler: {
-            // Initialization of SendbirdSwiftUI has started.
-            // We recommend showing a loading indicator once started.
-        } migrationHandler: {
-            // DB migration has started.
-        } completionHandler: { error in
-            // If DB migration is successful, proceed to the next step.
-            // If DB migration fails, an error exists.
-            // We recommend hiding the loading indicator once done.
-        }
-    }
-    
-    func setupCurrentUser() {
-        SBUGlobals.currentUser = SBUUser(userId: "rlawlsgur716") // FIXME: - 테스트 계정
-        //SBUGlobals.accessToken = "ACCESS_TOKEN"
-        SendbirdUI.connect { user, error in
-            guard let user = user, error == nil else {
-                print("Failed to connect with error: \(error!)")
-                return
-            }
-            print("Successfully connected \(user.userId).")
-        }
-    }
+// FIXME: - 위치 옮기기
+enum AppScreen {
+    case onboarding
+    case nicknameInput
+    case home
 }

@@ -10,7 +10,7 @@ import Foundation
 @Observable
 final class LoginViewModel {
     var id: String = ""
-    let email: String = "@postech.ac.kr"
+    let email: String = "@icloud.com"
     
     var isLoading: Bool = false
     var errorMessage: String? = nil
@@ -21,6 +21,7 @@ final class LoginViewModel {
             isLoading = true
             do {
                 try await FirebaseAuthManager.shared.sendSignInLink(to: id + email)
+                FirebaseAuthManager.shared.id = self.id
                 FirebaseAuthManager.shared.inputEmail = self.id + self.email
             } catch {
                 errorMessage = error.localizedDescription

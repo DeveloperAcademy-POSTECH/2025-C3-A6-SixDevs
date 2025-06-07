@@ -13,6 +13,7 @@ final class FirebaseAuthManager {
     static let shared = FirebaseAuthManager()
     private init() {}
     
+    var id: String = ""
     var inputEmail: String = ""
     
     // MARK: - 이메일 전송
