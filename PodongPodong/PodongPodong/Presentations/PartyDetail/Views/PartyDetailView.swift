@@ -9,36 +9,67 @@ import SwiftUI
 
 struct PartyDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    let party: Party
+    @StateObject private var viewModel: PartyDetailViewModel
+
     let currentUser: User
+
+    init(partyID: String, currentUser: User) {
+        self._viewModel = StateObject(
+            wrappedValue: PartyDetailViewModel(partyID: partyID)
+        )
+        self.currentUser = currentUser
+    }
 
     // MARK: - Main Content
     var body: some View {
         ZStack(alignment: .bottom) {
             Color.clear.ignoresSafeArea()
-            ScrollView {
-                VStack(alignment: .leading, spacing: 30) {
-                    PartyDetailHeaderView(party: party)
-                    PartyDetailContentView(party: party)
-                    PartyDetailAppointmentView(party: party)
-                    PartyDetailParticipantView(party: party, currentUser: currentUser)
-                    PartyDetailCommentView(party: party, currentUser: currentUser)
-                    Spacer().frame(height: 50)
+
+            if viewModel.isLoading {
+                Text("Loading...")
+            } else if let party = viewModel.party {
+                ScrollView() {
+                    VStack(alignment: .leading, spacing: 30) {
+                        PartyDetailHeaderView(party: party, viewModel: viewModel)
+                        PartyDetailContentView(party: party)
+                        PartyDetailAppointmentView(party: party)
+
+                        PartyDetailParticipantView(
+                            party: party,
+                            currentUser: currentUser,
+                            viewModel: viewModel
+                        )
+                        PartyDetailCommentView(
+                            party: party,
+                            currentUser: currentUser,
+                            comments: viewModel.comments,
+                            viewModel: viewModel
+                        )
+                        Spacer().frame(height: 50)
+                    }
+                    .padding()
                 }
-                .padding()
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    navigationToolbarItems
+                }
+
+                PartyDetailBottomView(party: party, currentUser: currentUser, viewModel: viewModel)
+                    .frame(height: 30)
+                    .padding()
+                    .padding(.bottom, 10)
+                    .background(Color.white)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                navigationToolbarItems
-            }
-            
-            PartyDetailBottomView(party: party, currentUser: currentUser)
-                .frame(height: 30)
-                .padding()
-                .padding(.bottom, 10)
-                .background(Color.white)
         }
+        .task {
+            await viewModel.fetchPartyDetail()
+        }
+        .alert("오류", isPresented: $viewModel.showError) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다.")
+        }
+
     }
 
     // MARK: - Navigation Toolbar
@@ -84,7 +115,10 @@ struct PartyDetailView: View {
 
 #Preview {
     NavigationStack {
-        PartyDetailView(party: Party.sampleData, currentUser: User.sampleCurrentUser)
+        PartyDetailView(
+            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B",
+            currentUser: User.sampleHost
+        )
     }
 
 }

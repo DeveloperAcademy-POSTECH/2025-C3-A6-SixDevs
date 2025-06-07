@@ -61,7 +61,7 @@ struct PartyDetailContentView: View {
             if let url = URL(string: party.purchaseLocation) {
                 Label {
                     Link(
-                        party.purchaseLocation.limitTo(25),
+                        party.purchaseLocation.limitTo(35),
                         destination: url
                     )
                     .font(.pretend(type: .medium, size: 15))
