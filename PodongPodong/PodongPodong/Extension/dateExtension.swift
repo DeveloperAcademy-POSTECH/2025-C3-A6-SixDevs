@@ -8,9 +8,29 @@
 import Foundation
 
 extension Date {
-    var mmdd: String {
+    var md: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd"
+        formatter.dateFormat = "M월 d일"
+        return formatter.string(from: self)
+    }
+    var formattedMonthDay: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "MM월dd일"
+        return dateFormatter.string(from: self)
+    }
+
+    var formattedHour: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "a h시"
+        return dateFormatter.string(from: self)
+    }
+      
+    var mmdd: String {
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M월 d일"
         return formatter.string(from: self)
     }
     
