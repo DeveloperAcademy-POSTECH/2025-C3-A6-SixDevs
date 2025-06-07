@@ -12,27 +12,27 @@ extension PartyComment {
     static let sampleComments: [PartyComment] = [
         PartyComment(
             user: User.sampleUsers[0],
-            content: "냉장 삼겹살이 정말 맛있어요! 많은 참여 부탁드립니다 🥩",
+            content: "냉장 삼겹살이 정말 맛있어요! 많은 참여 부탁드립니다 🥩"
         ),
         PartyComment(
             user: User.sampleUsers[1],
-            content: "가격이 정말 좋네요! 참여하고 싶습니다",
+            content: "가격이 정말 좋네요! 참여하고 싶습니다"
         ),
         PartyComment(
             user: User.sampleUsers[5],
-            content: "쿠팡에서 주문하는 거죠? 배송은 언제쯤 될까요?",
+            content: "쿠팡에서 주문하는 거죠? 배송은 언제쯤 될까요?"
         ),
         PartyComment(
             user: User.sampleUsers[0],
-            content: "내일 오후에 배송 예정이에요! 픽업 시간은 따로 공지드릴게요 😊",
+            content: "내일 오후에 배송 예정이에요! 픽업 시간은 따로 공지드릴게요 😊"
         ),
         PartyComment(
             user: User.sampleUsers[3],
-            content: "호스트에게만 보이는 비공개 댓글입니다",
+            content: "호스트에게만 보이는 비공개 댓글입니다"
         ),
         PartyComment(
             user: User.sampleUsers[6],
-            content: "건강한 식재료로 보이네요! 영양성분은 어떤가요?",
+            content: "건강한 식재료로 보이네요! 영양성분은 어떤가요?"
         )
     ]
     

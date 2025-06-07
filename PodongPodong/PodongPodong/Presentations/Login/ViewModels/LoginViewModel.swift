@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 @Observable
 final class LoginViewModel {
@@ -21,7 +20,8 @@ final class LoginViewModel {
         Task {
             isLoading = true
             do {
-                try await FirebaseAuthManager.shared.sendSignInLink(to: id+email)
+                try await FirebaseAuthManager.shared.sendSignInLink(to: id + email)
+                FirebaseAuthManager.shared.inputEmail = self.id + self.email
             } catch {
                 errorMessage = error.localizedDescription
                 print(errorMessage ?? "")

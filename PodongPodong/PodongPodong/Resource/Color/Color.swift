@@ -31,7 +31,7 @@ extension Color {
     static let gray80 = Color(hex: "4B4B4B")
     
     // MARK: Reds
-    static let red00 = Color(hex: "FFE7E7")
+    //static let red00 = Color(hex: "FFE7E7")
     static let red10 = Color(hex: "FF6851")
 
     // MARK: Common

@@ -8,13 +8,12 @@
 import SwiftUI
 import SendbirdSwiftUI
 import FirebaseCore
-
+import FirebaseAuth
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        
         return true
     }
 }
@@ -31,7 +30,25 @@ struct PodongPodongApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView()
+            // RootView()
+            EmailInputView()
+                .onOpenURL { url in
+                    FirebaseAuthManager.shared.handleEmailSignInLink(url: url) { result in
+                        switch result {
+                        case .success(let isNewUser):
+                            if isNewUser {
+                                // TODO: 신규 유저 => 닉네임 View 이동
+                                print("신규 유저")
+                            }
+                            else {
+                                // TODO: 기존 유저 => 홈 View 이동
+                                print("기존 유저")
+                            }
+                        case .failure(let error):
+                            print("error: \(error.localizedDescription)")
+                        }
+                    }
+                }
         }
     }
 }
