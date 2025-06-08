@@ -79,7 +79,7 @@ struct Party: Codable, Identifiable {
         var displayName: String {
             switch self {
             case .online: "온라인 구매"
-            case .offline: "오르파인 구매"
+            case .offline: "오프라인 구매"
             }
         }
     }
