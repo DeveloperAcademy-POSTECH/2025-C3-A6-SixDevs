@@ -10,7 +10,7 @@ import Foundation
 @Observable
 final class LoginViewModel {
     var id: String = ""
-    let email: String = "@icloud.com" // FIXME: - @postech.ac.kr
+    let email: String = "@postech.ac.kr"
     
     var isLoading: Bool = false
     var errorMessage: String? = nil

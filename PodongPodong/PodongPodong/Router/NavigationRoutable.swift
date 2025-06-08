@@ -7,18 +7,10 @@
 
 import Foundation
 
-protocol AuthNavigationRoutable {
-    var destination: [AuthNavigationDestination] { get set }
-
-    func push(to view: AuthNavigationDestination)
-    func pop()
-    func popToRootView()
-}
-
-protocol MainNavigationRoutable {
-    var destination: [MainNavigationDestination] { get set }
-
-    func push(to view: MainNavigationDestination)
+protocol NavigationRoutable: AnyObject {
+    associatedtype Destination: NavigationDestination
+    var destination: [Destination] { get set }
+    func push(to view: Destination)
     func pop()
     func popToRootView()
 }
