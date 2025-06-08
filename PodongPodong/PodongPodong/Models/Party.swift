@@ -72,11 +72,6 @@ struct Party: Codable, Identifiable {
     
     // MARK: - 파티 추가 데이터
     
-    enum OrderType: Codable {
-        case groupPurchase   // 공동구매
-        case personalShopping  // 장보기
-    }
-    
     enum PurchaseChannel: Codable {
         case online
         case offline

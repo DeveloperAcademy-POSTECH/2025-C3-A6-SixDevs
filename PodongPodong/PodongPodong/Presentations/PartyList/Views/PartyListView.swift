@@ -21,7 +21,7 @@ struct PartyListView: View {
                 .overlay(Divider(), alignment: .bottom)
                 
                 TabView(selection: $viewModel.selectedTab) {
-                    ForEach(PartyListTab.allCases) { tab in
+                    ForEach(OrderType.allCases) { tab in
                         List {
                             ForEach(viewModel.currentParties) { party in
                                 PartyListItem(party: party)

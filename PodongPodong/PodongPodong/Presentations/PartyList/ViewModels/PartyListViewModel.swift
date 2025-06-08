@@ -10,14 +10,14 @@ import Observation
 
 @Observable
 final class PartyListViewModel {
-    var selectedTab: PartyListTab = .공동구매
+    var selectedTab: OrderType = .groupPurchase
     private(set) var partyList: [Party] = []
     
     var currentParties: [Party] {
         switch selectedTab {
-        case .공동구매:
+        case .groupPurchase:
             return partyList.filter { $0.orderType == .groupPurchase }
-        case .장보기:
+        case .personalShopping:
             return partyList.filter { $0.orderType == .personalShopping }
         }
     }
