@@ -10,7 +10,6 @@ import Foundation
 struct PartyComment: Codable {
     var id: UUID = UUID()
     let user: User
-    let isPublic: Bool
     let content: String
     var createdAt: Date = Date()
 }
