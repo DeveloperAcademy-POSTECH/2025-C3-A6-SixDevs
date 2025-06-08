@@ -10,10 +10,19 @@ import Observation
 
 @Observable
 final class PartyListViewModel {
-    var selectedTab: PartyListTab = .공동구매
+    var selectedOrderType: OrderType = .groupPurchase
     private(set) var partyList: [Party] = []
     
+    var currentParties: [Party] {
+        switch selectedOrderType {
+        case .groupPurchase:
+            return partyList.filter { $0.orderType == .groupPurchase }
+        case .personalShopping:
+            return partyList.filter { $0.orderType == .personalShopping }
+        }
+    }
+    
     init() {
-        partyList.append(DummyData.party)
+        partyList = DummyData.allParties
     }
 }

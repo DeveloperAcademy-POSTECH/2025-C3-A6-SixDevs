@@ -15,29 +15,15 @@ struct PartyListView: View {
             VStack(spacing: 0) {
                 
                 PartyListTabHeader(
-                    selectedTab: $viewModel.selectedTab
+                    selectedTab: $viewModel.selectedOrderType
                 )
                 .frame(height: 47)
                 .overlay(Divider(), alignment: .bottom)
-                
-                TabView(selection: $viewModel.selectedTab) {
-                    VStack {
-                        Spacer()
-                        Text("공동구매 콘텐츠")
-                            .font(.pretendardMedium18)
-                        Spacer()
-                    }
-                    .tag(PartyListTab.공동구매)
-                    
-                    VStack {
-                        Spacer()
-                        Text("장보기 콘텐츠")
-                            .font(.pretendardMedium18)
-                        Spacer()
-                    }
-                    .tag(PartyListTab.장보기)
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+
+                PartyListMainView(
+                    selectedTab: $viewModel.selectedOrderType,
+                    parties: viewModel.currentParties
+                )
             }
             .navigationBarItems(
                 leading: PartyListNavBarTitle(),
