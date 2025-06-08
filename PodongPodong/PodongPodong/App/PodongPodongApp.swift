@@ -21,18 +21,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PodongPodongApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @State private var appScreen: AppScreen = .onboarding // TODO: 키체인 여부에 따라 초기 상태 변경하기, 이메일 재발송 로직, 텍스트 필드 화면 터치 시 키보드 창 내리기
+    
+    @State private var appScreen: AppScreen = {
+        if let _ = KeychainManager.shared.load(account: KeychainAccount.userID.rawValue, service: Bundle.identifier) {
+            return .home
+        } else {
+            return .onboarding
+        }
+    }()
+    
     
     init() {
         SendbirdManager.shared.setupSendbird()
-        // TODO: 키체인에 등록된 id(이메일)가 있다면 여기서 init setupCurrentUser() 시간나면 라우터 합쳐보기
-        // setupCurrentUser()
+        if let userID = KeychainManager.shared.load(account: KeychainAccount.userID.rawValue, service: Bundle.identifier) {
+            print("userID : \(userID)")
+            SendbirdManager.shared.setupCurrentUser(email: userID)
+        }
     }
-    
-    // 닉네임 뷰
-    // 1. 닉네임을 입력받고, 그 정보를
-    // 2. 파이어베이스, Sendbird에 각각 등록해야 함.
-    // 3. 키체인까지... (자동 로그인)
     
     var body: some Scene {
         WindowGroup {
@@ -47,6 +52,12 @@ struct PodongPodongApp: App {
                                     appScreen = .nicknameInput
                                 }
                                 else { // 기존 유저
+                                    KeychainManager.shared.saveIdToKeychain(
+                                        account: KeychainAccount.userID.rawValue,
+                                        service: Bundle.identifier,
+                                        id: FirebaseAuthManager.shared.id
+                                    )
+                                    SendbirdManager.shared.setupCurrentUser(email: FirebaseAuthManager.shared.id)
                                     appScreen = .home
                                 }
                             case .failure(let error):

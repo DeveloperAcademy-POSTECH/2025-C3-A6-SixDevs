@@ -5,12 +5,11 @@
 //  Created by 김진혁 on 6/8/25.
 //
 
-import Foundation
+import SwiftUI
 
 @Observable
 final class NicknameInputViewModel {
     var nickName: String = ""
-    
     let maxLength = 8
     
     func onNickNameChanged(_ newValue: String) {
@@ -21,7 +20,7 @@ final class NicknameInputViewModel {
         }
     }
     
-    // Firestore에 계정 생성
+    // MARK: - 파이어베이스 유저 생성
     func createFirebaseUser(email: String) async {
         let user = User(
             email: email,
@@ -36,6 +35,15 @@ final class NicknameInputViewModel {
             print("error : \(error.localizedDescription)")
         }
         
+    }
+    
+    // MARK: -  키체인 유저 정보 저장 (이 부분이 기존 유저도 있어야함.)
+    func saveUserID() {
+        KeychainManager.shared.saveIdToKeychain(
+            account: KeychainAccount.userID.rawValue,
+            service: Bundle.identifier,
+            id: FirebaseAuthManager.shared.id
+        )
     }
     
 }

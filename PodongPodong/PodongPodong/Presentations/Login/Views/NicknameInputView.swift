@@ -43,7 +43,7 @@ struct NicknameInputView: View {
                     
                     _ = await (createResult, updateResult)
                     
-                    // TODO: 키체인 로직 추가하기
+                    viewModel.saveUserID()
                     onComplete?()
                 }
             }) {
