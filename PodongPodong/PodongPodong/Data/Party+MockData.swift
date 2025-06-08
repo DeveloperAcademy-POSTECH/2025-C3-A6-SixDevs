@@ -202,11 +202,11 @@ extension Party.PartyStatus: CaseIterable {
     }
 }
 
-extension Party.OrderType: CaseIterable {
-    public static var allCases: [Party.OrderType] {
-        return [.groupPurchase, .personalShopping]
-    }
-}
+//extension Party.OrderType: CaseIterable {
+//    public static var allCases: [Party.OrderType] {
+//        return [.groupPurchase, .personalShopping]
+//    }
+//}
 
 extension Party.PurchaseChannel: CaseIterable {
     public static var allCases: [Party.PurchaseChannel] {

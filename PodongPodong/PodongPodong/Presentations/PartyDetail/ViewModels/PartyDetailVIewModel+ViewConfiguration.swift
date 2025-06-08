@@ -40,7 +40,7 @@ extension PartyDetailViewModel {
                 showChatButton: false,
                 showWaitingMembers: false,
                 canManageMembers: false,
-                participantCount: 0,
+                participantCount: 0
             )
         }
 
@@ -69,7 +69,7 @@ extension PartyDetailViewModel {
             showChatButton: showChatButton,
             showWaitingMembers: showWaitingMembers,
             canManageMembers: canManageMembers,
-            participantCount: participantCount,
+            participantCount: participantCount
         )
     }
 
