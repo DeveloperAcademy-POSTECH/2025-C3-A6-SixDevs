@@ -15,25 +15,15 @@ struct PartyListView: View {
             VStack(spacing: 0) {
                 
                 PartyListTabHeader(
-                    selectedTab: $viewModel.selectedTab
+                    selectedTab: $viewModel.selectedOrderType
                 )
                 .frame(height: 47)
                 .overlay(Divider(), alignment: .bottom)
-                
-                TabView(selection: $viewModel.selectedTab) {
-                    ForEach(OrderType.allCases) { tab in
-                        List {
-                            ForEach(viewModel.currentParties) { party in
-                                PartyListItem(party: party)
-                                    .listRowSeparator(.hidden)
-                                    .padding(.vertical, 4)
-                            }
-                        }
-                        .listStyle(PlainListStyle())
-                        .tag(tab)
-                    }
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+
+                PartyListMainView(
+                    selectedTab: $viewModel.selectedOrderType,
+                    parties: viewModel.currentParties
+                )
             }
             .navigationBarItems(
                 leading: PartyListNavBarTitle(),

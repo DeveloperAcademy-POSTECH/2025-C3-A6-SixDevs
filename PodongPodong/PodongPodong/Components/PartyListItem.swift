@@ -81,5 +81,5 @@ extension PartyListItem{
 }
 
 #Preview {
-    PartyListItem(party: DummyData.party)
+    PartyListItem(party: DummyData.partyGroup1)
 }
