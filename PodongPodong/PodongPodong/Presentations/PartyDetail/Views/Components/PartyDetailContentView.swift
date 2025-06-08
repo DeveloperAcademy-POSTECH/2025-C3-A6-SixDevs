@@ -22,7 +22,7 @@ struct PartyDetailContentView: View {
     private var infoSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             InfoRowView(title: "카테고리", info: party.category.displayName)
-            // 추후 기능 구현 단계에서 가겨 변환 로직 구현
+            // TODO: 가격 변환 로직 추가
             InfoRowView(title: "예상 가격", info: "100g당 3,500원")
             InfoRowView(title: "모집 인원", info: "\(party.recruitmentCount)명")
         }
@@ -30,38 +30,32 @@ struct PartyDetailContentView: View {
 
     // MARK: - Description Section
     private var descriptionSection: some View {
-        Group {
-            if let description = party.description, !description.isEmpty {
-                Text(description)
-                    .font(.pretend(type: .medium, size: 16))
-                    .lineHeight(1.25, fontSize: 16)
-            }
-        }
+        Text(party.description ?? "")
+            .font(.pretend(type: .medium, size: 16))
+            .lineHeight(1.25, fontSize: 16)
     }
 
     // MARK: - Purchase Section
+    @ViewBuilder
     private var purchaseSection: some View {
-        VStack {
-            if party.purchaseChannel == .online {
-                onlinePurchaseSection
-            } else {
-                offlinePurchaseSection
-            }
+        if party.purchaseChannel == .online {
+            onlinePurchaseSection
+        } else {
+            offlinePurchaseSection
         }
     }
 
     // MARK: - Online Purchase Section
     private var onlinePurchaseSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            
             Text("온라인 구매")
                 .font(.pretend(type: .medium, size: 14))
                 .foregroundStyle(Color.gray60)
-            
+
             if let url = URL(string: party.purchaseLocation) {
                 Label {
                     Link(
-                        party.purchaseLocation.limitTo(25),
+                        party.purchaseLocation.limitTo(35),
                         destination: url
                     )
                     .font(.pretend(type: .medium, size: 15))
@@ -80,20 +74,19 @@ struct PartyDetailContentView: View {
     // MARK: - Offline Purchase Section
     private var offlinePurchaseSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            
+
             Text("오프라인 구매")
                 .font(.pretend(type: .medium, size: 14))
                 .foregroundStyle(Color.gray60)
-            
+
             Label {
-                Text(party.purchaseLocation.limitTo(20))
+                Text(party.purchaseLocation.limitTo(35))
                     .font(.pretend(type: .medium, size: 15))
             } icon: {
                 Image(systemName: "link")
                     .font(.pretend(type: .regular, size: 14))
             }
         }
-
     }
 }
 
@@ -121,4 +114,5 @@ private struct InfoRowView: View {
 
 #Preview {
     PartyDetailContentView(party: Party.sampleData)
+
 }

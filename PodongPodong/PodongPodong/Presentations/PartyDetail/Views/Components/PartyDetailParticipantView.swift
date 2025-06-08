@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct PartyDetailParticipantView: View {
+    @ObservedObject var viewModel: PartyDetailViewModel
     let party: Party
-    let currentUser: User
 
     var body: some View {
         VStack {
             headerSection
-            participantMemberView
+            participantListSection
             dividerSection
         }
     }
@@ -22,31 +22,70 @@ struct PartyDetailParticipantView: View {
     // MARK: - Header Section
     private var headerSection: some View {
         HStack {
-            Text("참여 인원(\(party.member.count))")
+            Text("참여 인원(\(viewModel.viewConfiguration.participantCount))")
                 .foregroundStyle(Color.secondary)
                 .font(.pretend(type: .bold, size: 16))
 
             Spacer()
 
-            Button {
-                // 채팅방으로 이동
-            } label: {
-                Text("채팅방")
-                Image(systemName: "chevron.right")
+            if viewModel.viewConfiguration.showChatButton {
+                // TODO: 채팅방 뷰 연결
+                NavigationLink(destination: EmptyView()) {
+                    HStack {
+                        Text("채팅방")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.pretend(type: .semibold, size: 14))
+                    .foregroundStyle(Color.secondary)
+                }
             }
-            .font(.pretend(type: .semibold, size: 14))
-            .foregroundStyle(Color.secondary)
         }
     }
 
-    // MARK: - Participant Member View
-    private var participantMemberView: some View {
-        EnhancedParticipantMemberView(
-            host: party.writen.nickName,
-            members: party.member.map { $0.nickName },
-            waitingMembers: party.waitingMembers.map { $0.nickName },
-            isHost: party.writen.id == currentUser.id
-        )
+    // MARK: - Participant List Section
+    private var participantListSection: some View {
+        ZStack {
+            Color.gray00
+            VStack(alignment: .leading, spacing: 20) {
+                // Host
+                ParticipantRow(
+                    viewModel: viewModel,
+                    user: party.writen,
+                    isHost: true
+                )
+
+                // Members
+                ForEach(party.member, id: \.id) { member in
+                    ParticipantRow(
+                        viewModel: viewModel,
+                        user: member,
+                        isHost: false,
+                        
+                    )
+                }
+
+                // Waiting Members (호스트만 볼 수 있게)
+                if viewModel.viewConfiguration.showWaitingMembers {
+                    if !party.waitingMembers.isEmpty {
+                        Divider()
+                            .padding(.vertical, 5)
+
+                        Text("대기중")
+                            .font(.pretend(type: .medium, size: 14))
+                            .foregroundStyle(Color.gray60)
+
+                        ForEach(party.waitingMembers, id: \.id) {
+                            waitingMember in
+                            WaitingMemberRow(
+                                user: waitingMember,
+                                viewModel: viewModel
+                            )
+                        }
+                    }
+                }
+            }
+            .padding(20)
+        }
     }
 
     // MARK: - Divider Section
@@ -58,115 +97,105 @@ struct PartyDetailParticipantView: View {
     }
 }
 
-struct EnhancedParticipantMemberView: View {
-    let host: String
-    var members: [String]
-    var waitingMembers: [String]
+// MARK: - Participant Row Component
+private struct ParticipantRow: View {
+    @ObservedObject var viewModel: PartyDetailViewModel
+    let user: User
     let isHost: Bool
 
     var body: some View {
-        ZStack {
-            Color(Color.gray00)
-            VStack(alignment: .leading, spacing: 35) {
-                hostSection
-                memberSection
-                waitingmemberSection
-            }
-            .padding()
-        }
-    }
-
-    // MARK: - Host Section
-    private var hostSection: some View {
         HStack {
-            Text(host)
-            Image(systemName: "crown")
+            HStack(spacing: 8) {
+                Text(user.nickName)
+                    .font(.pretend(type: .semibold, size: 16))
+
+                if isHost {
+                    Image(systemName: "crown")
+                        .font(.system(size: 14))
+                }
+            }
+            .foregroundStyle(Color.secondary)
+
             Spacer()
-        }
-        .font(.pretend(type: .semibold, size: 16))
-        .foregroundStyle(Color.secondary)
-    }
 
-    // MARK: - Member Section
-    private var memberSection: some View {
-        ForEach(members, id: \.self) { member in
-            HStack {
-                Text(member)
-                    .foregroundStyle(Color.secondary)
-                    .font(.pretend(type: .semibold, size: 16))
-                Spacer()
-
-                if isHost {
-                    removeMemberButton(for: member)
+            if !isHost && viewModel.viewConfiguration.canManageMembers {
+                Button {
+                    Task {
+                        await viewModel.removeMember(user)
+                    }
+                } label: {
+                    Text("내보내기")
+                        .font(.pretend(type: .semibold, size: 12))
+                        .foregroundStyle(Color.red10)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.red00)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-            }
-        }
-    }
-
-    // MARK: - Waiting Member Section
-    private var waitingmemberSection: some View {
-        ForEach(waitingMembers, id: \.self) { waitingMember in
-            HStack {
-                Text(waitingMember)
-                    .foregroundStyle(Color.secondary)
-                    .font(.pretend(type: .semibold, size: 16))
-                Spacer()
-
-                if isHost {
-                    waitingMemberButtons(for: waitingMember)
-                }
-            }
-        }
-    }
-
-    // MARK: - Button Components
-    private func removeMemberButton(for member: String) -> some View {
-        Button {
-            // 멤버 삭제하기
-        } label: {
-            Text("내보내기")
-                .foregroundStyle(Color.red10)
-                .font(.pretend(type: .semibold, size: 12))
-                .padding(.vertical, 6)
-                .padding(.horizontal, 12)
-                .background(Color.red00)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-
-    }
-
-    private func waitingMemberButtons(for waitingMember: String) -> some View {
-        HStack {
-            Button {
-                // 멤버 거절
-            } label: {
-                Text("거절")
-                    .foregroundStyle(Color.gray60)
-                    .font(.pretend(type: .semibold, size: 12))
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 12)
-                    .background(Color.gray10)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-
-            Button {
-                // 멤버 수락하기
-            } label: {
-                Text("수락")
-                    .foregroundStyle(Color.secondary)
-                    .font(.pretend(type: .semibold, size: 12))
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 12)
-                    .background(Color.primaryColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
     }
 }
 
+// MARK: - Waiting Member Row Component
+private struct WaitingMemberRow: View {
+    let user: User
+    @ObservedObject var viewModel: PartyDetailViewModel
+
+    var body: some View {
+        HStack {
+            Text(user.nickName)
+                .font(.pretend(type: .semibold, size: 16))
+                .foregroundStyle(Color.secondary)
+
+            Spacer()
+
+            HStack(spacing: 8) {
+                Button {
+                    Task {
+                        await viewModel.rejectWaitingMember(user)
+                    }
+                } label: {
+                    Text("거절")
+                        .font(.pretend(type: .semibold, size: 12))
+                        .foregroundStyle(Color.gray60)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.gray10)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+
+                Button {
+                    Task {
+                        await viewModel.acceptWaitingMember(user)
+                    }
+                } label: {
+                    Text("수락")
+                        .font(.pretend(type: .semibold, size: 12))
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 12)
+                        .background(Color.primaryColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            }
+        }
+    }
+
+    // MARK: - Divider Section
+    private var dividerSection: some View {
+        Rectangle()
+            .frame(height: 6)
+            .foregroundStyle(Color.gray00)
+            .padding(.top, 20)
+    }
+}
+
 #Preview {
     PartyDetailParticipantView(
-        party: Party.sampleData,
-        currentUser: User.sampleCurrentUser
+        viewModel: PartyDetailViewModel(
+            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
+        ),
+        party: Party.sampleData
     )
 }
