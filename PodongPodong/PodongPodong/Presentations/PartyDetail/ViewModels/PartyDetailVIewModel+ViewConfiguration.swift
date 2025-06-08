@@ -105,7 +105,7 @@ extension PartyDetailViewModel {
     }
     
     // MARK: - 시간 계산 메서드
-    func getTimeAgoText() -> String {
+    var getTimeAgoText: String {
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.unitsStyle = .abbreviated
