@@ -5,15 +5,19 @@
 //  Created by 김민석 on 6/2/25.
 //
 
-enum FoodCategory: CaseIterable, Codable {
+enum FoodCategory: Int, Identifiable, CaseIterable, Codable {
+    case all = 0
     case meat
     case vegetable
     case fruit
     case seafood
     case etc
     
+    var id: Int { rawValue }
+    
     var displayName: String {
         switch self {
+        case .all: return "전체"
         case .meat: return "육류"
         case .vegetable: return "채소"
         case .fruit: return "과일"

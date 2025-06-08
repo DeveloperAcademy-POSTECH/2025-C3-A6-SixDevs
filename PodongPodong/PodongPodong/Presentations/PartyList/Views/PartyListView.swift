@@ -8,8 +8,46 @@
 import SwiftUI
 
 struct PartyListView: View {
+    @State private var viewModel = PartyListViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ZStack {
+                VStack(spacing: 0) {
+                    
+                    PartyListTabHeader(
+                        selectedTab: $viewModel.selectedOrderType
+                    )
+                    .frame(height: 47)
+                    .overlay(Divider(), alignment: .bottom)
+                    
+                    PartyListFoodCategoryView(
+                        selectedFoodCategory: $viewModel.selectedFoodCategory
+                    )
+                    
+                    PartyListMainView(
+                        selectedTab: $viewModel.selectedOrderType,
+                        parties: viewModel.currentParties
+                    )
+                }
+                .navigationBarItems(
+                    leading: PartyListNavBarTitle(),
+                    trailing: PartyListNavBarButtons(
+                        searchButtonAction: {},
+                        bellButtonAction: {}
+                    )
+                )
+                
+                // TODO: 생성 화면으로 이동
+                NavigationLink(destination: PartyListView()) {
+                    PlusFloatingView(size: 56)
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 22)
+                .padding(.bottom, 16)
+            }
+        }
     }
 }
 
