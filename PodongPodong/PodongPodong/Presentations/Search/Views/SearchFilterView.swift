@@ -9,13 +9,12 @@ import SwiftUI
 
 struct SearchFilterView: View {
     @ObservedObject var viewModel: SearchViewModel
-    let initialFoodCategory: FoodCategory?
-    let initialPurchaseChannel: PurchaseChannel?
     @Binding var contentHeight: CGFloat
     
     @State private var selectedFoodCategory: FoodCategory?
     @State private var selectedPurchaseChannel: PurchaseChannel?
     @State private var isShowingPopover = false
+    
 
     var body: some View {
         VStack {
@@ -75,7 +74,7 @@ struct SearchFilterView: View {
                                 action: {
                                     selectedPurchaseChannel = selectedPurchaseChannel != purchaseChannel ? purchaseChannel : nil
                                 }
-                            ).disabled(viewModel.selectedTab == .장보기)
+                            ).disabled(viewModel.selectedOrderType == .personalShopping )
                         }
                         Spacer()
                     }
@@ -103,8 +102,8 @@ struct SearchFilterView: View {
             }
         )
         .onAppear {
-            selectedFoodCategory = initialFoodCategory
-            selectedPurchaseChannel = initialPurchaseChannel
+            selectedFoodCategory = viewModel.foodCategory
+            selectedPurchaseChannel = viewModel.purchaseChannel
         }
     }
     

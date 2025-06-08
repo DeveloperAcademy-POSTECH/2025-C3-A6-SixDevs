@@ -9,18 +9,18 @@ import SwiftUI
 
 extension SearchView {
     struct SearchTabHeader: View {
-        @Binding var selectedTab: PartyListTab
+        @Binding var selectedTab: OrderType
         @Binding var purchaseChannel: PurchaseChannel?
         
         var body: some View {
             GeometryReader { geo in
                 let totalWidth = geo.size.width
-                let tabCount = CGFloat(PartyListTab.allCases.count)
+                let tabCount = CGFloat(OrderType.allCases.count)
                 let indicatorWidth = totalWidth / tabCount
                 
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
-                        ForEach(PartyListTab.allCases) { tab in
+                        ForEach(OrderType.allCases) { tab in
                             Button {
                                 guard selectedTab != tab else { return }
                                 withAnimation(.easeInOut) {
