@@ -6,7 +6,7 @@
 //
 
 enum FoodCategory: Int, Identifiable, CaseIterable, Codable {
-    case all
+    case all = 0
     case meat
     case vegetable
     case fruit

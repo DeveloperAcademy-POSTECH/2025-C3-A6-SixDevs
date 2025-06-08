@@ -19,7 +19,11 @@ struct PartyListView: View {
                 )
                 .frame(height: 47)
                 .overlay(Divider(), alignment: .bottom)
-
+                
+                PartyListFoodCategoryView(
+                    selectedFoodCategory: $viewModel.selectedFoodCategory
+                )
+                
                 PartyListMainView(
                     selectedTab: $viewModel.selectedOrderType,
                     parties: viewModel.currentParties
