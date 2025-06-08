@@ -12,30 +12,41 @@ struct PartyListView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                
-                PartyListTabHeader(
-                    selectedTab: $viewModel.selectedOrderType
+            ZStack {
+                VStack(spacing: 0) {
+                    
+                    PartyListTabHeader(
+                        selectedTab: $viewModel.selectedOrderType
+                    )
+                    .frame(height: 47)
+                    .overlay(Divider(), alignment: .bottom)
+                    
+                    PartyListFoodCategoryView(
+                        selectedFoodCategory: $viewModel.selectedFoodCategory
+                    )
+                    
+                    PartyListMainView(
+                        selectedTab: $viewModel.selectedOrderType,
+                        parties: viewModel.currentParties
+                    )
+                }
+                .navigationBarItems(
+                    leading: PartyListNavBarTitle(),
+                    trailing: PartyListNavBarButtons(
+                        searchButtonAction: {},
+                        bellButtonAction: {}
+                    )
                 )
-                .frame(height: 47)
-                .overlay(Divider(), alignment: .bottom)
                 
-                PartyListFoodCategoryView(
-                    selectedFoodCategory: $viewModel.selectedFoodCategory
-                )
-                
-                PartyListMainView(
-                    selectedTab: $viewModel.selectedOrderType,
-                    parties: viewModel.currentParties
-                )
+                // TODO: 생성 화면으로 이동
+                NavigationLink(destination: PartyListView()) {
+                    PlusFloatingView(size: 56)
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 22)
+                .padding(.bottom, 16)
             }
-            .navigationBarItems(
-                leading: PartyListNavBarTitle(),
-                trailing: PartyListNavBarButtons(
-                    searchButtonAction: {},
-                    bellButtonAction: {}
-                )
-            )
         }
     }
 }
