@@ -24,6 +24,16 @@ final class SearchViewModel: ObservableObject {
         foodCategory != nil
         || purchaseChannel != nil
     }
+    
+    // TODO: Model에서 정의된 부분을 Firebase 에서 가져올 수 있는 형태로 변환 필요 (예시, rawValue 로 쿼리보내기 등)
+//    var filters: [String: Any] {
+//        [
+//            "title": searchText,
+//            "status": isShowingNotCompletedPartyOnly,
+//            "category": foodCategory ?? "",
+//            "orderType": purchaseChannel,
+//        ]
+//    }
 
     @Published private(set) var partyList: [Party] = []
 
@@ -58,4 +68,24 @@ final class SearchViewModel: ObservableObject {
             print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
         }
     }
+    
+// TODO: 필터링 fetch 기능 확인 필요
+//    func fetchPartyListWithFilters() async {
+//        await MainActor.run { self.isLoading = true }
+//        defer { Task { @MainActor in self.isLoading = false } }
+//        do {
+//            let parties: [Party] = try await FirestoreManager.shared.fetchWithFilters(
+//                as: Party.self,
+//                .party,
+//                // TODO: fetch 하기 전, 설정한 필터만 적용하기 (예, 전체 카테고리와 전체 파티 상태는 필터 적용하지 않아도 됨)
+//                filters: filters,
+//                count: 0
+//            )
+//            await MainActor.run {
+//                self.partyList = parties
+//            }
+//        } catch {
+//            print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
+//        }
+//    }
 }
