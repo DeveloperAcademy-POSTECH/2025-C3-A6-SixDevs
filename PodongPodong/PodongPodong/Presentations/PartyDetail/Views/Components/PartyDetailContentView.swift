@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PartyDetailContentView: View {
-    @ObservedObject var viewModel: PartyDetailViewModel
+    let party: Party
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -21,16 +21,16 @@ struct PartyDetailContentView: View {
     // MARK: - Info Section
     private var infoSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            InfoRowView(title: "카테고리", info: viewModel.categoryDisplayName)
+            InfoRowView(title: "카테고리", info: party.category.displayName)
             // TODO: 가격 변환 로직 추가
             InfoRowView(title: "예상 가격", info: "100g당 3,500원")
-            InfoRowView(title: "모집 인원", info: "\(viewModel.recruitmentCount)명")
+            InfoRowView(title: "모집 인원", info: "\(party.recruitmentCount)명")
         }
     }
 
     // MARK: - Description Section
     private var descriptionSection: some View {
-        Text(viewModel.partyDescription)
+        Text(party.description ?? "")
             .font(.pretend(type: .medium, size: 16))
             .lineHeight(1.25, fontSize: 16)
     }
@@ -38,7 +38,7 @@ struct PartyDetailContentView: View {
     // MARK: - Purchase Section
     @ViewBuilder
     private var purchaseSection: some View {
-        if viewModel.isOnlinePurchase {
+        if party.purchaseChannel == .online {
             onlinePurchaseSection
         } else {
             offlinePurchaseSection
@@ -52,10 +52,10 @@ struct PartyDetailContentView: View {
                 .font(.pretend(type: .medium, size: 14))
                 .foregroundStyle(Color.gray60)
 
-            if let url = URL(string: viewModel.purchaseLocation) {
+            if let url = URL(string: party.purchaseLocation) {
                 Label {
                     Link(
-                        viewModel.limitedPurchaseLocation(limit: 35),
+                        party.purchaseLocation.limitTo(35),
                         destination: url
                     )
                     .font(.pretend(type: .medium, size: 15))
@@ -80,7 +80,7 @@ struct PartyDetailContentView: View {
                 .foregroundStyle(Color.gray60)
 
             Label {
-                Text(viewModel.limitedPurchaseLocation(limit: 35))
+                Text(party.purchaseLocation.limitTo(35))
                     .font(.pretend(type: .medium, size: 15))
             } icon: {
                 Image(systemName: "link")
@@ -113,9 +113,6 @@ private struct InfoRowView: View {
 }
 
 #Preview {
-    PartyDetailContentView(
-        viewModel: PartyDetailViewModel(
-            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
-        )
-    )
+    PartyDetailContentView(party: Party.sampleData)
+
 }

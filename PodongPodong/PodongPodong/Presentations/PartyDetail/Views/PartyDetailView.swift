@@ -30,20 +30,17 @@ struct PartyDetailView: View {
             } else if let party = viewModel.party {
                 ScrollView() {
                     VStack(alignment: .leading, spacing: 30) {
-                        PartyDetailHeaderView(party: party, viewModel: viewModel)
+                        PartyDetailHeaderView(viewModel: viewModel, party: party)
                         PartyDetailContentView(party: party)
                         PartyDetailAppointmentView(party: party)
 
                         PartyDetailParticipantView(
-                            party: party,
-                            currentUser: currentUser,
-                            viewModel: viewModel
+                            viewModel: viewModel,
+                            party: party
                         )
                         PartyDetailCommentView(
-                            party: party,
-                            currentUser: currentUser,
-                            comments: viewModel.comments,
-                            viewModel: viewModel
+                            viewModel: viewModel,
+                            party: party
                         )
                         Spacer().frame(height: 50)
                     }
@@ -54,7 +51,7 @@ struct PartyDetailView: View {
                     navigationToolbarItems
                 }
 
-                PartyDetailBottomView(party: party, currentUser: currentUser, viewModel: viewModel)
+                PartyDetailBottomView(viewModel: viewModel)
                     .frame(height: 30)
                     .padding()
                     .padding(.bottom, 10)

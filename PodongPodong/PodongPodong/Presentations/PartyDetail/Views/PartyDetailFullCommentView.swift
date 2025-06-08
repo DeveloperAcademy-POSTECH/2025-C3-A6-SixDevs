@@ -10,11 +10,9 @@ import SwiftUI
 struct PartyDetailFullCommentView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var commentText: String = ""
+    @ObservedObject var viewModel: PartyDetailViewModel
 
     let party: Party
-    let currentUser: User
-    let comments: [PartyComment]
-    @ObservedObject var viewModel: PartyDetailViewModel
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -60,7 +58,7 @@ struct PartyDetailFullCommentView: View {
     }
 
     private var navigationTitle: some View {
-        Text("댓글 목록(\(party.comments.count))")
+        Text("댓글 목록(\(viewModel.commentCount))")
             .font(.pretend(type: .bold, size: 18))
     }
 
@@ -173,12 +171,10 @@ private struct SubmitCommentButton: View {
 #Preview {
     NavigationStack {
         PartyDetailFullCommentView(
-            party: Party.sampleData,
-            currentUser: User.sampleCurrentUser,
-            comments: PartyComment.sampleComments,
             viewModel: PartyDetailViewModel(
                 partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
-            )
+            ),
+            party: Party.sampleData
         )
     }
 }

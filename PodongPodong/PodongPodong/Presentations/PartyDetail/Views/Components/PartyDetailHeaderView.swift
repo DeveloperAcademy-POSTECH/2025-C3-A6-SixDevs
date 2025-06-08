@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PartyDetailHeaderView: View {
     @ObservedObject var viewModel: PartyDetailViewModel
+    let party: Party
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -41,7 +42,7 @@ struct PartyDetailHeaderView: View {
 
     // MARK: - Title Section
     private var titleSection: some View {
-        Text(viewModel.viewConfiguration.partyTitle)
+        Text(party.title)
             .font(.pretend(type: .bold, size: 20))
             .padding(.bottom, 24)
     }
@@ -49,25 +50,14 @@ struct PartyDetailHeaderView: View {
     // MARK: - Statistics Section
     private var statisticsSection: some View {
         HStack {
-            Text(getTimeAgoText())
+//            Text(getTimeAgoText())
             Spacer()
-            Text("조회 \(viewModel.viewCount)")
-            Text("관심 \(viewModel.likeCount)")
+            Text("조회 \(party.viewCount)")
+            Text("관심 \(party.likeCount)")
             Text("댓글 \(viewModel.commentCount)")
         }
         .font(.pretend(type: .semibold, size: 12))
         .foregroundStyle(Color.gray60)
-    }
-
-    // MARK: - 시간 계산 메서드
-    private func getTimeAgoText() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(
-            for: viewModel.createdDate,
-            relativeTo: Date()
-        )
     }
 }
 
@@ -93,6 +83,7 @@ private struct StateBadge: View {
     PartyDetailHeaderView(
         viewModel: PartyDetailViewModel(
             partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
-        )
+        ),
+        party: Party.sampleData
     )
 }
