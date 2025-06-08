@@ -46,6 +46,9 @@ struct EmailInputView: View {
                 viewModel.isSendEmail = false
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 

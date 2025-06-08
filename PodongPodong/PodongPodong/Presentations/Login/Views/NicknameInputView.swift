@@ -55,6 +55,9 @@ struct NicknameInputView: View {
             }
             .disabled(viewModel.nickName.count < 1)
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
         .padding(.top, 50)
         .padding(.bottom, 20)
     }
