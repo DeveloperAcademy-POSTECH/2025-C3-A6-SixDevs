@@ -34,7 +34,7 @@ struct MyPageView: View {
                 
                 HStack(spacing: 16) {
                     
-                    Text("닉네임")
+                    Text(viewModel.userInfo?.nickName ?? "")
                         .foregroundStyle(.black)
                         .font(.pretendardBold20)
                     
@@ -53,7 +53,7 @@ struct MyPageView: View {
                     }
                 }
                 
-                Text("이메일")
+                Text(viewModel.userInfo?.email ?? "이메일")
                     .foregroundStyle(Color.gray60)
                     .font(.pretendardMedium14)
             }
@@ -81,7 +81,7 @@ struct MyPageView: View {
                                 .resizable()
                                 .frame(width: 22, height: 22)
                                 .foregroundStyle(Color.primaryColor)
-                            Text("4.8")
+                            Text(String(viewModel.userInfo?.reviewRating ?? 0.0))
                                 .font(.pretendardSemibold18)
                                 .foregroundStyle(Color.secondary)
                         }
@@ -105,7 +105,7 @@ struct MyPageView: View {
                             .font(.pretendardSemibold14)
                             .foregroundStyle(Color.gray60)
                         
-                        Text("222")
+                        Text("0")
                             .font(.pretendardSemibold18)
                             .foregroundStyle(Color.secondary)
                     }

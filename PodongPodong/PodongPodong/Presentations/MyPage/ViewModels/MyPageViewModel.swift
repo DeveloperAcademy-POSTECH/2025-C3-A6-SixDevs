@@ -6,11 +6,36 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 @Observable
 final class MyPageViewModel {
     var sections: [MyPageSection] = MyPageSection.allCases
     
+    var userInfo: User?
+    
+    init() {
+        loadUserInfo()
+    }
+    
+    // MARK: - 유저 데이터 불러오기
+    private func loadUserInfo() {
+        Task {
+            do {
+                if let userInfo: User = try await FirestoreManager.shared.getUserInfo(
+                    FirebaseAuthManager.shared.currentEmail,
+                    collectionType: .user
+                ) {
+                    print("현재 로그인 유저 : \(userInfo)")
+                    self.userInfo = userInfo
+                } else {
+                    print("유저를 찾을 수 없음 ")
+                }
+            } catch {
+                print("Error : \(error.localizedDescription)")
+            }
+        }
+    }
     
     func handleAction(item: MyPageItem) {
         switch item {
