@@ -47,18 +47,21 @@ struct TextFieldView: View {
                 .stroke(Color.gray50, lineWidth: 1)
         )
         .cornerRadius(8)
+        .onSubmit {
+            hideKeyboard()
+        }
     }
 }
 
 #Preview {
     TextFieldView(
         text: .constant(""),
-        placeholder: "정보를 입력해주세요",
+        placeholder: "정보를 입력해주세요"
     ).frame(width: 361, height: 100)
     
     TextFieldView(
         text: .constant(""),
-        placeholder: "링크를 입력해주세요",
+        placeholder: "링크를 입력해주세요"
     ).frame(width: 160, height: 44)
     
     TextFieldView(

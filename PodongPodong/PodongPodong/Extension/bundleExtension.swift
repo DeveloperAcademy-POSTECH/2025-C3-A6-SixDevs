@@ -7,6 +7,11 @@
 import Foundation
 
 extension Bundle {
+    
+    static var identifier: String {
+        Bundle.main.bundleIdentifier ?? ""
+    }
+    
     var sendbirdAppId: String {
         return infoDictionary?["SendbirdAppId"] as? String ?? ""
     }

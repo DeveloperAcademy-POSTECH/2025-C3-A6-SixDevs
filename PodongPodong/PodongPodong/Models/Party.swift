@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Party: Codable {
+struct Party: Codable, Identifiable {
     // 파티 생성시 만들어져야할 데이터
     /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
     private(set) var id: UUID = UUID() // .toString
@@ -72,25 +72,43 @@ struct Party: Codable {
     }
     
     // MARK: - 파티 추가 데이터
-    enum OrderType: Codable {
-        case groupPurchase   // 공동구매
-        case personalShopping  // 장보기
-    }
     
     enum PurchaseChannel: Codable {
         case online
         case offline
+        
+        var displayName: String {
+            switch self {
+            case .online: "온라인 구매"
+            case .offline: "오프라인 구매"
+            }
+        }
     }
     
     enum PartyStatus: Codable {
-        case recruiting // 모집중
+        case recruiting
         case inProgress // 진행중
         case completed  // 종료
+    
+        var displayName: String {
+            switch self {
+            case .recruiting: "모집중"
+            case .inProgress: "진행중"
+            case .completed: "종료"
+            }
+        }
     }
     
     enum WeightAndCount: Codable {
         case weight
         case count
+        
+        var displayName: String {
+            switch self {
+            case .weight: "g"
+            case .count: "개"
+            }
+        }
     }
     
     struct Appointment: Codable{
