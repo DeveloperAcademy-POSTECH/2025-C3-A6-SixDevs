@@ -8,7 +8,6 @@
 import Foundation
 
 struct Party: Codable, Identifiable {
-    
     // 파티 생성시 만들어져야할 데이터
     /// id(UUID), 작성자, 파티원,  생성일, 업데이트일, 참여 대기 인원
     var id: UUID = UUID() // .toString
@@ -18,23 +17,25 @@ struct Party: Codable, Identifiable {
     private(set) var updatedAt: Date = Date()
     private(set) var status: PartyStatus = .recruiting // 파티 상태
     private(set) var waitingMembers: [User] = [] // 파티 참여 대기 인원
+    private(set) var viewCount: Int = 1
+    private(set) var likeCount: Int = 0
     
     // 유저가 입력해야할 데이터(필수)
     /// 제목, 카테고리, 구매방식, 모집인원, 구매처, 총 가격, 무게 및 수량
-    let title: String
-    let category: FoodCategory // 카테고리 : 육류, 채소, 과일, 해산물, 기타
+    var title: String
+    var category: FoodCategory // 카테고리 : 육류, 채소, 과일, 해산물, 기타
     let orderType: OrderType // 구매 방식 : 공동구매, 장보기
-    let recruitmentCount: Int // 모집 인원 수 : 2 ~ 8
-    let purchaseChannel: PurchaseChannel // 구매처 (온라인 / 오프라인)
-    let purchaseLocation: String // 입력받은 구매 장소 (URL || 장소)
-    let totalPrice: Int
-    let weightAndCount: WeightAndCount
-    let amount: Int
+    var recruitmentCount: Int // 모집 인원 수 : 2 ~ 8
+    var purchaseChannel: PurchaseChannel // 구매처 (온라인 / 오프라인)
+    var purchaseLocation: String // 입력받은 구매 장소 (URL || 장소)
+    var totalPrice: Int
+    var weightAndCount: WeightAndCount
+    var amount: Int
     
     // 유저가 입력해야할 데이터(필수X)
     // 약속 일정, 상세 내용
-    let appointment: Appointment
-    let description: String?
+    var appointment: Appointment
+    var description: String?
     
     // 부가적인 데이터
     var comments: [PartyComment] = [] // 댓글
