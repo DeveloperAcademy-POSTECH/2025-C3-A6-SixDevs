@@ -59,7 +59,7 @@ struct PartyDetailParticipantView: View {
                     ParticipantRow(
                         viewModel: viewModel,
                         user: member,
-                        isHost: false,
+                        isHost: false
                         
                     )
                 }

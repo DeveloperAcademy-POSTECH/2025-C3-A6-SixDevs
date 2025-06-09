@@ -38,7 +38,7 @@ struct NicknameInputView: View {
             
             Button(action: {
                 Task {
-                    async let createResult: () = await viewModel.createFirebaseUser(email: id)
+                    async let createResult: () = await viewModel.createFirebaseUser(email: id + "@postech.ac.kr")
                     async let updateResult: () = SendbirdManager.shared.setupCreateUser(nickname: viewModel.nickName, email: id)
                     
                     _ = await (createResult, updateResult)

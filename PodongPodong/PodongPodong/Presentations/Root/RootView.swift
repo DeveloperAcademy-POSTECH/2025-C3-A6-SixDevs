@@ -27,7 +27,7 @@ struct RootView: View {
                 }
                 
                 Tab("마이", systemImage: "person") {
-                    ProfileView()
+                    MyPageView()
                 }
             }
             .environmentObject(router)
