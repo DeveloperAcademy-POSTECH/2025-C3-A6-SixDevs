@@ -11,7 +11,7 @@ struct PartyDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
     let party: Party
-    let currentUser: User
+    let currentUser: User = DummyData.user
 
     // MARK: - Main Content
     var body: some View {
@@ -84,7 +84,7 @@ struct PartyDetailView: View {
 
 #Preview {
     NavigationStack {
-        PartyDetailView(party: Party.sampleData, currentUser: User.sampleCurrentUser)
+        PartyDetailView(party: Party.sampleData)
     }
 
 }
