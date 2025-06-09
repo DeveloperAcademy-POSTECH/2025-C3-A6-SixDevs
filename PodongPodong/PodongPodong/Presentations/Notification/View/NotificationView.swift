@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NotificationListItemView: View {
+struct NotificationView: View {
     var body: some View {
         VStack{
             HStack{
@@ -36,12 +36,12 @@ struct NotificationListItemView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
             VStack(spacing: 0){
-                NotificationListItem(image: "circle", title: "반가와용!", description: "포동포동에 온 걸 환영해욤", date: "1")
+                NotificationListItemView(image: "circle", title: "반가와용!", description: "포동포동에 온 걸 환영해욤", date: "1")
             }
         }
     }
 }
 
 #Preview {
-    NotificationListItemView()
+    NotificationView()
 }

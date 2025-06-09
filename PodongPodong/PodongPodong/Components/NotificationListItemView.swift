@@ -7,7 +7,7 @@
 
 import SwiftUI
 // TODO: 확인하지 않은 알림은 배경 노란색으로 표시?
-struct NotificationListItem: View {
+struct NotificationListItemView: View {
     let image: String
     let title: String
     let description: String
@@ -43,8 +43,8 @@ struct NotificationListItem: View {
 }
 
 #Preview {
-    NotificationListItem(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "\"냉장 삼겹살 3kg 파티원 모집\" 파티원들이 모두 입금했어요. 입금 여부를 확인해주세요.", date: "2")
-    NotificationListItem(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "입금 여부를 확인해주세요.", date: "2")
-    NotificationListItem(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "\"냉장 삼겹살 3kg 파티원 모집\" 파티원들이 모두 입금했어요. 입금 여부를 확인해주세요.", date: "2")
+    NotificationListItemView(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "\"냉장 삼겹살 3kg 파티원 모집\" 파티원들이 모두 입금했어요. 입금 여부를 확인해주세요.", date: "2")
+    NotificationListItemView(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "입금 여부를 확인해주세요.", date: "2")
+    NotificationListItemView(image: "circle.fill", title: "입금 여부를 확인해주세요", description: "\"냉장 삼겹살 3kg 파티원 모집\" 파티원들이 모두 입금했어요. 입금 여부를 확인해주세요.", date: "2")
     Spacer()
 }
