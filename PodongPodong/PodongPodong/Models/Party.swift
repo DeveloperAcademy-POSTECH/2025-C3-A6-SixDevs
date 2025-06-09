@@ -73,22 +73,6 @@ struct Party: Codable, Identifiable {
     
     // MARK: - 파티 추가 데이터
     
-    enum PartyStatus: Codable {
-        case recruiting
-        case inProgress // 진행중
-        case completed  // 종료
-    
-        var displayName: String {
-            switch self {
-            case .recruiting: "모집중"
-            case .inProgress: "진행중"
-            case .completed: "종료"
-            }
-        }
-    }
-    
-
-    
     struct Appointment: Codable{
         var date: Date?
         var time: Date?
