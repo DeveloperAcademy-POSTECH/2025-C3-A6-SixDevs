@@ -19,12 +19,12 @@ struct PartyDetailAppointmentView: View {
             HStack {
                 AppointmentInfoView(
                     icon: "calendar",
-                    info: party.appointment.date?.formattedMonthDay ?? "미정"
+                    info: party.appointment.date ?? "미정"
                 )
 
                 AppointmentInfoView(
                     icon: "clock",
-                    info: party.appointment.time?.formattedHour ?? "미정"
+                    info: party.appointment.time ?? "미정"
                 )
 
                 AppointmentInfoView(
