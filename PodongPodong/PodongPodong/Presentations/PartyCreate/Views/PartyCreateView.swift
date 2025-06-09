@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PartyCreateView: View {
     @State private var title: String = ""
-    @State private var selectOrderType = ""
+    @State private var selectOrderType: OrderType = .groupPurchase
     @State private var selectCategoryType = ""
     @State private var selectedCategory = ""
     @State private var selectedPlace = ""
@@ -23,13 +23,13 @@ struct PartyCreateView: View {
     var body: some View {
         ScrollView{
             VStack(spacing: 38){
-                orderTypeView
+                OrderTypeView(selectedOrderType: $selectOrderType)
                 textTypeView
                 categoryTypeView
                 partySizeView
                 placeTypeView
-                if selectOrderType != "장보기"{priceView
-                    unitView}
+//                if selectOrderType != "장보기"{priceView
+//                    unitView}
                 appointmentView
                 descriptionView
             } //: VStack
@@ -37,23 +37,6 @@ struct PartyCreateView: View {
     }
     
     // MARK: - orderTypeView 구매 방식
-    @ViewBuilder
-    var orderTypeView: some View{
-        VStack{
-            Text("구매 방식")
-                .frame(maxWidth:.infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-                
-            // 이거 좀 더 깔끔하게 쓰고 싶다...
-            RadioButton(image:"person.2", label: "공동구매", description: "여러 명이 모여 더 싸게 구매할 수 있어요.", isSelected: selectOrderType=="공동구매"){
-                selectOrderType="공동구매"
-            }
-            RadioButton(image: "cart.fill", label: "장보기", description: "함께 모여 오프라인 구매처에서 장을 볼 수 있어요.", isSelected: selectOrderType == "장보기"){
-                selectOrderType="장보기"
-            }
-        }
-    }
         
     // MARK: - textTypeView 제목 입력
     @ViewBuilder
