@@ -17,23 +17,23 @@ final class SearchViewModel: ObservableObject {
 
     // MARK: 필터
     @Published var isShowingNotCompletedPartyOnly: Bool = false
-    @Published var foodCategory: FoodCategory? = nil
+    @Published var foodCategory: FoodCategory = .all
     @Published var purchaseChannel: PurchaseChannel? = nil
 
     var isFilterApplied: Bool {
-        foodCategory != nil
+        foodCategory != .all
         || purchaseChannel != nil
     }
     
-    // TODO: Model에서 정의된 부분을 Firebase 에서 가져올 수 있는 형태로 변환 필요 (예시, rawValue 로 쿼리보내기 등)
-//    var filters: [String: Any] {
-//        [
-//            "title": searchText,
-//            "status": isShowingNotCompletedPartyOnly,
-//            "category": foodCategory ?? "",
-//            "orderType": purchaseChannel,
-//        ]
-//    }
+    var filters: [String: Any?] {
+        [
+            "title": searchText,
+            "status": isShowingNotCompletedPartyOnly,
+            "category": foodCategory.rawValue == FoodCategory.all.rawValue ? nil : foodCategory.rawValue,
+            "orderType": selectedOrderType.rawValue,
+            "purchaseChannel": purchaseChannel == nil ? nil : purchaseChannel?.rawValue ,
+        ]
+    }
 
     @Published private(set) var partyList: [Party] = []
 
@@ -45,7 +45,8 @@ final class SearchViewModel: ObservableObject {
             .sink { [weak self] _, _, _, text in
                 //MARK: 검색어가 없으면 fetch 하지 않음
                 guard !text.isEmpty else { return }
-                Task { await self?.fetchPartyList() }
+                Task { await self?.fetchPartyListWithFilters() }
+
             }
             .store(in: &cancellables)
     }
@@ -69,23 +70,22 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
-// TODO: 필터링 fetch 기능 확인 필요
-//    func fetchPartyListWithFilters() async {
-//        await MainActor.run { self.isLoading = true }
-//        defer { Task { @MainActor in self.isLoading = false } }
-//        do {
-//            let parties: [Party] = try await FirestoreManager.shared.fetchWithFilters(
-//                as: Party.self,
-//                .party,
-//                // TODO: fetch 하기 전, 설정한 필터만 적용하기 (예, 전체 카테고리와 전체 파티 상태는 필터 적용하지 않아도 됨)
-//                filters: filters,
-//                count: 0
-//            )
-//            await MainActor.run {
-//                self.partyList = parties
-//            }
-//        } catch {
-//            print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
-//        }
-//    }
+    func fetchPartyListWithFilters() async {
+        await MainActor.run { self.isLoading = true }
+        defer { Task { @MainActor in self.isLoading = false } }
+        do {
+            let parties: [Party] = try await FirestoreManager.shared.fetchWithFilters(
+                as: Party.self,
+                .party,
+                filters: filters.compactMapValues { $0 },
+                count: 0
+            )
+            await MainActor.run {
+                print("parties: \(parties)")
+                self.partyList = parties
+            }
+        } catch {
+            print("파티 목록을 불러오는데 실패했습니다: \(error.localizedDescription)")
+        }
+    }
 }

@@ -15,7 +15,7 @@ struct SearchFilterView: View {
     @State private var selectedPurchaseChannel: PurchaseChannel?
     @State private var isShowingPopover = false
     
-
+    
     var body: some View {
         VStack {
             VStack(spacing:24) {
@@ -30,7 +30,7 @@ struct SearchFilterView: View {
                         Spacer()
                     }
                     CategoryTagsView(
-                        categories: FoodCategory.allCases,
+                        categories: FoodCategory.allCases.filter { $0 != .all },
                         selectedCategory: $selectedFoodCategory
                     )
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -80,7 +80,7 @@ struct SearchFilterView: View {
                     }
                 }
                 Button(action: {
-                    viewModel.foodCategory = selectedFoodCategory
+                    viewModel.foodCategory = selectedFoodCategory ?? .all
                     viewModel.purchaseChannel = selectedPurchaseChannel
                     viewModel.isShowingFilterView = false
                 }) {
@@ -102,7 +102,7 @@ struct SearchFilterView: View {
             }
         )
         .onAppear {
-            selectedFoodCategory = viewModel.foodCategory
+            selectedFoodCategory = viewModel.foodCategory == .all ? nil : viewModel.foodCategory
             selectedPurchaseChannel = viewModel.purchaseChannel
         }
     }

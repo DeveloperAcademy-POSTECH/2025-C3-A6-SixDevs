@@ -196,26 +196,26 @@ extension Party {
 }
 
 // MARK: - Extensions for Enum Cases
-extension Party.PartyStatus: CaseIterable {
-    public static var allCases: [Party.PartyStatus] {
-        return [.recruiting, .inProgress, .completed]
-    }
-}
-
-extension Party.OrderType: CaseIterable {
-    public static var allCases: [Party.OrderType] {
-        return [.groupPurchase, .personalShopping]
-    }
-}
-
-extension Party.PurchaseChannel: CaseIterable {
-    public static var allCases: [Party.PurchaseChannel] {
-        return [.online, .offline]
-    }
-}
-
-extension Party.WeightAndCount: CaseIterable {
-    public static var allCases: [Party.WeightAndCount] {
-        return [.weight, .count]
-    }
-}
+//extension Party.PartyStatus: CaseIterable {
+//    public static var allCases: [Party.PartyStatus] {
+//        return [.recruiting, .inProgress, .completed]
+//    }
+//}
+//
+//extension Party.OrderType: CaseIterable {
+//    public static var allCases: [Party.OrderType] {
+//        return [.groupPurchase, .personalShopping]
+//    }
+//}
+//
+//extension Party.PurchaseChannel: CaseIterable {
+//    public static var allCases: [Party.PurchaseChannel] {
+//        return [.online, .offline]
+//    }
+//}
+//
+//extension Party.WeightAndCount: CaseIterable {
+//    public static var allCases: [Party.WeightAndCount] {
+//        return [.weight, .count]
+//    }
+//}
