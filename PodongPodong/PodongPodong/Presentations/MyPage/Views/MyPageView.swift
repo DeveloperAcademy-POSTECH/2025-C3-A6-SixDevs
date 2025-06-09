@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var viewModel: MyPageViewModel = .init()
+    @State private var showOnboarding = false
+    
     
     var body: some View {
         ZStack {
@@ -47,6 +49,7 @@ struct MyPageView: View {
                 SignOutView(title: "로그아웃되었습니다.", actionType: .check) {
                 } action: {
                     viewModel.isComplete = false
+                    showOnboarding = true
                 }
             }
             
@@ -59,6 +62,10 @@ struct MyPageView: View {
                 
             }
             
+        }
+        // FIXME: - 임시
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView()
         }
     }
     
