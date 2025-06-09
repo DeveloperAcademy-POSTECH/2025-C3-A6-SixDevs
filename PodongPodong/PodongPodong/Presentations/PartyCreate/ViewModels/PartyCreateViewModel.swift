@@ -16,28 +16,32 @@ final class PartyCreateViewModel {
     var recruitmentCount = 2
     var selectedPurchaseChannle: PurchaseChannel? = nil
     var purchaseLocation: String = ""
-
+    
     var totalPrice: Int? = nil
     var selectedWeightAndCount: WeightAndCount? = nil
     var amount: Int? = nil
-
+    
     var selectedDate: String = ""
     var selectedTime: String = ""
     var selectedPlace: String = ""
     var description: String = ""
     
+    var errorMessage: String? = nil
+    var isLoading: Bool = false
+    var isCreateSuccess: Bool = false
+    
     var isButtonEnabled: Bool {
         let baseConditions =
-            selectedOrderType != nil &&
-            !title.isEmpty &&
-            selectedCategory != nil &&
-            selectedPurchaseChannle != nil
-
+        selectedOrderType != nil &&
+        !title.isEmpty &&
+        selectedCategory != nil &&
+        selectedPurchaseChannle != nil
+        
         let groupPurchaseExtraConditions =
-            totalPrice != nil &&
-            selectedWeightAndCount != nil &&
-            amount != nil
-
+        totalPrice != nil &&
+        selectedWeightAndCount != nil &&
+        amount != nil
+        
         switch selectedOrderType {
         case .groupPurchase:
             return baseConditions && groupPurchaseExtraConditions
@@ -45,6 +49,39 @@ final class PartyCreateViewModel {
             return baseConditions
         case .none:
             return false
+        }
+    }
+    
+    func createParty(){
+        let party = Party(
+            writen: DummyData.user,
+            title: title,
+            category: selectedCategory ?? .etc,
+            orderType: selectedOrderType ?? .groupPurchase,
+            recruitmentCount: recruitmentCount,
+            purchaseChannel: selectedPurchaseChannle ?? .online,
+            purchaseLocation: purchaseLocation,
+            totalPrice: totalPrice ?? 0,
+            weightAndCount: selectedWeightAndCount ?? .count,
+            amount: amount ?? 0,
+            appointment: Party.Appointment(
+                date: selectedDate,
+                time: selectedTime,
+                location: selectedPlace
+            ),
+            description: description,
+            chatURL: ""
+        )
+        
+        Task {
+            do {
+                isLoading = true
+                let _ = try await FirestoreManager.shared.create(party)
+                isLoading = false
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isCreateSuccess = true
         }
     }
 }
