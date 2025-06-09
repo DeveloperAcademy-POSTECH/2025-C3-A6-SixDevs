@@ -11,12 +11,37 @@ struct MyPageView: View {
     @State private var viewModel: MyPageViewModel = .init()
     
     var body: some View {
-        VStack() {
-            informationView
-                .padding(.horizontal, 16)
-            reviewView
-                .padding(.horizontal, 16)
-            myActivityView
+        ZStack {
+            Color.white
+            
+            VStack() {
+                informationView
+                    .padding(.horizontal, 16)
+                reviewView
+                    .padding(.horizontal, 16)
+                myActivityView
+                
+            }
+            
+            
+            if viewModel.alertType != nil {
+                AlertButton(title: "로그아웃 하시겠어요?", actionType: .question) { 
+                    viewModel.alertType = nil
+                } action: {
+                    viewModel.currentUserSignOut()
+                    viewModel.alertType = nil
+                }
+            }
+            
+            
+            if viewModel.isComplete {
+                AlertButton(title: "로그아웃되었습니다.", actionType: .check) {
+                } action: {
+                    viewModel.isComplete = false
+                }
+            }
+            
+            
         }
     }
     

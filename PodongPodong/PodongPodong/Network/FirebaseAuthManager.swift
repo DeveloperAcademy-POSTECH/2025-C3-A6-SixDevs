@@ -23,6 +23,12 @@ final class FirebaseAuthManager {
         return currentUserEmail
     }
     
+    // MARK: - 현재 로그인 유저 로그아웃
+    func currentUserSignOut() async throws {
+        try Auth.auth().signOut()
+    }
+    
+    
     // MARK: - 이메일 전송
     func sendSignInLink(to email: String) async throws {
         let actionCodeSettings = ActionCodeSettings()
