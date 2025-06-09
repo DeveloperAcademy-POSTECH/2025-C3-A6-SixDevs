@@ -13,7 +13,7 @@ struct PartyCreateView: View {
     @State private var selectedCategory: FoodCategory = .meat
     @State private var selectedPlace = ""
     @State private var selectUnit = ""
-    @State private var partySize = 2 //참여 인원
+    @State private var recruitmentCount = 2 //참여 인원
     
     let categories = ["육류", "야채", "과일", "해산물", "기타"]
     let places = ["온라인", "오프라인"]
@@ -25,56 +25,13 @@ struct PartyCreateView: View {
                 OrderTypeView(selectedOrderType: $selectedOrder)
                 TitleView(title: $title)
                 CategoryView(selectedCategory: $selectedCategory)
-                partySizeView
+                RecruitmentCountView(recruitmentCount: $recruitmentCount)
                 placeTypeView
 //                if selectOrderType != "장보기"{priceView
 //                    unitView}
                 appointmentView
                 descriptionView
             }
-        }
-    }
-        
-    // MARK: - partySizeView 모집 인원
-    @ViewBuilder
-    var partySizeView: some View{
-        let minCount=2
-        let maxCount=8
-        VStack{
-            Text("모집 인원")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            HStack(spacing: 12){
-                Button(action: {if partySize > minCount{partySize -= 1}}){
-                    Text("-")
-                        .foregroundColor(partySize > minCount ? .black : Color.gray50)
-                        
-                }
-                .padding(.leading, 12)
-                .frame(width : 42, height: 36, alignment: .center)
-                .font(Font.custom("Pretendard", size: 30))
-                
-                Text("\(partySize)명")
-                    .font(.pretendardLight14)
-                    .frame(width: 58, height: 36, alignment: .center)
-                    .background(.white)
-                    .overlay(
-                        Rectangle()
-                            .inset(by: 0.5)
-                            .stroke(Color.gray50, lineWidth:1)
-                    )
-                Button(action: {if partySize < maxCount{partySize += 1}}){
-                    Text("+")
-                        .foregroundStyle(partySize < maxCount ? .black : Color.gray50)
-                }
-                .padding(.trailing, 12)
-                .frame(width : 42, height: 36, alignment: .center)
-                .font(Font.custom("Pretendard", size: 30))
-            } //:HStack
-            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray50, lineWidth: 2))
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding(.trailing, 16)
         }
     }
         
