@@ -9,43 +9,53 @@ import SwiftUI
 
 struct PartyCreateView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var selectedOrder: OrderType? = nil
-    @State private var title: String = ""
-    @State private var selectedCategory: FoodCategory? = nil
-    @State private var recruitmentCount = 2 //참여 인원
-    @State private var selectedPurchaseChannle: PurchaseChannel? = nil
-    
-    @State var totalPrice: Int? = nil
-    @State var selectedweightAndCount: WeightAndCount? = nil
-    @State var amount: Int? = nil
-    
-    @State var selectedDate: String = ""
-    @State var selectedTime: String = ""
-    @State var selectedPlace: String = ""
-    @State var description: String = ""
+
+    @State private var viewModel = PartyCreateViewModel()
+    @EnvironmentObject var router: MainNavigationRouter
     
     var body: some View {
-        ScrollView{
-            VStack(spacing: 38){
-                OrderTypeView(selectedOrderType: $selectedOrder)
-                TitleView(title: $title)
-                CategoryView(selectedCategory: $selectedCategory)
-                RecruitmentCountView(recruitmentCount: $recruitmentCount)
-                PurchaseLocationView(selectedPurchaseChannel: $selectedPurchaseChannle)
-                if selectedOrder == .groupPurchase {
-                    PriceAndWeightView(
-                        totalPrice: $totalPrice,
-                        selectedweightAndCount: $selectedweightAndCount,
-                        amount: $amount
+        ZStack {
+            ScrollView{
+                VStack(spacing: 38){
+                    OrderTypeView(selectedOrderType: $viewModel.selectedOrderType)
+                    TitleView(title: $viewModel.title)
+                    CategoryView(selectedCategory: $viewModel.selectedCategory)
+                    RecruitmentCountView(recruitmentCount: $viewModel.recruitmentCount)
+                    PurchaseLocationView(
+                        selectedPurchaseChannel: $viewModel.selectedPurchaseChannle,
+                        purchaseLocation: $viewModel.purchaseLocation
                     )
+                    if viewModel.selectedOrderType == .groupPurchase {
+                        PriceAndWeightView(
+                            totalPrice: $viewModel.totalPrice,
+                            selectedWeightAndCount: $viewModel.selectedWeightAndCount,
+                            amount: $viewModel.amount
+                        )
+                    }
+                    AppointmentView(
+                        selectedDate: $viewModel.selectedDate,
+                        selectedTime: $viewModel.selectedTime,
+                        selectedPlace: $viewModel.selectedPlace
+                    )
+                    DescriptionView(description: $viewModel.description)
+                    Button {
+                        // TODO: 생성 로직
+                        viewModel.createParty()
+                    } label: {
+                        ActionButtonView(title: "생성하기", isEnabled: viewModel.isButtonEnabled)
+                            .frame(width: 351)
+                    }
                 }
-                AppointmentView(
-                    selectedDate: $selectedDate,
-                    selectedTime: $selectedTime,
-                    selectedPlace: $selectedPlace
-                )
-                DescriptionView(description: $description)
+            }
+            if viewModel.isLoading {
+                VStack(spacing: 16) {
+                    ProgressView("생성 중...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .foregroundColor(.white)
+                        .tint(.white)
+                }
+                .padding(24)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.black.opacity(0.8)))
             }
         }
         .navigationBarTitle("파티 만들기", displayMode: .inline)
@@ -53,6 +63,23 @@ struct PartyCreateView: View {
             leading: BackButton(dismiss: dismiss),
             trailing: EmptyView()
         )
+        .alert("에러", isPresented: Binding<Bool>(
+            get: { viewModel.errorMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.errorMessage = nil
+                }
+            }
+        )) {
+            Button("확인", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage ?? "알 수 없는 에러가 발생했어요.")
+        }
+        .onChange(of: viewModel.isCreateSuccess) { isSuccess in
+            if isSuccess {
+                // TODO: DetailView 이동
+            }
+        }
     }
 }
 

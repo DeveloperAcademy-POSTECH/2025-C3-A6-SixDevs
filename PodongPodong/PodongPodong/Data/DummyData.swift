@@ -31,8 +31,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 3000,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 1),
-            time: Date().addingTimeInterval(3600 * 24 * 1 + 3600),
+            date: "2025년 06월 10일",
+            time: "오후 1시 00분",
             location: "부산 해운대 시장"
         ),
         description: "함께 주문하면 배송비 아깝지 않아요! 같이 가실 분 구합니다.",
@@ -51,8 +51,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 10,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 48),
-            time: Date().addingTimeInterval(3600 * 48 + 1800),
+            date: "2025년 06월 11일",
+            time: "오후 12시 30분",
             location: "서울 강남 농수산물시장"
         ),
         description: "싱싱한 과일을 저렴하게 구매할 기회예요. 재고 소진 전에 참여하세요!",
@@ -71,8 +71,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2000,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 72),
-            time: Date().addingTimeInterval(3600 * 72 + 7200),
+            date: "2025년 06월 12일",
+            time: "오후 2시 00분",
             location: "부산 자갈치 시장 3층 집결지"
         ),
         description: "바다 향 가득한 신선 해산물, 인원 모이면 추가 할인 있어요!",
@@ -234,8 +234,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2500,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 2),
-            time: Date().addingTimeInterval(3600 * 24 * 2 + 3600),
+            date: "2025년 06월 11일",
+            time: "오전 11시 00분",
             location: "부산 센텀시티 이마트"
         ),
         description: "저는 주말에 야채랑 두부, 계란 구매 예정이에요. 같이 주문할 분, 연락주세요!",
@@ -257,8 +257,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 6,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 3),
-            time: Date().addingTimeInterval(3600 * 24 * 3 + 10800),
+            date: "2025년 06월 12일",
+            time: "오후 3시 00분",
             location: "부산 서면 롯데마트 정문 앞"
         ),
         description: "주말에 간식이랑 음료 사러 가는데, 같이 가실 분 구해요. 인원수만큼 할인가 적용됩니다!",

@@ -74,8 +74,8 @@ struct Party: Codable, Identifiable {
     // MARK: - 파티 추가 데이터
     
     struct Appointment: Codable{
-        var date: Date?
-        var time: Date?
+        var date: String?
+        var time: String?
         var location: String?
     }
 }

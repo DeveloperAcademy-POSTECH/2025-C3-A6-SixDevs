@@ -17,4 +17,11 @@ enum WeightAndCount: Int, Codable, Identifiable, CaseIterable {
         case .count: "개"
         }
     }
+    
+    var name: String {
+        switch self {
+        case .weight: "무게"
+        case .count: "개수"
+        }
+    }
 }

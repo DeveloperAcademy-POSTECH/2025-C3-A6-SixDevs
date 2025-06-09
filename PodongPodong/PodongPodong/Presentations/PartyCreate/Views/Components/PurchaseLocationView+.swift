@@ -10,6 +10,7 @@ import SwiftUI
 extension PartyCreateView {
     struct PurchaseLocationView: View {
         @Binding var selectedPurchaseChannel: PurchaseChannel?
+        @Binding var purchaseLocation: String
         
         var body: some View {
             VStack{
@@ -29,7 +30,7 @@ extension PartyCreateView {
                     Spacer()
                 } //:HSTACK
                 TextFieldView(
-                    text: .constant(""),
+                    text: $purchaseLocation, 
                     placeholder: selectedPurchaseChannel == .online
                         ? "구매처 정보를 입력해주세요 (URL 등)"
                         : "구매처 정보를 입력해주세요 (장소명 등)"

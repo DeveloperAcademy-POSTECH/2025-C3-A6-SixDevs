@@ -10,12 +10,8 @@ import SwiftUI
 extension PartyCreateView {
     struct PriceAndWeightView: View {
         @Binding var totalPrice: Int?
-        @Binding var selectedweightAndCount: WeightAndCount?
+        @Binding var selectedWeightAndCount: WeightAndCount?
         @Binding var amount: Int?
-        
-        var display: String {
-            selectedweightAndCount == .count ? "개수" : "무게"
-        }
         
         var body: some View {
             VStack{
@@ -24,7 +20,7 @@ extension PartyCreateView {
                     .padding(.leading, 16)
                     .font(.pretendardMedium16)
                 TextFieldView(
-                    text: .constant(""),
+                    intValue: $totalPrice,
                     placeholder: "총 구매 비용을 입력해주세요.",
                     suffixText: "원"
                 ).frame(width: 361, height: 48)
@@ -39,18 +35,18 @@ extension PartyCreateView {
                     Spacer().frame(width:16)
                     ForEach(WeightAndCount.allCases) { weightAndCount in
                         SelectableChipButtonView(
-                            title: display,
-                            isSelected: .constant(selectedweightAndCount == weightAndCount),
-                            action: { selectedweightAndCount = weightAndCount }
+                            title: weightAndCount.name,
+                            isSelected: .constant(selectedWeightAndCount == weightAndCount),
+                            action: { selectedWeightAndCount = weightAndCount }
                         )
                     }
                     Spacer()
                 }
-                if selectedweightAndCount != nil{
+                if selectedWeightAndCount != nil{
                     TextFieldView(
-                        text: .constant(""),
-                        placeholder: "\(display)를 입력해주세요",
-                        suffixText: selectedweightAndCount?.displayName
+                        intValue: $amount,
+                        placeholder: "\(selectedWeightAndCount?.name ?? "")를 입력해주세요",
+                        suffixText: selectedWeightAndCount?.displayName
                     ).frame(width: 361, height: 48)
                 }
             }

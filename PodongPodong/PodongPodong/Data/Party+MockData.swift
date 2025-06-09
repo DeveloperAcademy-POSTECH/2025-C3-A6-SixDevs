@@ -22,8 +22,8 @@ extension Party {
             weightAndCount: .weight,
             amount: 3,
             appointment: Party.Appointment(
-                date: Calendar.current.date(byAdding: .day, value: 2, to: Date()),
-                time: Calendar.current.date(bySettingHour: 19, minute: 0, second: 0, of: Date()),
+                date: "",
+                time: "",
                 location: "지곡회관 앞"
             ),
             description: "냉장 삼겹살 공구하실 분 모집합니다\n한분 당 1kg에 약 5800원으로 저렴하게 구매하실 수 있어요\n\n냉동보다는 냉장이 확실히 퀄리티가 좋으니\n많은 관심과 참여 바랍니다.",
@@ -161,8 +161,8 @@ extension Party {
         )
         
         return Party.Appointment(
-            date: randomDate,
-            time: randomTime,
+            date: "",
+            time: "",
             location: locations.randomElement()!
         )
     }
