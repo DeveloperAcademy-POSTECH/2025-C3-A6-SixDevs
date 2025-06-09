@@ -9,14 +9,20 @@ import SwiftUI
 
 struct PartyDetailView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     let party: Party
     let currentUser: User = DummyData.user
     @StateObject private var viewModel: PartyDetailViewModel
 
+    @State private var showingMoreOptions = false
+    @State private var showingDeleteAlert = false
+    @State private var sort: Int = 0
+
     init(party: Party) {
         self.party = party
-        self._viewModel = StateObject(wrappedValue: PartyDetailViewModel(partyID: party.id.uuidString))
+        self._viewModel = StateObject(
+            wrappedValue: PartyDetailViewModel(partyID: party.id.uuidString)
+        )
     }
 
     // MARK: - Main Content
@@ -24,46 +30,55 @@ struct PartyDetailView: View {
         ZStack(alignment: .bottom) {
             Color.clear.ignoresSafeArea()
 
-                ScrollView() {
-                    VStack(alignment: .leading, spacing: 30) {
-                        PartyDetailHeaderView(viewModel: viewModel, party: party)
-                        PartyDetailContentView(party: party)
-                        PartyDetailAppointmentView(party: party)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 30) {
+                    PartyDetailHeaderView(viewModel: viewModel, party: party)
+                    PartyDetailContentView(party: party)
+                    PartyDetailAppointmentView(party: party)
 
-                        PartyDetailParticipantView(
-                            viewModel: viewModel,
-                            party: party
-                        )
-                        PartyDetailCommentView(
-                            viewModel: viewModel,
-                            party: party
-                        )
-                        Spacer().frame(height: 50)
+                    PartyDetailParticipantView(
+                        viewModel: viewModel,
+                        party: party
+                    )
+                    PartyDetailCommentView(
+                        viewModel: viewModel,
+                        party: party
+                    )
+                    Spacer().frame(height: 50)
+                }
+                .padding()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                navigationToolbarItems
+            }
+            .alert("파티 삭제", isPresented: $showingDeleteAlert) {
+                Button("취소", role: .cancel) {}
+                Button("삭제", role: .destructive) {
+                    Task {
+                        await viewModel.deleteParty()
                     }
-                    .padding()
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    navigationToolbarItems
-                }
 
-                PartyDetailBottomView(viewModel: viewModel)
-                    .frame(height: 30)
-                    .padding()
-                    .padding(.bottom, 10)
-                    .background(Color.white)
-            
+                }
+            } message: {
+                Text("정말로 이 파티를 삭제하시겠습니까?\n삭제된 파티는 복구할 수 없습니다.")
+            }
+
+            PartyDetailBottomView(viewModel: viewModel)
+                .frame(height: 30)
+                .padding()
+                .padding(.bottom, 10)
+                .background(Color.white)
+
         }
         .refreshable {
             await viewModel.fetchPartyDetail()
         }
-        
         .alert("오류", isPresented: $viewModel.showError) {
             Button("확인", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다.")
         }
-
     }
 
     // MARK: - Navigation Toolbar
@@ -78,7 +93,9 @@ struct PartyDetailView: View {
         }
 
         ToolbarItem(placement: .topBarTrailing) {
-            moreOptionsButton
+            if viewModel.isHost {
+                moreOptionsButton
+            }
         }
     }
 
@@ -97,9 +114,20 @@ struct PartyDetailView: View {
             .font(.pretend(type: .bold, size: 18))
     }
 
+    // 호스트만 볼 수 있게
     private var moreOptionsButton: some View {
-        Button {
-            // 더보기 액션 추가 예정
+        Menu {
+            Button {
+                // 파티 정보 수정하기 기능
+            } label: {
+                Label("파티 수정하기", systemImage: "square.and.pencil")
+            }
+
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("파티 삭제하기", systemImage: "trash")
+            }
         } label: {
             Image(systemName: "ellipsis")
                 .foregroundStyle(.black)
