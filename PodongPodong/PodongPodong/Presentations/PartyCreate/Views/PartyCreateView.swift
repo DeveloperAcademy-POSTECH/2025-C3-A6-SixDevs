@@ -24,7 +24,7 @@ struct PartyCreateView: View {
         ScrollView{
             VStack(spacing: 38){
                 OrderTypeView(selectedOrderType: $selectOrderType)
-                textTypeView
+                TitleView(title: $title)
                 categoryTypeView
                 partySizeView
                 placeTypeView
@@ -34,22 +34,6 @@ struct PartyCreateView: View {
                 descriptionView
             } //: VStack
         } //: ScrollView
-    }
-    
-    // MARK: - orderTypeView 구매 방식
-        
-    // MARK: - textTypeView 제목 입력
-    @ViewBuilder
-    var textTypeView: some View{
-        VStack{
-            Text("제목")
-                .frame(maxWidth:.infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            TextFieldView(
-                text: .constant(""),
-                placeholder: "제목을 입력해주세요").frame(width: 361, height: 48)
-        }
     }
         
     // MARK: - categoryTypeView 구매 카테고리
