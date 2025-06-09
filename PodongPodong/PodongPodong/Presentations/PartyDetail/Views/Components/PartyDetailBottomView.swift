@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PartyDetailBottomView: View {
     @ObservedObject var viewModel: PartyDetailViewModel
+    @State private var showingAlert = false
 
     var body: some View {
         HStack {
@@ -35,9 +36,7 @@ struct PartyDetailBottomView: View {
     //MARK: - Action Button
     private var actionButton: some View {
         Button {
-            Task {
-                await viewModel.handleMainActionButton()
-            }
+            viewModel.handleActionButtonTap()
         } label: {
             RoundedRectangle(cornerRadius: 12)
                 .fill(viewModel.viewConfiguration.actionButtonColor)
@@ -46,10 +45,25 @@ struct PartyDetailBottomView: View {
                 .overlay {
                     Text(viewModel.viewConfiguration.actionButtonTitle)
                         .font(.pretend(type: .semibold, size: 18))
-                        .foregroundStyle(viewModel.viewConfiguration.actionButtonTextColor)
+                        .foregroundStyle(
+                            viewModel.viewConfiguration.actionButtonTextColor
+                        )
                 }
         }
         .disabled(!viewModel.viewConfiguration.isActionButtonEnabled)
+        .alert(
+            viewModel.viewConfiguration.alertTitle,
+            isPresented: $viewModel.showingActionAlert
+        ) {
+            Button("취소", role: .cancel) {}
+            Button("확인") {
+                Task {
+                    await viewModel.executeMainAction()
+                }
+            }
+        } message: {
+            Text(viewModel.viewConfiguration.alertMessage)
+        }
     }
 }
 

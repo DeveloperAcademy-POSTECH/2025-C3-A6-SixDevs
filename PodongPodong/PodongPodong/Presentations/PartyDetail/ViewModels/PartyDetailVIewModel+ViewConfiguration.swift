@@ -9,13 +9,18 @@ import SwiftUI
 
 // MARK: - View Configuration
 extension PartyDetailViewModel {
-    
+
     struct ViewConfiguration {
         // Bottom View
         let actionButtonTitle: String
         let actionButtonColor: Color
         let actionButtonTextColor: Color
         let isActionButtonEnabled: Bool
+
+        // Alert 관련
+        let shouldShowAlert: Bool
+        let alertTitle: String
+        let alertMessage: String
 
         // Header View
         let showParticipantBadge: Bool
@@ -35,6 +40,9 @@ extension PartyDetailViewModel {
                 actionButtonColor: Color.gray20,
                 actionButtonTextColor: Color.gray80,
                 isActionButtonEnabled: false,
+                shouldShowAlert: false,
+                alertTitle: "",
+                alertMessage: "",
                 showParticipantBadge: false,
                 showWaitingBadge: false,
                 showChatButton: false,
@@ -47,6 +55,11 @@ extension PartyDetailViewModel {
         // Bottom View Configuration
         let (buttonTitle, buttonColor, textColor, isEnabled) =
             getActionButtonConfiguration(for: party)
+
+        // Alert 설정
+        let shouldShowAlert = getShouldShowAlert(for: party)
+        let alertTitle = buttonTitle
+        let alertMessage = "정말 \(buttonTitle) 하시겠습니까?"
 
         // Header View Configuration
         let showParticipantBadge = currentUserRole == .member
@@ -64,6 +77,9 @@ extension PartyDetailViewModel {
             actionButtonColor: buttonColor,
             actionButtonTextColor: textColor,
             isActionButtonEnabled: isEnabled,
+            shouldShowAlert: shouldShowAlert,
+            alertTitle: alertTitle,
+            alertMessage: alertMessage,
             showParticipantBadge: showParticipantBadge,
             showWaitingBadge: showWaitingBadge,
             showChatButton: showChatButton,
@@ -75,7 +91,7 @@ extension PartyDetailViewModel {
 
     // MARK: - Private Configuration Methods
     private func getActionButtonConfiguration(for party: Party) -> (
-        title: String, color: Color, textColor: Color, isEnabled: Bool
+        title: String, buttonColor: Color, textColor: Color, isEnabled: Bool
     ) {
         switch (currentUserRole, party.status) {
         case (.host, .recruiting):
@@ -103,16 +119,30 @@ extension PartyDetailViewModel {
             return ("모집이 마감되었습니다", .gray10, .gray30, false)
         }
     }
-    
-    // MARK: - 시간 계산 메서드
-    var getTimeAgoText: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(
-            for: party?.createdAt ?? Date(),
-            relativeTo: Date()
-        )
+
+    var buttonTitle: String {
+        viewConfiguration.actionButtonTitle
+    }
+
+    var isActionButtonEnabled: Bool {
+        viewConfiguration.isActionButtonEnabled
+    }
+
+    // Alert 표시 여부 판단 로직
+    private func getShouldShowAlert(for party: Party) -> Bool {
+        switch (currentUserRole, party.status) {
+        case (.host, .recruiting):  // 파티 마감하기
+            return true
+        case (.host, .inProgress):  // 공구 종료하기
+            return true
+        case (.member, .recruiting):  // 파티 탈퇴하기
+            return true
+        case (.waitingMember, .recruiting):  // 참여 신청 취소
+            return true
+        case (.guest, .recruiting):  // 참여 신청하기 - Alert 없이 바로 실행
+            return false
+        default:  // 비활성화된 버튼들
+            return false
+        }
     }
 }
-
