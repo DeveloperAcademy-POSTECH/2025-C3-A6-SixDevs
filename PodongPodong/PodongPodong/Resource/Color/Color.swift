@@ -16,6 +16,7 @@ extension Color {
     // MARK: Secondary Colors
     static let secondary = Color(hex: "4B4128")
 
+  
     // MARK: Grays
     static let gray00 = Color(hex: "FAFAFA")
     static let gray10 = Color(hex: "F2F2F2")

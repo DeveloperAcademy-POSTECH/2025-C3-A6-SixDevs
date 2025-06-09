@@ -12,6 +12,28 @@ struct PartyListView: View {
     
     var body: some View {
         NavigationView {
+
+            VStack(spacing: 0) {
+                
+                PartyListTabHeader(
+                    selectedTab: $viewModel.selectedOrderType
+                )
+                .frame(height: 47)
+                .overlay(Divider(), alignment: .bottom)
+
+                PartyListMainView(
+                    selectedTab: $viewModel.selectedOrderType,
+                    parties: viewModel.currentParties
+                )
+            }
+            .navigationBarItems(
+                leading: PartyListNavBarTitle(),
+                trailing: PartyListNavBarButtons(
+                    searchButtonAction: {},
+                    bellButtonAction: {}
+                )
+            )
+          
             ZStack {
                 VStack(spacing: 0) {
                     
@@ -50,6 +72,7 @@ struct PartyListView: View {
                 .padding(.trailing, 22)
                 .padding(.bottom, 16)
             }
+
         }
     }
 }

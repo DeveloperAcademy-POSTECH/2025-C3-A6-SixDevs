@@ -54,7 +54,7 @@ struct Party: Codable, Identifiable {
         amount: Int,
         appointment: Appointment,
         description: String?,
-        chatURL: String?
+        chatURL: String?,
     ) {
         self.writen = writen
         self.title = title
