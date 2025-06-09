@@ -9,7 +9,7 @@ import SwiftUI
 
 extension PartyCreateView {
     struct CategoryView: View {
-        @Binding var selectedCategory: FoodCategory
+        @Binding var selectedCategory: FoodCategory?
         
         var body : some View{
             VStack{

@@ -9,7 +9,7 @@ import SwiftUI
 
 extension PartyCreateView {
     struct PurchaseLocationView: View {
-        @Binding var selectedPurchaseChannel: PurchaseChannel
+        @Binding var selectedPurchaseChannel: PurchaseChannel?
         
         var body: some View {
             VStack{

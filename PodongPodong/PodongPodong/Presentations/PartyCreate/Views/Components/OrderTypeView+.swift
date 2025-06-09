@@ -9,7 +9,7 @@ import SwiftUI
 
 extension PartyCreateView {
     struct OrderTypeView: View {
-        @Binding var selectedOrderType: OrderType
+        @Binding var selectedOrderType: OrderType?
 
         var body: some View{
             VStack{

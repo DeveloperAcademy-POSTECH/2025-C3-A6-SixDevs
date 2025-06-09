@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct PartyCreateView: View {
+    @State private var selectedOrder: OrderType? = nil
     @State private var title: String = ""
-    @State private var selectedOrder: OrderType = .groupPurchase
-    @State private var selectedCategory: FoodCategory = .meat
-    @State private var selectedPurchaseChannle: PurchaseChannel = .online
-    @State private var selectUnit = ""
+    @State private var selectedCategory: FoodCategory? = nil
+    @State private var recruitmentCount = 2 //참여 인원
+    @State private var selectedPurchaseChannle: PurchaseChannel? = nil
+    
     @State var totalPrice: Int? = nil
     @State var selectedweightAndCount: WeightAndCount? = nil
     @State var amount: Int? = nil
     
-    @State private var recruitmentCount = 2 //참여 인원
-    
-    let categories = ["육류", "야채", "과일", "해산물", "기타"]
-    let places = ["온라인", "오프라인"]
-    let units = ["무게", "개수"]
+    @State var selectedDate: String = ""
+    @State var selectedTime: String = ""
+    @State var selectedPlace: String = ""
     
     var body: some View {
         ScrollView{
@@ -32,7 +31,11 @@ struct PartyCreateView: View {
                 RecruitmentCountView(recruitmentCount: $recruitmentCount)
                 PurchaseLocationView(selectedPurchaseChannel: $selectedPurchaseChannle)
                 if selectedOrder == .groupPurchase {
-                    PriceAndWeightView(totalPrice: $totalPrice, selectedweightAndCount: $selectedweightAndCount, amount: $amount)
+                    PriceAndWeightView(
+                        totalPrice: $totalPrice,
+                        selectedweightAndCount: $selectedweightAndCount,
+                        amount: $amount
+                    )
                 }
                 AppointmentView(
                     selectedDate: $selectedDate,
@@ -41,34 +44,6 @@ struct PartyCreateView: View {
                 )
                 descriptionView
             }
-        }
-    }
-        
-    // MARK: - appointmentView
-    @ViewBuilder
-    var appointmentView: some View {
-        VStack{
-            Text("약속 (선택)")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            // TODO: 날짜, 시간, 장소 로직 입력
-            TextFieldView(
-                text: .constant(""),
-                placeholder: "날짜를 입력해주세요",
-                icon: Image(systemName: "calendar")
-            ).frame(width: 361, height: 44)
-            TextFieldView(
-                text: .constant(""),
-                placeholder: "만날 시간을 정해주세요",
-                icon: Image(systemName: "clock")
-            ).frame(width: 361, height: 44)
-            TextFieldView(
-                text: .constant(""),
-                placeholder: "만날 장소를 정해주세요",
-                icon: Image(systemName: "mappin")
-                // TODO: 이거 아이콘 이름 변경
-            ).frame(width: 361, height: 44)
         }
     }
         
