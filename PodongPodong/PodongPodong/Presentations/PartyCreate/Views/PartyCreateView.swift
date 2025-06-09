@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PartyCreateView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var selectedOrder: OrderType? = nil
     @State private var title: String = ""
     @State private var selectedCategory: FoodCategory? = nil
@@ -46,6 +48,11 @@ struct PartyCreateView: View {
                 DescriptionView(description: $description)
             }
         }
+        .navigationBarTitle("파티 만들기", displayMode: .inline)
+        .navigationBarItems(
+            leading: BackButton(dismiss: dismiss),
+            trailing: EmptyView()
+        )
     }
 }
 
