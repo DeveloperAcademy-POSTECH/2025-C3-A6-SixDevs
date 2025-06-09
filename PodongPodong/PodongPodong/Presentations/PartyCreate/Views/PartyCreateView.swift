@@ -9,43 +9,30 @@ import SwiftUI
 
 struct PartyCreateView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var selectedOrder: OrderType? = nil
-    @State private var title: String = ""
-    @State private var selectedCategory: FoodCategory? = nil
-    @State private var recruitmentCount = 2 //참여 인원
-    @State private var selectedPurchaseChannle: PurchaseChannel? = nil
-    
-    @State var totalPrice: Int? = nil
-    @State var selectedweightAndCount: WeightAndCount? = nil
-    @State var amount: Int? = nil
-    
-    @State var selectedDate: String = ""
-    @State var selectedTime: String = ""
-    @State var selectedPlace: String = ""
-    @State var description: String = ""
+
+    @State private var viewModel = PartyCreateViewModel()
     
     var body: some View {
         ScrollView{
             VStack(spacing: 38){
-                OrderTypeView(selectedOrderType: $selectedOrder)
-                TitleView(title: $title)
-                CategoryView(selectedCategory: $selectedCategory)
-                RecruitmentCountView(recruitmentCount: $recruitmentCount)
-                PurchaseLocationView(selectedPurchaseChannel: $selectedPurchaseChannle)
-                if selectedOrder == .groupPurchase {
+                OrderTypeView(selectedOrderType: $viewModel.selectedOrderType)
+                TitleView(title: $viewModel.title)
+                CategoryView(selectedCategory: $viewModel.selectedCategory)
+                RecruitmentCountView(recruitmentCount: $viewModel.recruitmentCount)
+                PurchaseLocationView(selectedPurchaseChannel: $viewModel.selectedPurchaseChannle)
+                if viewModel.selectedOrderType == .groupPurchase {
                     PriceAndWeightView(
-                        totalPrice: $totalPrice,
-                        selectedweightAndCount: $selectedweightAndCount,
-                        amount: $amount
+                        totalPrice: $viewModel.totalPrice,
+                        selectedweightAndCount: $viewModel.selectedweightAndCount,
+                        amount: $viewModel.amount
                     )
                 }
                 AppointmentView(
-                    selectedDate: $selectedDate,
-                    selectedTime: $selectedTime,
-                    selectedPlace: $selectedPlace
+                    selectedDate: $viewModel.selectedDate,
+                    selectedTime: $viewModel.selectedTime,
+                    selectedPlace: $viewModel.selectedPlace
                 )
-                DescriptionView(description: $description)
+                DescriptionView(description: $viewModel.description)
             }
         }
         .navigationBarTitle("파티 만들기", displayMode: .inline)
