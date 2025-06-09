@@ -73,18 +73,6 @@ struct Party: Codable, Identifiable {
     
     // MARK: - 파티 추가 데이터
     
-    enum PurchaseChannel: Codable {
-        case online
-        case offline
-        
-        var displayName: String {
-            switch self {
-            case .online: "온라인 구매"
-            case .offline: "오프라인 구매"
-            }
-        }
-    }
-    
     enum PartyStatus: Codable {
         case recruiting
         case inProgress // 진행중

@@ -11,7 +11,7 @@ struct PartyCreateView: View {
     @State private var title: String = ""
     @State private var selectedOrder: OrderType = .groupPurchase
     @State private var selectedCategory: FoodCategory = .meat
-    @State private var selectedPlace = ""
+    @State private var selectedPurchaseChannle: PurchaseChannel = .online
     @State private var selectUnit = ""
     @State private var recruitmentCount = 2 //참여 인원
     
@@ -26,48 +26,13 @@ struct PartyCreateView: View {
                 TitleView(title: $title)
                 CategoryView(selectedCategory: $selectedCategory)
                 RecruitmentCountView(recruitmentCount: $recruitmentCount)
-                placeTypeView
+                PurchaseLocationView(selectedPurchaseChannel: $selectedPurchaseChannle)
 //                if selectOrderType != "장보기"{priceView
 //                    unitView}
                 appointmentView
                 descriptionView
             }
         }
-    }
-        
-    // MARK: - placeTypeView 구매처
-    @ViewBuilder
-    var placeTypeView: some View{
-        VStack{
-                Text("구매처")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 16)
-                    .font(.pretendardMedium16)
-                HStack(spacing: 12){
-                    Spacer().frame(width:16)
-                    ForEach(places, id: \.self) { place in
-                        SelectableChipButtonView(
-                            title: place,
-                            isSelected: .constant(selectedPlace == place),
-                            action: { selectedPlace = place }
-                        )
-                    }
-                    Spacer()
-                } //:HSTACK
-                if selectedPlace == "온라인" {
-                    TextFieldView(
-                        text: .constant(""),
-                        placeholder: "구매처 정보를 입력해주세요 (URL 등)"
-                    ).frame(width: 361, height: 48)
-                }
-                else if selectedPlace == "오프라인" {
-                    TextFieldView(
-                        text: .constant(""),
-                        placeholder: "구매처 정보를 입력해주세요 (장소명 등)"
-                    ).frame(width: 361, height: 48)
-                }
-        // TODO: 장보기 선택했을 때 구매처 오프라인으로 고정
-        } //: VSTACK
     }
         
     // MARK: - priceView 구매 비용
