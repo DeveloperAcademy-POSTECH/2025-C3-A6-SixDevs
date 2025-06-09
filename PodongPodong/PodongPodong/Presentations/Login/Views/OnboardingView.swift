@@ -8,24 +8,36 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @StateObject var router: AuthNavigationRouter = .init()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.destination) {
             VStack(spacing: 150) {
                 // TODO: - 앱 로고 넣기
                 Image(systemName: "globe")
                 
-                NavigationLink {
-                    EmailInputView()
-                        .navigationBarBackButtonHidden()
+                Button {
+                    router.push(to: .emailInput)
                 } label: {
                     ActionButtonView(title: "포스텍 이메일 인증하기", isEnabled: true)
                         .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 24)
                 }
-                .padding(.horizontal, 24)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.primaryLight1.ignoresSafeArea())
+            .navigationDestination(for: AuthNavigationDestination.self) { route in
+                switch route {
+                case .emailInput:
+                    EmailInputView()
+                        .hideBackButton()
+                case .emailSent:
+                    EmailSentView()
+                        .hideBackButton()
+                }
+            }
         }
+        .environmentObject(router)
     }
 }
 

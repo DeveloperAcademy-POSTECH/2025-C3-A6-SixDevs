@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EmailSentView: View {
+    @EnvironmentObject var router: AuthNavigationRouter
+    
     var body: some View {
         VStack(spacing: 40) {
             // 1) 최상단부터 이미지, 텍스트, 버튼이 붙도록
@@ -39,6 +41,17 @@ struct EmailSentView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    router.pop()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(Color.black)
+                        .frame(width: 36, height: 36)
+                }
+            }
+        }
     }
 }
 

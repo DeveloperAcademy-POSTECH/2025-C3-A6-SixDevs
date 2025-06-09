@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct PartyDetailCommentView: View {
+    @ObservedObject var viewModel: PartyDetailViewModel
+
     let party: Party
-    let currentUser: User
 
     var body: some View {
         VStack(spacing: 23) {
@@ -21,13 +22,16 @@ struct PartyDetailCommentView: View {
     // MARK: - Header Section
     private var headerSection: some View {
         HStack {
-            Text("댓글(\(party.comments.count))")
+            Text("댓글(\(viewModel.commentCount))")
                 .foregroundStyle(Color.secondary)
                 .font(.pretend(type: .bold, size: 16))
             Spacer()
 
             NavigationLink(
-                destination: PartyDetailFullCommentView(party: party, currentUser: currentUser)
+                destination: PartyDetailFullCommentView(
+                    viewModel: viewModel,
+                    party: party
+                )
             ) {
                 HStack {
                     Text("전체보기")
@@ -71,7 +75,9 @@ struct CommentView: View {
 
 #Preview {
     PartyDetailCommentView(
-        party: Party.sampleData,
-        currentUser: User.sampleCurrentUser
+        viewModel: PartyDetailViewModel(
+            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
+        ),
+        party: Party.sampleData
     )
 }

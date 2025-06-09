@@ -47,6 +47,9 @@ struct TextFieldView: View {
                 .stroke(Color.gray50, lineWidth: 1)
         )
         .cornerRadius(8)
+        .onSubmit {
+            hideKeyboard()
+        }
     }
 }
 

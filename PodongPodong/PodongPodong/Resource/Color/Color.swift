@@ -28,12 +28,20 @@ extension Color {
     static let gray80 = Color(hex: "4B4B4B")
     
     // MARK: Reds
-    static let red00 = Color(hex: "FFE7E7")
+    //static let red00 = Color(hex: "FFE7E7")
     static let red10 = Color(hex: "FF6851")
 
     // MARK: Common
     static let white = Color(hex: "FFFFFF")
     static let black = Color(hex: "000000")
+    
+    // MARK: Blues
+    static let blue00 = Color(hex: "D5E9FF")
+    static let blue10 = Color(hex: "2E5682")
+    
+    // MARK: Purples
+    static let purple00 = Color(hex: "F9E4FF")
+    static let purple10 = Color(hex: "8437E8")
 }
 
 
