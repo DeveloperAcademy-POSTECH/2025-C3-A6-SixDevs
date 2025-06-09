@@ -12,13 +12,8 @@ struct PartyDetailView: View {
     
     let party: Party
     let currentUser: User = DummyData.user
-    @StateObject private var viewModel: PartyDetailViewModel
+    @StateObject private var viewModel: PartyDetailViewModel = PartyDetailViewModel(partyID: "")
 
-    init(party: Party) {
-        self._viewModel = StateObject(
-            wrappedValue: PartyDetailViewModel(partyID: partyID)
-        )
-    }
 
     // MARK: - Main Content
     var body: some View {
