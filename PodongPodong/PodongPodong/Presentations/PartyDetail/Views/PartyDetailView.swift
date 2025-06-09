@@ -15,9 +15,8 @@ struct PartyDetailView: View {
     @StateObject private var viewModel: PartyDetailViewModel
 
     init(party: Party) {
-        self._viewModel = StateObject(
-            wrappedValue: PartyDetailViewModel(partyID: partyID)
-        )
+        self.party = party
+        self._viewModel = StateObject(wrappedValue: PartyDetailViewModel(partyID: party.id.uuidString))
     }
 
     // MARK: - Main Content
@@ -25,9 +24,6 @@ struct PartyDetailView: View {
         ZStack(alignment: .bottom) {
             Color.clear.ignoresSafeArea()
 
-            if viewModel.isLoading {
-                Text("Loading...")
-            } else if let party = viewModel.party {
                 ScrollView() {
                     VStack(alignment: .leading, spacing: 30) {
                         PartyDetailHeaderView(viewModel: viewModel, party: party)
@@ -56,11 +52,12 @@ struct PartyDetailView: View {
                     .padding()
                     .padding(.bottom, 10)
                     .background(Color.white)
-            }
+            
         }
-        .task {
+        .refreshable {
             await viewModel.fetchPartyDetail()
         }
+        
         .alert("오류", isPresented: $viewModel.showError) {
             Button("확인", role: .cancel) {}
         } message: {

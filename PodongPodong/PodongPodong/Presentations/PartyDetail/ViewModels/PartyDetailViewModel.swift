@@ -22,7 +22,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-// 메인 쓰레드에서만 실행되도록
 @MainActor
 class PartyDetailViewModel: ObservableObject {
 
@@ -34,6 +33,7 @@ class PartyDetailViewModel: ObservableObject {
     @Published var isLiked: Bool = false
     @Published var currentUserRole: UserRole = .guest
     @Published var comments: [PartyComment] = []
+    @Published var showingActionAlert: Bool = false
 
     // MARK: - Internal Properties
     let firestoreManager = FirestoreManager.shared
@@ -92,40 +92,7 @@ class PartyDetailViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    // MARK: - 계산 관련 프로퍼티
-    var buttonTitle: String {
-        viewConfiguration.actionButtonTitle
-    }
-
-    var isActionButtonEnabled: Bool {
-        viewConfiguration.isActionButtonEnabled
-    }
-
-    var participantMemberCount: Int {
-        guard let members = party?.member else { return 0 }
-        return members.isEmpty ? 0 : members.count + 1
-    }
-
-    var isHost: Bool {
-        guard let party = party else { return false }
-        return party.writen.id == getCurrentUserID()
-    }
-
-    var isParticipant: Bool {
-        guard let party = party else { return false }
-        return party.member.contains { $0.id == getCurrentUserID() }
-    }
-
-    var isWaitingMember: Bool {
-        guard let party = party else { return false }
-        return party.waitingMembers.contains { $0.id == getCurrentUserID() }
-    }
-
-    var isRecruitmentComplete: Bool {
-        guard let party = party else { return false }
-        return party.status != .recruiting
-    }
-
+    // MARK: - Error Handling
     func handleError(_ error: Error) {
         if let partyError = error as? PartyDetailError {
             errorMessage = partyError.localizedDescription
@@ -134,8 +101,7 @@ class PartyDetailViewModel: ObservableObject {
         }
         showError = true
     }
-
-    // MARK: - Error Handling
+    
     enum PartyDetailError: LocalizedError {
         case partyNotFound
         case notAuthorized

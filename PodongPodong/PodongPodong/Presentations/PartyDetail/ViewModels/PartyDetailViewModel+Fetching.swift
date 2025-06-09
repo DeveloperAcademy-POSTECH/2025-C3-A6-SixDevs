@@ -11,12 +11,9 @@ import SwiftUI
 // MARK: - Data Fetching
 extension PartyDetailViewModel {
     
-    // 파티 정보 가져오기
     func fetchPartyDetail() async {
         isLoading = true
-
         do {
-            // 파티 정보 가져오기
             let fetchedParty: Party? = try await firestoreManager.get(
                 partyID,
                 collectionType: .party
@@ -28,19 +25,14 @@ extension PartyDetailViewModel {
 
             self.party = fetchedParty
 
-            // 현재 유저 역할 판단
             updateUserRole()
 
-            // 조회수 증가
             if !viewCountUpdated {
                 await incrementViewCount()
                 viewCountUpdated = true
             }
 
-            // 좋아요 상태 확인
             checkIfLiked()
-
-            // 자동 마감 체크
             await checkAndAutoCloseIfNeeded()
 
         } catch {
@@ -49,12 +41,10 @@ extension PartyDetailViewModel {
         isLoading = false
     }
 
-    // 파티 정보 새로고침
     func refreshPartyDetail() async {
         await fetchPartyDetail()
     }
     
-    // 자동 마감 체크 및 실행
     func checkAndAutoCloseIfNeeded() async {
         guard var party = party,
             party.status == .recruiting,
@@ -72,7 +62,6 @@ extension PartyDetailViewModel {
         }
     }
 
-    // 좋아요 수 증가
     func updateLikeCount(increment: Bool) async {
         guard let party = party else { return }
 
@@ -93,7 +82,6 @@ extension PartyDetailViewModel {
     }
     
     // MARK: - Private Method
-    // 조회수 증가
     private func incrementViewCount() async {
         guard let party = party else { return }
 
@@ -113,7 +101,6 @@ extension PartyDetailViewModel {
         }
     }
     
-    // 좋아요 상태 확인
     private func checkIfLiked() {
         isLiked = false
     }

@@ -10,7 +10,6 @@ import Foundation
 // MARK: - Helper Methods
 extension PartyDetailViewModel {
     
-    // 현재 유저 역할 업데이트
     func updateUserRole() {
         guard let party = party else {
             currentUserRole = .guest
@@ -47,5 +46,41 @@ extension PartyDetailViewModel {
         guard let party else { return 0 }
         return party.comments.count
         
+    }
+    
+    var participantMemberCount: Int {
+        guard let members = party?.member else { return 0 }
+        return members.isEmpty ? 0 : members.count + 1
+    }
+
+    var isHost: Bool {
+        guard let party = party else { return false }
+        return party.writen.id == getCurrentUserID()
+    }
+
+    var isParticipant: Bool {
+        guard let party = party else { return false }
+        return party.member.contains { $0.id == getCurrentUserID() }
+    }
+
+    var isWaitingMember: Bool {
+        guard let party = party else { return false }
+        return party.waitingMembers.contains { $0.id == getCurrentUserID() }
+    }
+
+    var isRecruitmentComplete: Bool {
+        guard let party = party else { return false }
+        return party.status != .recruiting
+    }
+    
+    // 시간 계산 메서드
+    var getTimeAgoText: String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.unitsStyle = .abbreviated
+        return formatter.localizedString(
+            for: party?.createdAt ?? Date(),
+            relativeTo: Date()
+        )
     }
 }
