@@ -34,7 +34,11 @@ struct PartyCreateView: View {
                 if selectedOrder == .groupPurchase {
                     PriceAndWeightView(totalPrice: $totalPrice, selectedweightAndCount: $selectedweightAndCount, amount: $amount)
                 }
-                appointmentView
+                AppointmentView(
+                    selectedDate: $selectedDate,
+                    selectedTime: $selectedTime,
+                    selectedPlace: $selectedPlace
+                )
                 descriptionView
             }
         }
