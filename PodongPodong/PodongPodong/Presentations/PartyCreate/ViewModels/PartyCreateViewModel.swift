@@ -25,14 +25,26 @@ final class PartyCreateViewModel {
     var selectedTime: String = ""
     var selectedPlace: String = ""
     var description: String = ""
-
+    
     var isButtonEnabled: Bool {
-        selectedOrderType != nil &&
-        !title.isEmpty &&
-        selectedCategory != nil &&
-        selectedPurchaseChannle != nil &&
-        totalPrice != nil &&
-        selectedWeightAndCount != nil &&
-        amount != nil
+        let baseConditions =
+            selectedOrderType != nil &&
+            !title.isEmpty &&
+            selectedCategory != nil &&
+            selectedPurchaseChannle != nil
+
+        let groupPurchaseExtraConditions =
+            totalPrice != nil &&
+            selectedWeightAndCount != nil &&
+            amount != nil
+
+        switch selectedOrderType {
+        case .groupPurchase:
+            return baseConditions && groupPurchaseExtraConditions
+        case .personalShopping:
+            return baseConditions
+        case .none:
+            return false
+        }
     }
 }
