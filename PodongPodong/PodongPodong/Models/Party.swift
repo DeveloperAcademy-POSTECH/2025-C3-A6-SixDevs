@@ -87,17 +87,7 @@ struct Party: Codable, Identifiable {
         }
     }
     
-    enum WeightAndCount: Codable {
-        case weight
-        case count
-        
-        var displayName: String {
-            switch self {
-            case .weight: "g"
-            case .count: "개"
-            }
-        }
-    }
+
     
     struct Appointment: Codable{
         var date: Date?

@@ -13,6 +13,10 @@ struct PartyCreateView: View {
     @State private var selectedCategory: FoodCategory = .meat
     @State private var selectedPurchaseChannle: PurchaseChannel = .online
     @State private var selectUnit = ""
+    @State var totalPrice: Int? = nil
+    @State var selectedweightAndCount: WeightAndCount? = nil
+    @State var amount: Int? = nil
+    
     @State private var recruitmentCount = 2 //참여 인원
     
     let categories = ["육류", "야채", "과일", "해산물", "기타"]
@@ -27,57 +31,13 @@ struct PartyCreateView: View {
                 CategoryView(selectedCategory: $selectedCategory)
                 RecruitmentCountView(recruitmentCount: $recruitmentCount)
                 PurchaseLocationView(selectedPurchaseChannel: $selectedPurchaseChannle)
-//                if selectOrderType != "장보기"{priceView
-//                    unitView}
+                if selectedOrder == .groupPurchase {
+                    PriceAndWeightView(totalPrice: $totalPrice, selectedweightAndCount: $selectedweightAndCount, amount: $amount)
+                }
                 appointmentView
                 descriptionView
             }
         }
-    }
-        
-    // MARK: - priceView 구매 비용
-    @ViewBuilder
-    var priceView: some View {
-        VStack{
-            Text("구매 비용")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            TextFieldView(
-                text: .constant(""),
-                placeholder: "총 구매 비용을 입력해주세요.",
-                suffixText: "원"
-            ).frame(width: 361, height: 48)
-        }
-    } //: priceView
-    
-    // MARK: - unitView 구매 단위
-    @ViewBuilder
-    var unitView: some View {
-        VStack{
-            Text("구매 단위")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            HStack(spacing: 12){
-                Spacer().frame(width:16)
-                ForEach(units, id: \.self) { unit in
-                    SelectableChipButtonView(
-                        title: unit,
-                        isSelected: .constant(selectUnit == unit),
-                        action: { selectUnit = unit }
-                    )
-                }
-                Spacer()
-            } //: HSTACK
-            if selectUnit != ""{
-                TextFieldView(
-                    text: .constant(""),
-                    placeholder: "\(selectUnit)를 입력해주세요",
-                    suffixText: selectUnit=="무게" ? "g" : "개"
-                ).frame(width: 361, height: 48)
-            }//: IF
-        }//: VSTACK
     }
         
     // MARK: - appointmentView
