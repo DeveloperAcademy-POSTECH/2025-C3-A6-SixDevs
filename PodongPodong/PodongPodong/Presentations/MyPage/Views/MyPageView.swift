@@ -23,9 +23,10 @@ struct MyPageView: View {
                 
             }
             
-            
-            if viewModel.alertType != nil {
-                AlertButton(title: "로그아웃 하시겠어요?", actionType: .question) { 
+            // FIXME: - 로직 수정
+            if viewModel.alertType == .signOut && viewModel.alertType != nil {
+                
+                SignOutView(title: "로그아웃 하시겠어요?", actionType: .question) {
                     viewModel.alertType = nil
                 } action: {
                     viewModel.currentUserSignOut()
@@ -33,14 +34,30 @@ struct MyPageView: View {
                 }
             }
             
+            if viewModel.alertType == .withdrawal && viewModel.alertType != nil {
+                WithdrawalView(title: "정말 탈퇴하시겠어요?", content: "탈퇴 시, 계정에 저장된 정보는 모두 삭제되며 복구되지 않습니다.", actionType: .question) {
+                    viewModel.alertType = nil
+                } action: {
+                    viewModel.currentUserWithdrawal()
+                    viewModel.alertType = nil
+                }
+            }
             
             if viewModel.isComplete {
-                AlertButton(title: "로그아웃되었습니다.", actionType: .check) {
+                SignOutView(title: "로그아웃되었습니다.", actionType: .check) {
                 } action: {
                     viewModel.isComplete = false
                 }
             }
             
+            
+            if viewModel.isCompleteWithdrawal {
+                WithdrawalView(title: "탈퇴되었습니다.", content: nil, actionType: .check) {
+                } action: {
+                    viewModel.isCompleteWithdrawal = false
+                }
+                
+            }
             
         }
     }

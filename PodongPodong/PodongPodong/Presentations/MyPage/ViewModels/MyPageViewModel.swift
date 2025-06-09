@@ -20,7 +20,8 @@ final class MyPageViewModel {
     
     var alertType: MyPageAlertType? = nil
     
-    var isComplete = false
+    var isComplete = false // 로그아웃
+    var isCompleteWithdrawal = false // 회원탈퇴
     
     init() {
         loadUserInfo()
@@ -59,11 +60,9 @@ final class MyPageViewModel {
             print("키워드 등록 이동")
         case .logout:
             print("로그아웃")
-            // TODO: 로그 아웃할때 : AlertView 띄우고 - 파이어베이스 로그아웃, 키체인 유저 정보 제거하기,
             alertType = .signOut
         case .withdrawal:
-            print("회원 탈퇴")
-            // TODO: 로그 아웃할때 : AlertView 띄우고 - 파이어베이스 계정삭제 (Auth, FirebaseStore 데이터 삭제), 키체인 유저 정보 제거하기, Sendbird 탈퇴
+            alertType = .withdrawal
         }
     }
     
@@ -80,6 +79,11 @@ final class MyPageViewModel {
             }
         }
         
+    }
+    
+    // MARK: - 회원 탈퇴
+    func currentUserWithdrawal() {
+        self.isCompleteWithdrawal = true
     }
     
 }

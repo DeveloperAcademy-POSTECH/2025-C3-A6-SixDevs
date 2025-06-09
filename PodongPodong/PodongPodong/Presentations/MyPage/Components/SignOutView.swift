@@ -12,7 +12,7 @@ enum ActionType {
     case check
 }
 
-struct AlertButton: View {
+struct SignOutView: View {
     let title: String
     
     let actionType: ActionType
@@ -66,7 +66,7 @@ struct AlertButton: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    AlertButton(title: "로그아웃 하시겠어요?", actionType: .question) {
+    SignOutView(title: "로그아웃 하시겠어요?", actionType: .question) {
         
     } action: {
         
@@ -74,7 +74,7 @@ struct AlertButton: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    AlertButton(title: "로그아웃되었습니다.", actionType: .check) {
+    SignOutView(title: "로그아웃되었습니다.", actionType: .check) {
         
     } action: {
         
