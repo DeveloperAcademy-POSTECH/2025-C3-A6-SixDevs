@@ -166,4 +166,22 @@ extension Party {
             location: locations.randomElement()!
         )
     }
+  
+// MARK: - Extensions for Enum Cases
+extension Party.PartyStatus: CaseIterable {
+    public static var allCases: [Party.PartyStatus] {
+        return [.recruiting, .inProgress, .completed]
+    }
 }
+
+extension Party.PurchaseChannel: CaseIterable {
+    public static var allCases: [Party.PurchaseChannel] {
+        return [.online, .offline]
+    }
+}
+
+extension Party.WeightAndCount: CaseIterable {
+    public static var allCases: [Party.WeightAndCount] {
+        return [.weight, .count]
+    }
+
