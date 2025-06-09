@@ -11,6 +11,7 @@ import Observation
 @Observable
 final class PartyListViewModel {
     var selectedOrderType: OrderType = .groupPurchase
+
     private(set) var partyList: [Party] = []
     
     var currentParties: [Party] {
@@ -20,6 +21,15 @@ final class PartyListViewModel {
         case .personalShopping:
             return partyList.filter { $0.orderType == .personalShopping }
         }
+
+    var selectedFoodCategory: FoodCategory = .all
+    private(set) var partyList: [Party] = []
+    
+    var currentParties: [Party] {
+        partyList
+            .filter { $0.orderType == selectedOrderType }
+            .filter { selectedFoodCategory == .all || $0.category == selectedFoodCategory }
+
     }
     
     init() {

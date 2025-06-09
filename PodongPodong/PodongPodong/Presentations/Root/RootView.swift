@@ -9,7 +9,7 @@ import SwiftUI
 import SendbirdSwiftUI
 
 struct RootView: View {
-    @State var router: NavigationRouter = .init()
+    @StateObject var router: MainNavigationRouter = .init()
     
     var body: some View {
         NavigationStack(path: $router.destination) {
@@ -27,11 +27,11 @@ struct RootView: View {
                 }
                 
                 Tab("마이", systemImage: "person") {
-                    ProfileView()
+                    MyPageView()
                 }
             }
             .environmentObject(router)
-            .navigationDestination(for: NavigationDestination.self) { route in
+            .navigationDestination(for: MainNavigationDestination.self) { route in
                 switch route {
                 case .chatView(let channelURL):
                     ChatView(provider: GroupChannelViewProvider(channelURL: channelURL))

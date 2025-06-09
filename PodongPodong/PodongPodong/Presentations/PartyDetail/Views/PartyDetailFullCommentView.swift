@@ -10,10 +10,10 @@ import SwiftUI
 struct PartyDetailFullCommentView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var commentText: String = ""
-    
+    @ObservedObject var viewModel: PartyDetailViewModel
+
     let party: Party
-    let currentUser: User
-    
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             Color.clear.ignoresSafeArea()
@@ -58,11 +58,10 @@ struct PartyDetailFullCommentView: View {
     }
 
     private var navigationTitle: some View {
-        Text("댓글 목록(\(party.comments.count))")
+        Text("댓글 목록(\(viewModel.commentCount))")
             .font(.pretend(type: .bold, size: 18))
     }
-    
-    
+
     // MARK: - Header Section
     private var headerSection: some View {
         VStack(alignment: .leading) {
@@ -71,14 +70,14 @@ struct PartyDetailFullCommentView: View {
             Divider()
         }
     }
-    
+
     // MARK: - Content Section
     private var contentSection: some View {
         Group {
             if party.comments.isEmpty {
                 VStack {
                     Spacer()
-                    
+
                     VStack(spacing: 16) {
                         Text("등록된 댓글이 없습니다.")
                             .font(.pretend(type: .medium, size: 16))
@@ -93,7 +92,7 @@ struct PartyDetailFullCommentView: View {
             }
         }
     }
-    
+
     // MARK: - Bottom Section
     private var bottomSection: some View {
         VStack(spacing: 15) {
@@ -104,15 +103,25 @@ struct PartyDetailFullCommentView: View {
                     placeholder: "댓글을 작성해주세요"
                 )
                 .frame(width: 295, height: 40)
-                
-                SubmitCommentButton(title: "등록", isEnabled: !commentText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    .frame(width: 54, height: 40)
+
+                SubmitCommentButton(
+                    title: "등록",
+                    isEnabled: !commentText.trimmingCharacters(
+                        in: .whitespacesAndNewlines
+                    ).isEmpty
+                ) {
+                    Task {
+                        await viewModel.addComment(content: commentText)
+                        commentText = ""
+                    }
+                    UIApplication.shared.endEditing()
+                }
             }
         }
     }
 }
 
-struct CommentFieldView: View {
+private struct CommentFieldView: View {
     @Binding var text: String
     let placeholder: String
 
@@ -143,23 +152,29 @@ struct CommentFieldView: View {
 private struct SubmitCommentButton: View {
     let title: String
     let isEnabled: Bool
+    let action: () -> Void
 
     var body: some View {
-        Text(title)
-            .font(.pretend(type: .semibold, size: 18))
-            .foregroundColor(isEnabled ? .black : Color.gray40)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity)
-            .background(isEnabled ? Color.primaryColor : Color.gray10)
-            .cornerRadius(12)
+        Button(action: action) {
+            Text(title)
+                .font(.pretend(type: .semibold, size: 18))
+                .foregroundColor(isEnabled ? .black : Color.gray40)
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(isEnabled ? Color.primaryColor : Color.gray10)
+                .cornerRadius(12)
+        }
+        .disabled(!isEnabled)
     }
 }
 
 #Preview {
     NavigationStack {
         PartyDetailFullCommentView(
-            party: Party.sampleData,
-            currentUser: User.sampleCurrentUser
+            viewModel: PartyDetailViewModel(
+                partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
+            ),
+            party: Party.sampleData
         )
     }
 }

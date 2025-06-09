@@ -12,10 +12,6 @@ extension Party {
     static var sampleData: Party {
         return Party(
             writen: User.sampleHost,
-//            member: Array(User.sampleUsers[1...2]), // 쇼핑중독, 뚠뚠
-//            updatedAt: Date(),
-//            status: PartyStatus.recruiting,
-//            waitingMembers: Array(User.sampleUsers[3...4]),
             title: "냉장 삼겹살 3kg 파티원 모집",
             category: .meat,
             orderType: .groupPurchase,
@@ -170,32 +166,9 @@ extension Party {
             location: locations.randomElement()!
         )
     }
-    
-    // MARK: - Filtered Data
-//    static var recruitingParties: [Party] {
-//        return mockDataSet.filter { $0.status == .recruiting }
-//    }
-//    
-//    static var inProgressParties: [Party] {
-//        return mockDataSet.filter { $0.status == .inProgress }
-//    }
-//    
-//    static var completedParties: [Party] {
-//        return mockDataSet.filter { $0.status == .completed }
-//    }
-//    
-//    // MARK: - Category Specific
-//    static func parties(for category: FoodCategory) -> [Party] {
-//        return mockDataSet.filter { $0.category == category }
-//    }
-//    
-//    // MARK: - Price Range
-//    static func parties(priceRange: ClosedRange<Int>) -> [Party] {
-//        return mockDataSet.filter { priceRange.contains($0.totalPrice) }
-//    }
-}
-
+  
 // MARK: - Extensions for Enum Cases
+
 //extension Party.PartyStatus: CaseIterable {
 //    public static var allCases: [Party.PartyStatus] {
 //        return [.recruiting, .inProgress, .completed]
@@ -219,3 +192,22 @@ extension Party {
 //        return [.weight, .count]
 //    }
 //}
+
+// extension Party.PartyStatus: CaseIterable {
+//     public static var allCases: [Party.PartyStatus] {
+//         return [.recruiting, .inProgress, .completed]
+//     }
+// }
+
+// extension Party.PurchaseChannel: CaseIterable {
+//     public static var allCases: [Party.PurchaseChannel] {
+//         return [.online, .offline]
+//     }
+// }
+
+// extension Party.WeightAndCount: CaseIterable {
+//     public static var allCases: [Party.WeightAndCount] {
+//         return [.weight, .count]
+//     }
+
+

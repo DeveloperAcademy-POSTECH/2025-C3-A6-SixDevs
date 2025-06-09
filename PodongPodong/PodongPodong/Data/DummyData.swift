@@ -3,7 +3,9 @@
 //  PodongPodong
 //
 //  Created by Paidion on 6/9/25.
-//
+//  Created by 김민석 on 6/5/25.
+
+
 
 import Foundation
 
@@ -76,6 +78,7 @@ enum DummyData {
         description: "바다 향 가득한 신선 해산물, 인원 모이면 추가 할인 있어요!",
         chatURL: "https://chat.example.com/room/SEA456"
     )
+
 
     static let partyGroup4 = Party(
         writen: user,
@@ -218,6 +221,7 @@ enum DummyData {
     )
 
     // MARK: - 장보기 파티 10개
+
     static let partyShopping1 = Party(
         writen: user,
         title: "장보기 같이 해요: 야채·두부·계란",
@@ -238,6 +242,9 @@ enum DummyData {
         chatURL: "https://chat.example.com/room/SHOP123"
     )
 
+  
+  
+  
     static let partyShopping2 = Party(
         writen: user,
         title: "장보기 파티: 간식류·음료",
@@ -257,6 +264,7 @@ enum DummyData {
         description: "주말에 간식이랑 음료 사러 가는데, 같이 가실 분 구해요. 인원수만큼 할인가 적용됩니다!",
         chatURL: "https://chat.example.com/room/SNACK456"
     )
+
 
     static let partyShopping3 = Party(
         writen: user,
@@ -420,10 +428,15 @@ enum DummyData {
     
 
     
+
+    
+    // 모든 더미 파티를 통합한 배열 (필요 시 사용)
+
     static let allParties: [Party] = [
         partyGroup1,
         partyGroup2,
         partyGroup3,
+
         partyGroup4,
         partyGroup5,
         partyGroup6,
@@ -442,6 +455,4 @@ enum DummyData {
         partyShopping9,
         partyShopping10
     ]
-    
-    
 }

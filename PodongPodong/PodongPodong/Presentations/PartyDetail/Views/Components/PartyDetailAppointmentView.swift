@@ -17,28 +17,20 @@ struct PartyDetailAppointmentView: View {
                 .foregroundStyle(Color.gray40)
 
             HStack {
-                // 날짜, 시간 선택 기능 구현 후 수정 예정
-                // 각 영역별로 선택 안하는 경우 "미정"이라고 텍스트 대체하기
-                if party.appointment.date != nil {
-                    AppointmentInfoView(
-                        icon: "calendar",
-                        info: Date().formattedMonthDay
-                    )
-                }
+                AppointmentInfoView(
+                    icon: "calendar",
+                    info: party.appointment.date?.formattedMonthDay ?? "미정"
+                )
 
-                if party.appointment.time != nil {
-                    AppointmentInfoView(
-                        icon: "clock",
-                        info: Date().formattedHour
-                    )
-                }
+                AppointmentInfoView(
+                    icon: "clock",
+                    info: party.appointment.time?.formattedHour ?? "미정"
+                )
 
-                if let location = party.appointment.location {
-                    AppointmentInfoView(
-                        icon: "location.circle",
-                        info: location
-                    )
-                }
+                AppointmentInfoView(
+                    icon: "location.circle",
+                    info: party.appointment.location ?? "미정"
+                )
             }
         }
     }
@@ -55,6 +47,8 @@ struct AppointmentInfoView: View {
 
             Text(info)
                 .font(.pretend(type: .medium, size: 15))
+                .lineLimit(1)
+                .minimumScaleFactor(8 / 15)
         }
         .padding(.trailing, 25)
     }

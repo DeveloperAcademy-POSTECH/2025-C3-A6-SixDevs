@@ -7,8 +7,10 @@
 
 enum OrderType: Int, Codable, Identifiable, CaseIterable {
     case groupPurchase = 0   // 공동구매
+
     case personalShopping = 1 // 장보기
     var id: Int { rawValue }
+
     var title: String {
         switch self {
         case .groupPurchase: return "공동구매"

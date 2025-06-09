@@ -58,6 +58,7 @@ extension Font {
     static var pretendardSemibold38: Font { .pretend(type: .semibold, size: 38) }
     
     // Medium
+    static var pretendardMedium8: Font  { .pretend(type: .medium, size: 8) }
     static var pretendardMedium12: Font  { .pretend(type: .medium, size: 12) }
     static var pretendardMedium14: Font  { .pretend(type: .medium, size: 14) }
     static var pretendardMedium16: Font  { .pretend(type: .medium, size: 16) }

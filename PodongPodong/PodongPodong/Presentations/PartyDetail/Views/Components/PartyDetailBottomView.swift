@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct PartyDetailBottomView: View {
-    let party: Party
-    let currentUser: User
+    @ObservedObject var viewModel: PartyDetailViewModel
 
     var body: some View {
         HStack {
@@ -22,49 +21,42 @@ struct PartyDetailBottomView: View {
     //MARK: - Like Button
     private var likeButton: some View {
         Button {
-            // 좋아요 버튼
+            Task {
+                await viewModel.toggleLike()
+            }
+
         } label: {
-            Image(systemName: "heart")
+            Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                 .font(.system(size: 36, weight: .regular))
-                .foregroundStyle(.black)
+                .foregroundStyle(viewModel.isLiked ? .red : .black)
         }
     }
 
     //MARK: - Action Button
     private var actionButton: some View {
         Button {
-            // 파티 참여/마감
+            Task {
+                await viewModel.handleMainActionButton()
+            }
         } label: {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.primaryColor)
+                .fill(viewModel.viewConfiguration.actionButtonColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)
                 .overlay {
-                    Text(buttonTitle)
+                    Text(viewModel.viewConfiguration.actionButtonTitle)
                         .font(.pretend(type: .semibold, size: 18))
-                        .foregroundStyle(Color.secondary)
+                        .foregroundStyle(viewModel.viewConfiguration.actionButtonTextColor)
                 }
         }
-    }
-
-    //MARK: - Helper Properties
-    private var isHost: Bool {
-        party.writen.id == currentUser.id
-    }
-
-    private var buttonTitle: String {
-        // 참여중, 참여 신청중, 파티 종료하기 상태 추가
-        if isHost {
-            return "파티 마감하기"
-        } else {
-            return "파티 참여하기"
-        }
+        .disabled(!viewModel.viewConfiguration.isActionButtonEnabled)
     }
 }
 
 #Preview {
     PartyDetailBottomView(
-        party: Party.sampleData,
-        currentUser: User.sampleCurrentUser
+        viewModel: PartyDetailViewModel(
+            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B"
+        )
     )
 }

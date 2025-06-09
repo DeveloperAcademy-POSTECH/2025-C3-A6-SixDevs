@@ -53,6 +53,23 @@ final class FirestoreManager {
         return decoded
     }
     
+    
+    func getUserInfo<T: Decodable>(_ id: String, collectionType: CollectionType) async throws -> T? {
+        let snapshot = try await db
+            .collection(collectionType.rawValue)
+            .document(id)
+            .getDocument()
+
+        guard let data = snapshot.data() else {
+            throw Error.fetchFailed(underlying: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "문서가 존재하지 않습니다."]))
+        }
+
+        let jsonData = try JSONSerialization.data(withJSONObject: data)
+        let decoded = try JSONDecoder().decode(T.self, from: jsonData)
+
+        return decoded
+    }
+    
     // MARK: Fetch(데이터를 여러개 가져오는 함수)
     /// id: 해당 데이터의 고유 id
     /// Decodable로 반환 가능
