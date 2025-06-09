@@ -72,10 +72,9 @@ struct MyPageView: View {
     // MARK: - Information View
     private var informationView: some View {
         HStack(spacing: 12) {
-            Image(systemName: "person.2")
-            // TODO: 나중에 프로필 사진으로 바꿔야 함!!!
+            Image("TempProfileImage")
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
                 .frame(width: 72, height: 72)
                 .clipShape(Circle())
             
