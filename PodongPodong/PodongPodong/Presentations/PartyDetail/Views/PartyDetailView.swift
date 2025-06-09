@@ -9,15 +9,15 @@ import SwiftUI
 
 struct PartyDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    
+    let party: Party
+    let currentUser: User = DummyData.user
     @StateObject private var viewModel: PartyDetailViewModel
 
-    let currentUser: User
-
-    init(partyID: String, currentUser: User) {
+    init(party: Party) {
         self._viewModel = StateObject(
             wrappedValue: PartyDetailViewModel(partyID: partyID)
         )
-        self.currentUser = currentUser
     }
 
     // MARK: - Main Content
@@ -112,10 +112,6 @@ struct PartyDetailView: View {
 
 #Preview {
     NavigationStack {
-        PartyDetailView(
-            partyID: "AF4C9D32-32D7-4FF0-8FD7-D702A7E4A58B",
-            currentUser: User.sampleHost
-        )
+        PartyDetailView(party: Party.sampleData)
     }
-
 }

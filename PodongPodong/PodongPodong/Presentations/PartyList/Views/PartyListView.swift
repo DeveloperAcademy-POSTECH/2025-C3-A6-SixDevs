@@ -39,7 +39,7 @@ struct PartyListView: View {
                 )
                 
                 // TODO: 생성 화면으로 이동
-                NavigationLink(destination: PartyListView()) {
+                NavigationLink(destination: PartyCreateView()) {
                     PlusFloatingView(size: 56)
                 }
                 .frame(maxHeight: .infinity, alignment: .bottom)
