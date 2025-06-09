@@ -19,11 +19,14 @@ struct PartyCreateView: View {
                 TitleView(title: $viewModel.title)
                 CategoryView(selectedCategory: $viewModel.selectedCategory)
                 RecruitmentCountView(recruitmentCount: $viewModel.recruitmentCount)
-                PurchaseLocationView(selectedPurchaseChannel: $viewModel.selectedPurchaseChannle)
+                PurchaseLocationView(
+                    selectedPurchaseChannel: $viewModel.selectedPurchaseChannle,
+                    purchaseLocation: $viewModel.purchaseLocation
+                )
                 if viewModel.selectedOrderType == .groupPurchase {
                     PriceAndWeightView(
                         totalPrice: $viewModel.totalPrice,
-                        selectedweightAndCount: $viewModel.selectedweightAndCount,
+                        selectedWeightAndCount: $viewModel.selectedWeightAndCount,
                         amount: $viewModel.amount
                     )
                 }
@@ -33,6 +36,12 @@ struct PartyCreateView: View {
                     selectedPlace: $viewModel.selectedPlace
                 )
                 DescriptionView(description: $viewModel.description)
+                Button {
+                    // TODO: 생성 로직
+                } label: {
+                    ActionButtonView(title: "생성하기", isEnabled: viewModel.isButtonEnabled)
+                        .frame(width: 351)
+                }
             }
         }
         .navigationBarTitle("파티 만들기", displayMode: .inline)
