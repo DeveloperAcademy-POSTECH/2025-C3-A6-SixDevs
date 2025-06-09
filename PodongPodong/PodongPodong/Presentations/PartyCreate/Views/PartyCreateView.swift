@@ -9,9 +9,8 @@ import SwiftUI
 
 struct PartyCreateView: View {
     @State private var title: String = ""
-    @State private var selectOrderType: OrderType = .groupPurchase
-    @State private var selectCategoryType = ""
-    @State private var selectedCategory = ""
+    @State private var selectedOrder: OrderType = .groupPurchase
+    @State private var selectedCategory: FoodCategory = .meat
     @State private var selectedPlace = ""
     @State private var selectUnit = ""
     @State private var partySize = 2 //참여 인원
@@ -23,36 +22,16 @@ struct PartyCreateView: View {
     var body: some View {
         ScrollView{
             VStack(spacing: 38){
-                OrderTypeView(selectedOrderType: $selectOrderType)
+                OrderTypeView(selectedOrderType: $selectedOrder)
                 TitleView(title: $title)
-                categoryTypeView
+                CategoryView(selectedCategory: $selectedCategory)
                 partySizeView
                 placeTypeView
 //                if selectOrderType != "장보기"{priceView
 //                    unitView}
                 appointmentView
                 descriptionView
-            } //: VStack
-        } //: ScrollView
-    }
-        
-    // MARK: - categoryTypeView 구매 카테고리
-    @ViewBuilder
-    var categoryTypeView : some View{
-        VStack{
-            Text("구매 카테고리")
-                .frame(maxWidth:.infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .font(.pretendardMedium16)
-            HStack(spacing:12){
-                ForEach(categories, id: \.self) { category in
-                    SelectableChipButtonView(
-                        title: category,
-                        isSelected: .constant(selectCategoryType == category),
-                        action: { selectCategoryType = category }
-                    )
-                }
-            } //:HSTACK
+            }
         }
     }
         
