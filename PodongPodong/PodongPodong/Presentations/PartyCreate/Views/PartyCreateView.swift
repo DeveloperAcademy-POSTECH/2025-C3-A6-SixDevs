@@ -11,6 +11,7 @@ struct PartyCreateView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var viewModel = PartyCreateViewModel()
+    @EnvironmentObject var router: MainNavigationRouter
     
     var body: some View {
         ZStack {
@@ -73,6 +74,11 @@ struct PartyCreateView: View {
             Button("확인", role: .cancel) { }
         } message: {
             Text(viewModel.errorMessage ?? "알 수 없는 에러가 발생했어요.")
+        }
+        .onChange(of: viewModel.isCreateSuccess) { isSuccess in
+            if isSuccess {
+                // TODO: DetailView 이동
+            }
         }
     }
 }

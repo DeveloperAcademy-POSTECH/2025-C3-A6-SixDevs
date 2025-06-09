@@ -19,6 +19,7 @@ extension PartyListView {
                         ForEach(parties) { party in
                             ZStack {
                                 NavigationLink {
+                                    // TODO: 파티 디테일 이동
                                     PartyDetailView(party: party)
                                         .navigationBarBackButtonHidden()
                                 } label: {
