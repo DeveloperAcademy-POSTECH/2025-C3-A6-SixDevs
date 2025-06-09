@@ -260,7 +260,7 @@ enum DummyData {
 
     static let partyShopping3 = Party(
         writen: user,
-        title: "육류 장보기 - 온라인",
+        title: "육류 장보기 - 오프라인",
         category: .meat,
         orderType: .personalShopping,
         recruitmentCount: 2,
@@ -300,7 +300,7 @@ enum DummyData {
 
     static let partyShopping5 = Party(
         writen: user,
-        title: "과일 장보기 - 온라인",
+        title: "과일 장보기 - 오프라인",
         category: .fruit,
         orderType: .personalShopping,
         recruitmentCount: 2,
@@ -340,7 +340,7 @@ enum DummyData {
 
     static let partyShopping7 = Party(
         writen: user,
-        title: "기타 식품 장보기 - 온라인",
+        title: "기타 식품 장보기 - 오프라인",
         category: .etc,
         orderType: .personalShopping,
         recruitmentCount: 2,
@@ -380,7 +380,7 @@ enum DummyData {
 
     static let partyShopping9 = Party(
         writen: user,
-        title: "채소 장보기 - 온라인",
+        title: "채소 장보기 - 오프라인",
         category: .vegetable,
         orderType: .personalShopping,
         recruitmentCount: 2,
