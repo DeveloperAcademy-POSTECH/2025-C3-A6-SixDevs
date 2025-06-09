@@ -23,8 +23,15 @@ final class MyPageViewModel {
     var isComplete = false // 로그아웃
     var isCompleteWithdrawal = false // 회원탈퇴
     
+    // MARK: - 프리뷰에서는 loadUserInfo()이 안되도록 설정
     init() {
-        loadUserInfo()
+        #if DEBUG
+            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" {
+                loadUserInfo()
+            }
+        #else
+            loadUserInfo()
+        #endif
     }
     
     // MARK: - 유저 데이터 불러오기
