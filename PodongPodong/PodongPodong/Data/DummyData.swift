@@ -5,10 +5,7 @@
 //  Created by Paidion on 6/9/25.
 //  Created by 김민석 on 6/5/25.
 
-
-
 import Foundation
-
 
 enum DummyData {
     static let user = User(
@@ -31,8 +28,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 3000,
         appointment: Party.Appointment(
-            date: "2025년 06월 10일",
-            time: "오후 1시 00분",
+            date: "6월 10일",
+            time: "오후 1시",
             location: "부산 해운대 시장"
         ),
         description: "함께 주문하면 배송비 아깝지 않아요! 같이 가실 분 구합니다.",
@@ -51,7 +48,7 @@ enum DummyData {
         weightAndCount: .count,
         amount: 10,
         appointment: Party.Appointment(
-            date: "2025년 06월 11일",
+            date: "6월 11일",
             time: "오후 12시 30분",
             location: "서울 강남 농수산물시장"
         ),
@@ -71,14 +68,13 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2000,
         appointment: Party.Appointment(
-            date: "2025년 06월 12일",
-            time: "오후 2시 00분",
+            date: "6월 12일",
+            time: "오후 2시",
             location: "부산 자갈치 시장 3층 집결지"
         ),
         description: "바다 향 가득한 신선 해산물, 인원 모이면 추가 할인 있어요!",
         chatURL: "https://chat.example.com/room/SEA456"
     )
-
 
     static let partyGroup4 = Party(
         writen: user,
@@ -92,8 +88,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 3000,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 5),
-            time: Date().addingTimeInterval(3600 * 24 * 5 + 1800),
+            date: "6월 15일",
+            time: "오후 2시 30분",
             location: "강남 농수산물시장 입구"
         ),
         description: "채소를 저렴하게 오프라인에서 함께 구매해요.",
@@ -112,8 +108,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 5,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 8),
-            time: Date().addingTimeInterval(3600 * 24 * 8 + 3600),
+            date: "6월 18일",
+            time: "오후 3시",
             location: "대전역 앞"
         ),
         description: "기타 식품도 함께 공동구매해요.",
@@ -132,8 +128,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2500,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 9),
-            time: Date().addingTimeInterval(3600 * 24 * 9 + 3600),
+            date: "6월 19일",
+            time: "오후 4시",
             location: "수원 전통시장 정문"
         ),
         description: "육류를 오프라인에서 저렴하게!",
@@ -152,8 +148,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 8,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 10),
-            time: Date().addingTimeInterval(3600 * 24 * 10 + 3600),
+            date: "6월 20일",
+            time: "오후 4시",
             location: "서울역 1층"
         ),
         description: "신선 채소 온라인 공동구매!",
@@ -172,8 +168,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 10,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 11),
-            time: Date().addingTimeInterval(3600 * 24 * 11 + 3600),
+            date: "6월 21일",
+            time: "오후 4시",
             location: "대구 농산물시장 입구"
         ),
         description: "과일을 오프라인에서 함께 구매해요.",
@@ -192,8 +188,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 3500,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 12),
-            time: Date().addingTimeInterval(3600 * 24 * 12 + 3600),
+            date: "6월 22일",
+            time: "오후 4시",
             location: "부산역 앞"
         ),
         description: "해산물 온라인 공동구매!",
@@ -212,8 +208,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 6,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 13),
-            time: Date().addingTimeInterval(3600 * 24 * 13 + 3600),
+            date: "6월 23일",
+            time: "오후 4시",
             location: "광주 시장 입구"
         ),
         description: "기타 식품 오프라인 공동구매!",
@@ -234,17 +230,14 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2500,
         appointment: Party.Appointment(
-            date: "2025년 06월 11일",
-            time: "오전 11시 00분",
+            date: "6월 11일",
+            time: "오전 11시",
             location: "부산 센텀시티 이마트"
         ),
         description: "저는 주말에 야채랑 두부, 계란 구매 예정이에요. 같이 주문할 분, 연락주세요!",
         chatURL: "https://chat.example.com/room/SHOP123"
     )
 
-  
-  
-  
     static let partyShopping2 = Party(
         writen: user,
         title: "장보기 파티: 간식류·음료",
@@ -257,14 +250,13 @@ enum DummyData {
         weightAndCount: .count,
         amount: 6,
         appointment: Party.Appointment(
-            date: "2025년 06월 12일",
-            time: "오후 3시 00분",
+            date: "6월 12일",
+            time: "오후 3시",
             location: "부산 서면 롯데마트 정문 앞"
         ),
         description: "주말에 간식이랑 음료 사러 가는데, 같이 가실 분 구해요. 인원수만큼 할인가 적용됩니다!",
         chatURL: "https://chat.example.com/room/SNACK456"
     )
-
 
     static let partyShopping3 = Party(
         writen: user,
@@ -278,8 +270,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 1200,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 14),
-            time: Date().addingTimeInterval(3600 * 24 * 14 + 3600),
+            date: "6월 24일",
+            time: "오후 4시",
             location: "서울 마트"
         ),
         description: "육류 장보기, 온라인으로 빠르게!",
@@ -298,8 +290,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 2000,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 15),
-            time: Date().addingTimeInterval(3600 * 24 * 15 + 1800),
+            date: "6월 25일",
+            time: "오후 2시 30분",
             location: "강남 마트 입구"
         ),
         description: "채소 장보기, 오프라인에서 함께해요.",
@@ -318,8 +310,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 7,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 16),
-            time: Date().addingTimeInterval(3600 * 24 * 16 + 3600),
+            date: "6월 26일",
+            time: "오후 4시",
             location: "서울역 2층"
         ),
         description: "과일 장보기, 온라인으로 저렴하게!",
@@ -338,8 +330,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 1800,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 17),
-            time: Date().addingTimeInterval(3600 * 24 * 17 + 3600),
+            date: "6월 27일",
+            time: "오후 4시",
             location: "부산 수산시장 정문"
         ),
         description: "해산물 장보기, 부산에서 신선하게!",
@@ -358,8 +350,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 4,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 18),
-            time: Date().addingTimeInterval(3600 * 24 * 18 + 3600),
+            date: "6월 28일",
+            time: "오후 4시",
             location: "대전 마트"
         ),
         description: "기타 식품 장보기, 온라인에서 쉽게!",
@@ -378,8 +370,8 @@ enum DummyData {
         weightAndCount: .weight,
         amount: 1300,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 19),
-            time: Date().addingTimeInterval(3600 * 24 * 19 + 3600),
+            date: "6월 29일",
+            time: "오후 4시",
             location: "수원 마트 입구"
         ),
         description: "육류 장보기, 수원에서 모여요!",
@@ -398,8 +390,8 @@ enum DummyData {
         weightAndCount: .count,
         amount: 6,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 20),
-            time: Date().addingTimeInterval(3600 * 24 * 20 + 3600),
+            date: "6월 30일",
+            time: "오후 4시",
             location: "서울역 3층"
         ),
         description: "채소 장보기, 온라인 공동구매!",
@@ -418,25 +410,19 @@ enum DummyData {
         weightAndCount: .count,
         amount: 3,
         appointment: Party.Appointment(
-            date: Date().addingTimeInterval(3600 * 24 * 23),
-            time: Date().addingTimeInterval(3600 * 24 * 23 + 3600),
+            date: "7월 3일",
+            time: "오후 4시",
             location: "광주 마트 입구"
         ),
         description: "기타 식품 장보기, 광주에서 함께!",
         chatURL: "https://chat.example.com/room/ETCSHOP2"
     )
-    
 
-    
-
-    
     // 모든 더미 파티를 통합한 배열 (필요 시 사용)
-
     static let allParties: [Party] = [
         partyGroup1,
         partyGroup2,
         partyGroup3,
-
         partyGroup4,
         partyGroup5,
         partyGroup6,
