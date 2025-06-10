@@ -23,15 +23,14 @@ final class PartyListViewModel {
     var currentParties: [Party] {
         switch selectedOrderType {
         case .groupPurchase:
+            if selectedFoodCategory != .all {
+                return partyList.filter { $0.orderType == .groupPurchase && $0.category == selectedFoodCategory }
+            }
+            
             return partyList.filter { $0.orderType == .groupPurchase }
         case .personalShopping:
-            var partyList: [Party] = []
-            var currentParties: [Party] {
-                partyList
-                    .filter { $0.orderType == selectedOrderType }
-                    .filter { selectedFoodCategory == .all || $0.category == selectedFoodCategory }
-                
-                
+            if selectedFoodCategory != .all {
+                return partyList.filter { $0.orderType == .personalShopping && $0.category == selectedFoodCategory }
             }
             
             return partyList.filter { $0.orderType == .personalShopping }

@@ -12,7 +12,7 @@ struct NotificationView: View {
         VStack{
             HStack{
                 Button(action:{
-                    //뒤로가기
+                    //TODO: 내비게이션
                 }) {
                     Image(systemName: "chevron.left")
                         .resizable()
@@ -37,6 +37,7 @@ struct NotificationView: View {
             .padding(.top, 16)
             VStack(spacing: 0){
                 NotificationListItemView(image: "circle", title: "반가와용!", description: "포동포동에 온 걸 환영해욤", date: "1")
+                Spacer()
             }
         }
     }

@@ -28,10 +28,24 @@ extension SearchView {
                     ForEach(OrderType.allCases) { tab in
                         List {
                             ForEach(parties) { party in
-                                PartyListItem(party: party)
-                                    .listRowSeparator(.hidden)
-                                    .listRowInsets(.init(top: 15, leading: 15,
-                                                         bottom: 0, trailing:15))
+                                ZStack {
+                                    NavigationLink {
+                                        // TODO: 파티 디테일 이동
+                                        PartyDetailView(party: party)
+                                            .navigationBarBackButtonHidden()
+                                    } label: {
+                                        EmptyView()
+                                    }
+                                    .opacity(0)
+                                    
+                                    PartyListItem(party: party)
+                                }
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(.init(top: 15,
+                                                     leading: 15,
+                                                     bottom: 0,
+                                                     trailing: 15))
                             }
                         }
                         .listStyle(PlainListStyle())
