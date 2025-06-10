@@ -16,7 +16,7 @@ struct PartyDetailView: View {
 
     @State private var showingMoreOptions = false
     @State private var showingDeleteAlert = false
-    @State private var sort: Int = 0
+    @State private var showingEditView = false
 
     init(party: Party) {
         self.party = party
@@ -63,6 +63,16 @@ struct PartyDetailView: View {
             } message: {
                 Text("정말로 이 파티를 삭제하시겠습니까?\n삭제된 파티는 복구할 수 없습니다.")
             }
+            .navigationDestination(isPresented: $showingEditView) {
+                if let currentParty = viewModel.party {
+                    PartyCreateView(party: currentParty)
+                        .onDisappear() {
+                            Task {
+                                await viewModel.refreshPartyDetail()
+                            }
+                        }
+                }
+            }
 
             PartyDetailBottomView(viewModel: viewModel)
                 .frame(height: 30)
@@ -78,6 +88,9 @@ struct PartyDetailView: View {
             Button("확인", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "알 수 없는 오류가 발생했습니다.")
+        }
+        .task {
+            await viewModel.fetchPartyDetail()
         }
     }
 
@@ -118,7 +131,7 @@ struct PartyDetailView: View {
     private var moreOptionsButton: some View {
         Menu {
             Button {
-                // 파티 정보 수정하기 기능
+                handleEditParty()
             } label: {
                 Label("파티 수정하기", systemImage: "square.and.pencil")
             }
@@ -133,6 +146,11 @@ struct PartyDetailView: View {
                 .foregroundStyle(.black)
         }
     }
+    
+    private func handleEditParty() {
+        showingEditView = true
+    }
+    
 }
 
 #Preview {
