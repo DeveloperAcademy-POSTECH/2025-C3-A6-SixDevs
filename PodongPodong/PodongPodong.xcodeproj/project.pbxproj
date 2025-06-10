@@ -19,7 +19,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
+		C94C99302DF72F83005C5A8F /* Exceptions for "PodongPodong" folder in "PodongPodong" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -32,7 +32,7 @@
 		C97F5A4E2DEC6D2800889652 /* PodongPodong */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C97F5DEF2DEDBC7B00889652 /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
+				C94C99302DF72F83005C5A8F /* Exceptions for "PodongPodong" folder in "PodongPodong" target */,
 			);
 			path = PodongPodong;
 			sourceTree = "<group>";

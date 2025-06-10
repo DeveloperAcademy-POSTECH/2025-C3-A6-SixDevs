@@ -53,6 +53,23 @@ final class FirestoreManager {
         return decoded
     }
     
+    
+    func getUserInfo<T: Decodable>(_ id: String, collectionType: CollectionType) async throws -> T? {
+        let snapshot = try await db
+            .collection(collectionType.rawValue)
+            .document(id)
+            .getDocument()
+
+        guard let data = snapshot.data() else {
+            throw Error.fetchFailed(underlying: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "문서가 존재하지 않습니다."]))
+        }
+
+        let jsonData = try JSONSerialization.data(withJSONObject: data)
+        let decoded = try JSONDecoder().decode(T.self, from: jsonData)
+
+        return decoded
+    }
+    
     // MARK: Fetch(데이터를 여러개 가져오는 함수)
     /// id: 해당 데이터의 고유 id
     /// Decodable로 반환 가능
@@ -93,6 +110,43 @@ final class FirestoreManager {
         
         return items
     }
+
+// TODO: 필터링 fetch 기능 확인 필요
+    func fetchWithFilters<T: Decodable>(
+        as type: T.Type,
+        _ collectionType: CollectionType,
+        filters: [String: Any] = [:],
+        order: String? = nil,
+        count: Int = 0
+    ) async throws -> [T] {
+        var query: Query = db.collection(collectionType.rawValue)
+        
+        for (field, value) in filters {
+            if field == "status" {
+                if value as! Bool {
+                    query = query.whereField(field, isNotEqualTo: PartyStatus.completed.rawValue)
+                    continue
+                } else { continue }
+            }
+            
+            query = query.whereField(field, isEqualTo: value)
+        }
+        
+        if let order = order { query = query.order(by: order, descending: true) }
+        if count > 0 { query = query.limit(to: count) }
+        
+        let snapshot = try await query.getDocuments()
+        let items: [T] = try snapshot.documents.compactMap { document in
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: document.data()),
+                  let decoded = try? JSONDecoder().decode(T.self, from: jsonData)
+            else {
+                throw Error.decodingFailed
+            }
+            return decoded
+        }
+        return items
+    }
+    
     
     // MARK: Delete
     /// 데이터를 제거하는 함수

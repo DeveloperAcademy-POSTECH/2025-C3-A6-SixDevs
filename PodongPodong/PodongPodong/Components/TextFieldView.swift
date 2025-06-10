@@ -12,6 +12,7 @@ struct TextFieldView: View {
     let placeholder: String
     private(set) var suffixText: String? = nil
     private(set) var icon: Image? = nil
+    private(set) var isNumeric: Bool = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -31,6 +32,7 @@ struct TextFieldView: View {
             )
             .font(.pretendardSemibold18)
             .foregroundColor(.black)
+            .keyboardType(isNumeric ? .decimalPad : .default)
 
             if let suffix = suffixText {
                 Text(suffix)
@@ -50,6 +52,34 @@ struct TextFieldView: View {
         .onSubmit {
             hideKeyboard()
         }
+    }
+}
+
+extension TextFieldView {
+    init(
+        intValue: Binding<Int?>,
+        placeholder: String,
+        suffixText: String? = nil,
+        icon: Image? = nil
+    ) {
+        let stringBinding = Binding<String>(
+            get: {
+                if let value = intValue.wrappedValue {
+                    return String(value)
+                } else {
+                    return ""
+                }
+            },
+            set: {
+                intValue.wrappedValue = Int($0)
+            }
+        )
+        
+        self._text = stringBinding
+        self.placeholder = placeholder
+        self.suffixText = suffixText
+        self.icon = icon
+        self.isNumeric = true // ✅ 여기가 핵심
     }
 }
 
@@ -77,7 +107,7 @@ struct TextFieldView: View {
     ).frame(width: 361, height: 48)
     
     TextFieldView(
-        text: .constant(""),
+        intValue: .constant(0),
         placeholder: "개수를 입력해주세요",
         suffixText: "g"
     ).frame(width: 361, height: 48)
