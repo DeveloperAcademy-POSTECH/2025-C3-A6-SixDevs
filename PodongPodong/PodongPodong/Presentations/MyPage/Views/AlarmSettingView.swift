@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct AlarmSettingView: View {
+    
+    @EnvironmentObject var router: MainNavigationRouter
+    
     var body: some View {
         ZStack {
             Image("AlarmSettingViewImage")
@@ -21,7 +24,7 @@ struct AlarmSettingView: View {
             ToolbarItem(placement: .topBarLeading) {
                 
                 Button {
-//                    router.pop()
+                    router.pop()
                 } label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color.black)

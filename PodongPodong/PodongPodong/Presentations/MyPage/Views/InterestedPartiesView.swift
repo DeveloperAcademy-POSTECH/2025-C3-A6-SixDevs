@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct InterestedPartiesView: View {
+    
+    @EnvironmentObject var router: MainNavigationRouter
+    
     var body: some View {
         ZStack {
             Image("InterestedPartiesViewImage")
@@ -18,9 +21,8 @@ struct InterestedPartiesView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                
                 Button {
-//                    router.pop()
+                    router.pop()
                 } label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color.black)

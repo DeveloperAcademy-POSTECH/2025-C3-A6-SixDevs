@@ -10,6 +10,9 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    
+    @EnvironmentObject var router: MainNavigationRouter
+    
     var body: some View {
         ZStack {
             Image("EditProfileViewImage")
@@ -22,7 +25,7 @@ struct EditProfileView: View {
             ToolbarItem(placement: .topBarLeading) {
                 
                 Button {
-                    //                    router.pop()
+                    router.pop()
                 } label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color.black)

@@ -11,6 +11,7 @@ struct MyPageView: View {
     @State private var viewModel: MyPageViewModel = .init()
     @State private var showOnboarding = false
     
+    @EnvironmentObject var router: MainNavigationRouter
     
     var body: some View {
         ZStack {
@@ -67,6 +68,8 @@ struct MyPageView: View {
         .fullScreenCover(isPresented: $showOnboarding) {
             OnboardingView()
         }
+        
+        
     }
     
     // MARK: - Information View
@@ -110,7 +113,6 @@ struct MyPageView: View {
     }
     
     // MARK: - Review View
-    
     private var reviewView: some View {
         RoundedRectangle(cornerRadius: 12)
             .fill(Color.gray00)
@@ -190,7 +192,6 @@ struct MyPageView: View {
         }
     }
        
-    
     // MARK: - My Activity View
     private var myActivityView: some View {
         List {
@@ -202,7 +203,7 @@ struct MyPageView: View {
                 
                 ForEach(section.items, id: \.self) { item in
                     MyPageListItem(title: item.title) {
-                        viewModel.handleAction(item: item)
+                        handleAction(item: item)
                     }
                     .padding(EdgeInsets(top: 12, leading: 4, bottom: 12, trailing: 0))
                 }
@@ -211,6 +212,25 @@ struct MyPageView: View {
         }
         .listStyle(.plain)
         .scrollIndicators(.hidden)
+    }
+    
+    private func handleAction(item: MyPageItem) {
+        switch item {
+        case .receivedReviews:
+            router.push(to: .myReviewView)
+        case .joinedParties:
+            router.push(to: .participatedView)
+        case .favoriteParties:
+            router.push(to: .interestedPartiesView)
+        case .notificationSettings:
+            router.push(to: .alarmSettingView)
+        case .keywordRegistration:
+            router.push(to: .keywordRegistrationView)
+        case .logout:
+            viewModel.alertType = .signOut
+        case .withdrawal:
+            viewModel.alertType = .withdrawal
+        }
     }
     
 }

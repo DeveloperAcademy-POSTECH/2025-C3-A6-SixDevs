@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MyReviewView: View {
+    
+    @EnvironmentObject var router: MainNavigationRouter
+    
     var body: some View {
         ZStack {
             Image("MyReviewImage")
@@ -20,7 +23,7 @@ struct MyReviewView: View {
             ToolbarItem(placement: .topBarLeading) {
                 
                 Button {
-//                    router.pop()
+                router.pop()
                 } label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color.black)
