@@ -35,6 +35,7 @@ struct RootView: View {
                 switch route {
                 case .chatView(let channelURL):
                     ChatView(provider: GroupChannelViewProvider(channelURL: channelURL))
+                    
                 }
             }
         }
