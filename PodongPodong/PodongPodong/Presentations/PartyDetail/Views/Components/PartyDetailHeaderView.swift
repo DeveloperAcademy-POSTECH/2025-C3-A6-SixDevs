@@ -50,7 +50,7 @@ struct PartyDetailHeaderView: View {
     // MARK: - Statistics Section
     private var statisticsSection: some View {
         HStack {
-//            Text(getTimeAgoText())
+            Text(viewModel.getTimeAgoText)
             Spacer()
             Text("조회 \(party.viewCount)")
             Text("관심 \(party.likeCount)")

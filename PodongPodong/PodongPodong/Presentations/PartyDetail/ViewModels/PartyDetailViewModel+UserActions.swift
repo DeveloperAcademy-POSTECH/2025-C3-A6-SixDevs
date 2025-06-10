@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - User Actions
 extension PartyDetailViewModel {
-    
+
     // 파티 참여 신청
     func applyToParty() async {
         guard var party = party else { return }
@@ -35,7 +35,8 @@ extension PartyDetailViewModel {
             handleError(error)
         }
     }
-    
+
+    // 파티 떠나기
     func leaveParty() async {
         guard isParticipant, var party = party else { return }
 
@@ -76,12 +77,12 @@ extension PartyDetailViewModel {
     /// 댓글 작성
     func addComment(content: String) async {
         guard var party = party else { return }
-        
+
         let trimmedContent = content.trimmingCharacters(
             in: .whitespacesAndNewlines
         )
         guard !trimmedContent.isEmpty else { return }
-        
+
         do {
             let currentUser = getCurrentUser()
             let comment = PartyComment(
@@ -89,15 +90,15 @@ extension PartyDetailViewModel {
                 content: trimmedContent
             )
             party.comments.append(comment)
-            
+
             try await firestoreManager.update(party)
             self.party = party
-            
+
         } catch {
             handleError(error)
         }
     }
-    
+
     /// 좋아요 토글
     func toggleLike() async {
         guard let party = party else { return }
@@ -110,6 +111,22 @@ extension PartyDetailViewModel {
             handleError(error)
             isLiked.toggle()  // 실패시 원상복구
         }
+    }
+
+    // 메인 액션 버튼 클릭 처리 (Alert 고려)
+    func handleActionButtonTap() {
+        if viewConfiguration.shouldShowAlert {
+            showingActionAlert = true
+        } else {
+            Task {
+                await executeMainAction()
+            }
+        }
+    }
+
+    // Alert 확인 후 실제 액션 실행
+    func executeMainAction() async {
+        await handleMainActionButton()
     }
 
     /// 주요 액션 버튼 클릭 처리

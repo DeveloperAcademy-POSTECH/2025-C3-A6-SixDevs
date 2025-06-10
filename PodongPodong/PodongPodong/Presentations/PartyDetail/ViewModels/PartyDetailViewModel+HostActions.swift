@@ -76,4 +76,17 @@ extension PartyDetailViewModel {
             handleError(error)
         }
     }
+    
+    // 파티 삭제하기
+    func deleteParty() async {
+        guard isHost, var party = party else { return }
+        
+        do {
+            try await firestoreManager.delete(party)
+            self.party = nil
+            
+        } catch {
+            handleError(error)
+        }
+    }
 }

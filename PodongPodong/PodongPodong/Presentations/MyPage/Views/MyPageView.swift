@@ -111,6 +111,32 @@ struct MyPageView: View {
     
     // MARK: - Review View
     private var reviewView: some View {
+        }
+    }
+    
+    // MARK: - Account Setting View
+    private var accountSettingView: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("계정")
+                .font(.pretendardMedium18)
+                .foregroundStyle(Color.gray60)
+
+            Button(action:{
+                //로그아웃
+            }){
+                Text("로그아웃")
+                    .font(.pretendardMedium18)
+                    .foregroundStyle(.black)
+            }
+            Button(action:{
+                //회원 탈퇴
+            }){
+                Text("회원 탈퇴")
+                    .font(.pretendardMedium18)
+                    .foregroundStyle(.black)
+            }
+        }
+    }
         RoundedRectangle(cornerRadius: 12)
             .fill(Color.gray00)
             .frame(maxWidth: .infinity)
