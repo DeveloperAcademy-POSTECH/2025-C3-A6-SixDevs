@@ -20,5 +20,9 @@ enum AuthNavigationDestination: NavigationDestination {
 // MARK: - Home
 enum MainNavigationDestination: NavigationDestination {
     case chatView(channelURL: String)
+    //TODO: 내비게이션
+//    case searchView
+//    case notification
+    
     var id: Self { self }
 }

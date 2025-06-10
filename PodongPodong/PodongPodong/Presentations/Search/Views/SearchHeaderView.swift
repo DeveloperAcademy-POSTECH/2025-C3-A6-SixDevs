@@ -14,8 +14,7 @@ struct SearchHeaderView: View {
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                // TODO: 내비게이션 처리
-                print("이전 화면으로 이동하기")
+                //TODO: 내비게이션
             } label: {
                 Image(systemName: "chevron.left")
                     .foregroundStyle(.black)
