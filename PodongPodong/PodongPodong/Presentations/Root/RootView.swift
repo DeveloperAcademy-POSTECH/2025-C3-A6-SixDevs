@@ -28,6 +28,7 @@ struct RootView: View {
                 
                 Tab("마이", systemImage: "person") {
                     MyPageView()
+                        
                 }
             }
             .environmentObject(router)
@@ -35,8 +36,29 @@ struct RootView: View {
                 switch route {
                 case .chatView(let channelURL):
                     ChatView(provider: GroupChannelViewProvider(channelURL: channelURL))
+                case .myReviewView:
+                    MyReviewView()
+                        .environmentObject(router)
+                        .hideBackButton()
+                case .participatedView:
+                    ParticipatedView()
+                        .environmentObject(router)
+                        .hideBackButton()
+                case .interestedPartiesView:
+                    InterestedPartiesView()
+                        .environmentObject(router)
+                        .hideBackButton()
+                case .alarmSettingView:
+                    AlarmSettingView()
+                        .environmentObject(router)
+                        .hideBackButton()
+                case .keywordRegistrationView:
+                    KeywordRegistrationView()
+                        .environmentObject(router)
+                        .hideBackButton()
                 }
             }
+            .tint(Color.black)
         }
     }
 }

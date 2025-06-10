@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import SwiftUI
 
 enum MyPageAlertType {
     case signOut, withdrawal
@@ -53,25 +54,7 @@ final class MyPageViewModel {
         }
     }
     
-    func handleAction(item: MyPageItem) {
-        switch item {
-        case .receivedReviews:
-            print("내가 받은 후기 이동")
-        case .joinedParties:
-            print("참여한 파티 이동")
-        case .favoriteParties:
-            print("관심 파티 목록 이동")
-        case .notificationSettings:
-            print("알림 설정 이동")
-        case .keywordRegistration:
-            print("키워드 등록 이동")
-        case .logout:
-            print("로그아웃")
-            alertType = .signOut
-        case .withdrawal:
-            alertType = .withdrawal
-        }
-    }
+    
     
     // MARK: - 로그아웃
     func currentUserSignOut() {
