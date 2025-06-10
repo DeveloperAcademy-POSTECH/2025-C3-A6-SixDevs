@@ -12,6 +12,8 @@ extension PartyListView {
         @Binding var selectedTab: OrderType
         let parties: [Party]
         
+        let refresh: () -> Void
+        
         var body: some View {
             TabView(selection: $selectedTab) {
                 ForEach(OrderType.allCases) { tab in
@@ -39,6 +41,9 @@ extension PartyListView {
                     }
                     .listStyle(PlainListStyle())
                     .tag(tab)
+                    .refreshable {
+                        refresh()
+                    }
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

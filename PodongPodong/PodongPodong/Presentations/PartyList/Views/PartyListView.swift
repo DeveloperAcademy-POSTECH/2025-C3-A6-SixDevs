@@ -27,7 +27,8 @@ struct PartyListView: View {
                     
                     PartyListMainView(
                         selectedTab: $viewModel.selectedOrderType,
-                        parties: viewModel.currentParties
+                        parties: viewModel.currentParties,
+                        refresh: viewModel.partyListFetch
                     )
                 }
                 .navigationBarItems(

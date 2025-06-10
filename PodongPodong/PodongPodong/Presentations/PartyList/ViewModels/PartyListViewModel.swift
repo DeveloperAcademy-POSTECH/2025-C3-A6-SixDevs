@@ -34,8 +34,10 @@ final class PartyListViewModel {
                 isLoading = true
                 
                 // TODO: 필터 조건에 맞게 데이터 가져오도록 변경
+                /// + 파티 페이징화, 현재는 데이터를 덮어씌우는 로직
+                /// 그리고 전체를 들고 오는 중
                 let fetchParties = try await FirestoreManager.shared.fetch(as: Party.self, .party)
-                partyList.append(contentsOf: fetchParties)
+                partyList = fetchParties
                 
                 isLoading = false
             } catch {
