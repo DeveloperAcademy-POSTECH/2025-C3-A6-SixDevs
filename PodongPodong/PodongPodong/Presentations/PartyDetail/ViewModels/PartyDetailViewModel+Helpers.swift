@@ -33,8 +33,8 @@ extension PartyDetailViewModel {
 
     // 현재 로그인한 사용자 정보 가져오기
     func getCurrentUser() -> User {
-        // TODO: 실제 로그인한 사용자 정보 반환하도록 구현
-        return User.sampleCurrentUser
+        // TODO: - 유저 받아오기
+        return DummyData.user
     }
 
     // 현재 로그인한 사용자 ID 가져오기

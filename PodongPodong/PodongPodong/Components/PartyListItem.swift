@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PartyListItem: View {
     let party: Party
+    // TODO: - 유저 받아오기
     let user = DummyData.user
     
     var body: some View {
