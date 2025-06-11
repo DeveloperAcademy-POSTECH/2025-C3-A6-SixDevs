@@ -15,15 +15,18 @@ struct PartyListView: View {
             ZStack {
                 VStack(spacing: 0) {
                     
+                    Spacer().frame(height: 15)
+                    
                     PartyListTabHeader(
                         selectedTab: $viewModel.selectedOrderType
                     )
-                    .frame(height: 47)
-                    .overlay(Divider(), alignment: .bottom)
+                    .frame(height: 30)
+                    //.overlay(Divider(), alignment: .bottom)
                     
                     PartyListFoodCategoryView(
                         selectedFoodCategory: $viewModel.selectedFoodCategory
                     )
+                    .padding(.top, 16)
                     
                     PartyListMainView(
                         selectedTab: $viewModel.selectedOrderType,

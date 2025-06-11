@@ -16,7 +16,10 @@ extension PartyCreateView {
                 Text("구매 카테고리")
                     .frame(maxWidth:.infinity, alignment: .leading)
                     .padding(.leading, 16)
-                    .font(.pretendardMedium16)
+                    .font(.pretendardMedium14)
+                    .foregroundColor(.gray60)
+                    .padding(.bottom, 8)
+                
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(spacing: 8) {
                         ForEach(FoodCategory.allCases.dropFirst()) { category in

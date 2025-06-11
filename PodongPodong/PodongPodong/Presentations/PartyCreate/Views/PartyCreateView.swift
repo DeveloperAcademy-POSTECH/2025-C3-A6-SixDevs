@@ -41,17 +41,21 @@ struct PartyCreateView: View {
                     }
 
                     TitleView(title: $viewModel.title)
+                    
                     CategoryView(selectedCategory: $viewModel.selectedCategory)
+                    
                     RecruitmentCountView(
                         recruitmentCount: $viewModel.recruitmentCount,
                         canEdit: viewModel.canEditRecruitmentCount,
                         restrictionMessage: viewModel.editingRestrictionMessage
                     )
+                    
                     PurchaseLocationView(
                         selectedPurchaseChannel: $viewModel
                             .selectedPurchaseChannle,
                         purchaseLocation: $viewModel.purchaseLocation
                     )
+                    
                     if viewModel.selectedOrderType == .groupPurchase {
                         PriceAndWeightView(
                             totalPrice: $viewModel.totalPrice,

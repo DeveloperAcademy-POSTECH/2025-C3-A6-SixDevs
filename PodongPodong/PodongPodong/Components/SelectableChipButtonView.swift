@@ -15,10 +15,10 @@ struct SelectableChipButtonView: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.pretendardSemibold18)
+                .font(.pretendardMedium16)
                 .foregroundColor(isSelected ? .secondary : .gray70)
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(.vertical, 5.5)
                 .background(isSelected ? Color.primaryColor : Color.gray10)
                 .cornerRadius(30)
         }

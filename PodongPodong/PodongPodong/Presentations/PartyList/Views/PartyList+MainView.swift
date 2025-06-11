@@ -33,10 +33,10 @@ extension PartyListView {
                             }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
-                            .listRowInsets(.init(top: 15,
-                                                 leading: 15,
+                            .listRowInsets(.init(top: 16,
+                                                 leading: 16,
                                                  bottom: 0,
-                                                 trailing: 15))
+                                                 trailing: 16))
                         }
                     }
                     .listStyle(PlainListStyle())
