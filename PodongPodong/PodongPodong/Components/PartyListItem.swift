@@ -48,7 +48,7 @@ struct PartyListItem: View {
                     Image(systemName: "person.2.fill")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
-                    Text("\(party.member.count)/\(party.recruitmentCount)")
+                    Text("\(party.member.count+1)/\(party.recruitmentCount)")
                         .font(.pretendardMedium14)
                         .foregroundColor(.gray80)
                 }
