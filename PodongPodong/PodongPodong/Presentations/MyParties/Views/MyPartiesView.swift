@@ -8,9 +8,30 @@
 import SwiftUI
 
 struct MyPartiesView: View {
+    @State private var viewModel = MyPartiesViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .font(.pretendardBold18)
+        NavigationView {
+            ZStack(alignment: .top) {
+                Color.clear.ignoresSafeArea()
+
+                VStack {
+                    Text("내가 참여한 파티")
+                        .font(.pretend(type: .bold, size: 18))
+
+                    MyPartiesTabHeader(
+                        selectedTab: $viewModel.selectedPartyStatus
+                    )
+                    .frame(height: 47)
+                    .overlay(Divider(), alignment: .bottom)
+
+                    MyPartiesMainView(
+                        selectedTab: $viewModel.selectedPartyStatus,
+                        myParties: viewModel.myParties
+                    )
+                }
+            }
+        }
     }
 }
 
