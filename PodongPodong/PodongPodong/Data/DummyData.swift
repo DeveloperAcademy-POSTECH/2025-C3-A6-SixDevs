@@ -11,7 +11,7 @@ enum DummyData {
     static let user = User(
         email: "alstjr7437@postech.ac.kr",
         nickName: "심성이착한사람",
-        profileImage: .image1,
+        profileImage: "profileImage1",
         reviewRating: 4.7
     )
 

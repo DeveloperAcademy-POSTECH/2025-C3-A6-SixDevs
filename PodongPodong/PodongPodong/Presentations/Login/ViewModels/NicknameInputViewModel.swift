@@ -21,11 +21,12 @@ final class NicknameInputViewModel {
     }
     
     // MARK: - 파이어베이스 유저 생성
+    // TODO: - 프로필 이미지 만들어지면 넣기
     func createFirebaseUser(email: String) async {
         let user = User(
             email: email,
             nickName: nickName,
-            profileImage: .image1,
+            profileImage: "profileImage1",
             reviewRating: 0.0
         )
         do {
