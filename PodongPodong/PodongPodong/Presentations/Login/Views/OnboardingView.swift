@@ -13,9 +13,10 @@ struct OnboardingView: View {
     var body: some View {
         NavigationStack(path: $router.destination) {
             VStack(spacing: 150) {
-                // TODO: - 앱 로고 넣기
-                Image(systemName: "globe")
-                
+                Image("AppLogo")
+                    .resizable()
+                    .frame(width: 146, height: 146)
+                    .clipShape(Circle())
                 Button {
                     router.push(to: .emailInput)
                 } label: {
