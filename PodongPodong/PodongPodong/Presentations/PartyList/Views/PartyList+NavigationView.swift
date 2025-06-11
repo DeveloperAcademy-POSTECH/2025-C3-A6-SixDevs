@@ -17,7 +17,7 @@ extension PartyListView {
                 text: "포동포동",
                 width: 0.6,
                 fontColor: Color.primaryColor,
-                strokeColor: Color(hex: "FFB403"),
+                strokeColor: Color(hex: "FFB403")
             ).font(.npsfontBold26)
         }
     }
