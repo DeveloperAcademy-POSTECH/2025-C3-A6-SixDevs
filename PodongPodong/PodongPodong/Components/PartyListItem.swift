@@ -10,7 +10,7 @@ import SwiftUI
 struct PartyListItem: View {
     let party: Party
     // TODO: - 유저 받아오기
-    let user = DummyData.user
+    //let user = UserDefaults.standard.data(forKey: UserDefaults.userKey)! // DummyData.user
     
     var body: some View {
         VStack {
@@ -81,6 +81,11 @@ extension PartyListItem{
     }
     
     private var myPartyStatus: MyPartyStatus? {
+        guard let data = UserDefaults.standard.data(forKey: UserDefaults.userKey),
+              let user = try? JSONDecoder().decode(User.self, from: data) else {
+            return nil
+        }
+        
         if party.waitingMembers.contains(where: { $0.id == user.id} ) { return .waiting }
         if party.member.contains(where: { $0.id == user.id} ) { return .joined }
         if party.writen.id == user.id { return .created }

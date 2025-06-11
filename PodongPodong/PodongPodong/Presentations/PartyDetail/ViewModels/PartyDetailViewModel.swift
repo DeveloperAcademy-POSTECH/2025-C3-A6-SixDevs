@@ -9,14 +9,14 @@
  MARK: - PartyDetailViewModel
  
  파일 구조
-  ViewModels/
-  └── PartyDetailViewModel/
-      ├── PartyDetailViewModel+UseActions.swift         유저 관련
-      ├── PartyDetailViewModel+HostActions.swift        파티장 기능
-      ├── PartyDetailViewModel+DataFetching.swift       파티 정보 조회 및 갱신
-      ├── PartyDetailViewModel+ViewConfigration.swift   뷰 상태 및 뷰 전용 프로퍼티
-      └── PartyDetailViewModel+Helpers.swift            공통 유틸 함수
-*/
+ ViewModels/
+ └── PartyDetailViewModel/
+ ├── PartyDetailViewModel+UseActions.swift         유저 관련
+ ├── PartyDetailViewModel+HostActions.swift        파티장 기능
+ ├── PartyDetailViewModel+DataFetching.swift       파티 정보 조회 및 갱신
+ ├── PartyDetailViewModel+ViewConfigration.swift   뷰 상태 및 뷰 전용 프로퍼티
+ └── PartyDetailViewModel+Helpers.swift            공통 유틸 함수
+ */
 
 import Combine
 import Foundation
@@ -24,7 +24,7 @@ import SwiftUI
 
 @MainActor
 class PartyDetailViewModel: ObservableObject {
-
+    
     // MARK: - Published 프로퍼티
     @Published var party: Party?
     @Published var isLoading: Bool = false
@@ -35,29 +35,36 @@ class PartyDetailViewModel: ObservableObject {
     @Published var comments: [PartyComment] = []
     @Published var showingActionAlert: Bool = false
     // TODO: - 유저 받아오기
-    @Published var user: User = DummyData.user
-
+    @Published var user: User? = {
+        guard let data = UserDefaults.standard.data(forKey: UserDefaults.userKey),
+              let user = try? JSONDecoder().decode(User.self, from: data) else {
+            return nil
+        }
+        return user
+    }()
+    /*DummyData.user*/
+    
     // MARK: - Internal Properties
     let firestoreManager = FirestoreManager.shared
     let partyID: String
     var viewCountUpdated = false
-
+    
     // MARK: - Private 프로퍼티
     private var cancellables = Set<AnyCancellable>()
-
+    
     // MARK: - Inititialization
     init(partyID: String) {
         self.partyID = partyID
         setupObservers()
     }
-
+    
     // MARK: - User Role Enum
     enum UserRole {
         case host
         case member
         case waitingMember
         case guest
-
+        
         var buttonTitle: String {
             switch self {
             case .host:
@@ -70,7 +77,7 @@ class PartyDetailViewModel: ObservableObject {
                 return "파티 참여하기"
             }
         }
-
+        
         var isActionEnabled: Bool {
             switch self {
             case .host, .waitingMember, .guest:
@@ -93,7 +100,7 @@ class PartyDetailViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-
+    
     // MARK: - Error Handling
     func handleError(_ error: Error) {
         if let partyError = error as? PartyDetailError {
@@ -110,7 +117,7 @@ class PartyDetailViewModel: ObservableObject {
         case recruitmentFull
         case alreadyJoined
         case networkError
-
+        
         var errorDescription: String? {
             switch self {
             case .partyNotFound:

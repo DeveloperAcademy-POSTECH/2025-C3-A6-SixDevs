@@ -31,6 +31,10 @@ final class NicknameInputViewModel {
         )
         do {
             let savedUser = try await FirestoreManager.shared.create(user)
+            if let data = try? JSONEncoder().encode(user) {
+                UserDefaults.standard.set(data, forKey: UserDefaults.userKey) // FIXME: - 수정
+            }
+            //UserDefaults.standard.set(data, forKey: UserDefaults.userKey) // FIXME: - 수정
             print(savedUser)
         } catch {
             print("error : \(error.localizedDescription)")

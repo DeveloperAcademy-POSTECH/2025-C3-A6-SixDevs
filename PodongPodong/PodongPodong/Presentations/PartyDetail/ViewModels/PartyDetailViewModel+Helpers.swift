@@ -15,17 +15,19 @@ extension PartyDetailViewModel {
             currentUserRole = .guest
             return
         }
-
-        if party.writen.id == user.id {
-            currentUserRole = .host
-        } else if party.member.contains(where: { $0.id == user.id }) {
-            currentUserRole = .member
-        } else if party.waitingMembers.contains(where: {
-            $0.id == user.id
-        }) {
-            currentUserRole = .waitingMember
-        } else {
-            currentUserRole = .guest
+        
+        if let user = user {
+            if party.writen.id == user.id {
+                currentUserRole = .host
+            } else if party.member.contains(where: { $0.id == user.id }) {
+                currentUserRole = .member
+            } else if party.waitingMembers.contains(where: {
+                $0.id == user.id
+            }) {
+                currentUserRole = .waitingMember
+            } else {
+                currentUserRole = .guest
+            }
         }
     }
     
@@ -42,16 +44,19 @@ extension PartyDetailViewModel {
 
     var isHost: Bool {
         guard let party = party else { return false }
+        guard let user = user else { return false }
         return party.writen.id == user.id
     }
 
     var isParticipant: Bool {
         guard let party = party else { return false }
+        guard let user = user else { return false }
         return party.member.contains { $0.id == user.id }
     }
 
     var isWaitingMember: Bool {
         guard let party = party else { return false }
+        guard let user = user else { return false }
         return party.waitingMembers.contains { $0.id == user.id }
     }
 
