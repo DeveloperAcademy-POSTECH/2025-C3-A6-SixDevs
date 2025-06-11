@@ -92,6 +92,7 @@ struct MyPageView: View {
                     
                     Button {
                         // TODO: 프로필 수정 로직
+                        router.push(to: .updateProfileView)
                     } label: {
                         Text("프로필 수정")
                             .font(.pretendardMedium12)

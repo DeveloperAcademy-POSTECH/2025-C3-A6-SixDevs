@@ -23,7 +23,7 @@ enum MainNavigationDestination: NavigationDestination {
     case chatView(channelURL: String)
     
     
-    
+    case updateProfileView
     case myReviewView
     case participatedView
     case interestedPartiesView

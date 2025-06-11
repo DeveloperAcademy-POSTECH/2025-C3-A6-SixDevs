@@ -10,6 +10,8 @@ import SwiftUI
 struct UpdateProfileView: View {
     let viewModel: MyPageViewModel = .init()
     
+    @EnvironmentObject var router: MainNavigationRouter
+    
     // FIXME: - 임시
     @State private var nickNameText: String = ""
     @State private var emailText: String = ""
@@ -39,7 +41,19 @@ struct UpdateProfileView: View {
                 ActionButtonView(title: "수정 완료", isEnabled: true)
             }
             .padding(.horizontal, 22)
-            
+            .navigationTitle("프로필 수정")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    router.pop()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(Color.black)
+                        .frame(width: 36, height: 36)
+                }
+            }
         }
     }
 
@@ -81,12 +95,8 @@ struct UpdateProfileView: View {
                         Image(profile.profileImage)
                             .resizable()
                             .scaledToFit()
-                            //.frame(width: 72, height: 72)
                     }
-//                    .padding(.vertical, 120)
                 }
-                
-                
             }
         }
     
@@ -94,5 +104,7 @@ struct UpdateProfileView: View {
 }
 
 #Preview {
-    UpdateProfileView()
+    NavigationStack {
+        UpdateProfileView()
+    }
 }
