@@ -296,6 +296,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PodongPodong/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "포동포동";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -333,6 +334,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PodongPodong/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "포동포동";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @State private var viewModel: MyPageViewModel = .init()
+//    @State private var viewModel: MyPageViewModel = .init()
     @State private var showOnboarding = false
     
+    @Environment(\.myPageVM) private var viewModel
     @EnvironmentObject var router: MainNavigationRouter
     
     var body: some View {
@@ -75,7 +76,7 @@ struct MyPageView: View {
     // MARK: - Information View
     private var informationView: some View {
         HStack(spacing: 12) {
-            Image("TempProfileImage")
+            Image(viewModel.userInfo?.profileImage ?? "")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 72, height: 72)

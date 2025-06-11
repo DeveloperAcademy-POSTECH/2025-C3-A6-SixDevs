@@ -30,16 +30,17 @@ final class MyPageViewModel {
     // MARK: - 프리뷰에서는 loadUserInfo()이 안되도록 설정
     init() {
         #if DEBUG
-            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" {
-                loadUserInfo()
-            }
-        #else
+        if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1" {
             loadUserInfo()
+        }
+        #else
+        loadUserInfo()
         #endif
     }
     
+    
     // MARK: - 유저 데이터 불러오기
-    private func loadUserInfo() {
+    func loadUserInfo() {
         Task {
             do {
                 if let userInfo: User = try await FirestoreManager.shared.getUserInfo(
@@ -58,7 +59,6 @@ final class MyPageViewModel {
     }
     
     
-    
     // MARK: - 로그아웃
     func currentUserSignOut() {
         Task {
@@ -74,9 +74,22 @@ final class MyPageViewModel {
         
     }
     
+    
     // MARK: - 회원 탈퇴
     func currentUserWithdrawal() {
         self.isCompleteWithdrawal = true
+    }
+    
+    
+    // MARK: - 유저 정보 수정
+    func updateUserInfo(userInfo: User) {
+        Task {
+            do {
+                try await FirestoreManager.shared.update(userInfo)
+            } catch {
+                print("Error : \(error.localizedDescription)")
+            }
+        }
     }
     
 }
