@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PartyListView: View {
     @State private var viewModel = PartyListViewModel()
+    @State private var isSearchActive = false
     
     var body: some View {
         NavigationView {
@@ -37,10 +38,17 @@ struct PartyListView: View {
                 .navigationBarItems(
                     leading: PartyListNavBarTitle(),
                     trailing: PartyListNavBarButtons(
-                        searchButtonAction: {},
+                        searchButtonAction: { isSearchActive = true },
                         bellButtonAction: {}
                     )
                 )
+                
+                NavigationLink(
+                    destination: SearchView().hideBackButton(),
+                    isActive: $isSearchActive
+                ) {
+                    EmptyView()
+                }
                 
                 // TODO: 생성 화면으로 이동
                 NavigationLink {

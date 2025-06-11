@@ -13,13 +13,13 @@ struct SearchHeaderView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            Button {
-                // TODO: 내비게이션 처리
-                print("이전 화면으로 이동하기")
-            } label: {
-                Image(systemName: "chevron.left")
-                    .foregroundStyle(.black)
-            }
+//            Button {
+//                // TODO: 내비게이션 처리
+//                print("이전 화면으로 이동하기")
+//            } label: {
+//                Image(systemName: "chevron.left")
+//                    .foregroundStyle(.black)
+//            }
             SearchTextFieldView(
                 text: $text,
                 placeholder: "검색어를 입력해주세요"
