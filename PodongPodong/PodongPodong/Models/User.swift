@@ -14,22 +14,46 @@ struct User: Identifiable, Codable {
     var reviewRating: Double // 리뷰 평점
 
     // TODO: Asset 이름과 동일하게 수정하기
-    enum ProfileImage: Codable {
+    enum ProfileImage: Codable, CaseIterable {
         case image1
         case image2
         case image3
         case image4
+        case image5
+        case image6
+        case image7
+        case image8
+        case image9
+        case image10
+        case image11
+        case image12
         
         var profileImage: String {
             switch self {
             case .image1:
-                return "1번 이미지" // FIXME: -
+                return "profileImage1"
             case .image2:
-                return "2번 이미지" // FIXME: -
+                return "profileImage2"
             case .image3:
-                return "3번 이미지" // FIXME: -
+                return "profileImage3"
             case .image4:
-                return "4번 이미지" // FIXME: -
+                return "profileImage4"
+            case .image5:
+                return "profileImage5"
+            case .image6:
+                return "profileImage6"
+            case .image7:
+                return "profileImage7"
+            case .image8:
+                return "profileImage8"
+            case .image9:
+                return "profileImage9"
+            case .image10:
+                return "profileImage10"
+            case .image11:
+                return "profileImage11"
+            case .image12:
+                return "profileImage12"
             }
         }
     }
