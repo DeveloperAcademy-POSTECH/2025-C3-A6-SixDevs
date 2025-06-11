@@ -80,8 +80,9 @@ struct UpdateProfileView: View {
         }
     }
     
+    
     // MARK: - 닉네임 변경
-    private var inputNicknameView: some View {
+    var inputNicknameView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("닉네임")
                 .font(.pretendardMedium14)
@@ -148,7 +149,7 @@ struct UpdateProfileView: View {
             viewModel.loadUserInfo()
             router.pop()
         } label: {
-            ActionButtonView(title: "수정 완료", isEnabled: !nickNameText.isEmpty)
+            ActionButtonView(title: "수정 완료", isEnabled: true)
         }
     }
 }
