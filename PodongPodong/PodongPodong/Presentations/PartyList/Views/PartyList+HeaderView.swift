@@ -28,8 +28,8 @@ extension PartyListView {
                                 Text(tab.title)
                                     .font(
                                         selectedTab == tab
-                                        ? .pretendardBold18
-                                        : .pretendardMedium18
+                                        ? .pretendardBold14
+                                        : .pretendardMedium14
                                     )
                                     .foregroundColor(
                                         selectedTab == tab

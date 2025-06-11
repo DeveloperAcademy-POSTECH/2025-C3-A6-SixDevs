@@ -19,7 +19,9 @@ extension PartyCreateView {
                     Text("설명 (선택)")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
-                        .font(.pretendardMedium16)
+                        .font(.pretendardMedium14)
+                        .foregroundColor(.gray60)
+                        .padding(.bottom, 8)
 
                     // 편집 모드 표시
                     if isEditMode && !description.isEmpty {

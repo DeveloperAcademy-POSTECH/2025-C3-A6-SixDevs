@@ -18,7 +18,10 @@ extension PartyCreateView {
                 Text("구매 비용")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
-                    .font(.pretendardMedium16)
+                    .font(.pretendardMedium14)
+                    .foregroundColor(.gray60)
+                    .padding(.bottom, 8)
+                
                 TextFieldView(
                     intValue: $totalPrice,
                     placeholder: "총 구매 비용을 입력해주세요.",

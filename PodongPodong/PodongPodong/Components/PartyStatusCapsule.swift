@@ -35,12 +35,12 @@ struct MyPartyStatusCapsuleView: View {
     
     var body: some View {
         Text(myPartyStatus.displayName)
-            .font(.pretendardMedium14)       // 원하는 폰트
+            .font(.pretendardSemibold11)       // 원하는 폰트
             .foregroundColor(foregroundColor)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
             .background(
-                Capsule()
+                RoundedRectangle(cornerRadius: 6)
                     .fill(backgroundColor)
             )
     }

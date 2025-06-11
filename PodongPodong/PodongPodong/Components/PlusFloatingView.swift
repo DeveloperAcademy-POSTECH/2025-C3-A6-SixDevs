@@ -15,13 +15,12 @@ struct PlusFloatingView: View {
     }
     
     var body: some View {
-        Image(systemName: "plus")
-            .font(.system(size: size / 2, weight: .bold))
-            .frame(width: size, height: size)
-            .foregroundColor(.white)
+        Image("plusIcon")
+            .frame(width: 25, height: 25)
             .background(
                 Circle()
                     .fill(Color.primaryColor)
+                    .frame(width: 56, height: 56)
             )
     }
 }

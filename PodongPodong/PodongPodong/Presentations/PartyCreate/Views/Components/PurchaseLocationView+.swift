@@ -17,7 +17,10 @@ extension PartyCreateView {
                 Text("구매처")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
-                    .font(.pretendardMedium16)
+                    .font(.pretendardMedium14)
+                    .foregroundColor(.gray60)
+                    .padding(.bottom, 8)
+                
                 HStack(spacing: 12){
                     Spacer().frame(width:16)
                     ForEach(PurchaseChannel.allCases) { purchaseChannel in

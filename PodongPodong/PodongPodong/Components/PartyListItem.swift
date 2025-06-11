@@ -13,7 +13,7 @@ struct PartyListItem: View {
     let user = DummyData.user
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack {
             // MARK: 상단(제목, 생성시간)
             HStack {
                 Text(party.title)
@@ -24,19 +24,25 @@ struct PartyListItem: View {
                 Text(party.createdAt.timeAgo)
                     .font(.pretendardMedium14)
                     .foregroundColor(.gray70)
+                    .offset(y: 5)
             }
             
+            Spacer().frame(height: 6)
+            
             // MARK: 중간(카테고리, 구매처)
-            Text("\(party.category.displayName) · \(party.purchaseChannel.displayName)")
+            Text("\(party.category.displayName)  ·  \(party.purchaseChannel.displayName)")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.pretendardMedium14)
                 .foregroundColor(.gray70)
+            
+            Spacer().frame(height: 20)
             
             // MARK: 하단(g당 가격, 참여 여부, 인원)
             HStack {
                 Text("\(amount)\(party.weightAndCount.displayName)당 \(price)원")
                     .font(.pretendardSemibold14)
                     .foregroundColor(.gray80)
+                    .offset(x: 2)
                 
                 Spacer()
                 
@@ -44,10 +50,11 @@ struct PartyListItem: View {
                     MyPartyStatusCapsuleView(myPartyStatus: status)
                 }
                 
-                HStack {
+                HStack(spacing: 4) {
                     Image(systemName: "person.2.fill")
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
+
                     Text("\(party.member.count+1)/\(party.recruitmentCount)")
                         .font(.pretendardMedium14)
                         .foregroundColor(.gray80)
@@ -56,9 +63,10 @@ struct PartyListItem: View {
             
         }
         .padding(12)
+        .frame(height: 110)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray, lineWidth: 1)
+                .stroke(Color.gray20, lineWidth: 1)
         )
     }
 }
@@ -83,4 +91,5 @@ extension PartyListItem{
 
 #Preview {
     PartyListItem(party: DummyData.partyGroup1)
+    //PartyListView()
 }

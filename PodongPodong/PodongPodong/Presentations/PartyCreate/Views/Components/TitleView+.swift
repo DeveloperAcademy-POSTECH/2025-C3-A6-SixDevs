@@ -17,7 +17,10 @@ extension PartyCreateView {
                 Text("제목")
                     .frame(maxWidth:.infinity, alignment: .leading)
                     .padding(.leading, 16)
-                    .font(.pretendardMedium16)
+                    .font(.pretendardMedium14)
+                    .foregroundColor(.gray60)
+                    .padding(.bottom, 8)
+
                 TextFieldView(
                     text: $title,
                     placeholder: "제목을 입력해주세요").frame(width: 361, height: 48)

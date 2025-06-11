@@ -13,12 +13,14 @@ extension PartyListView {
     
     struct PartyListNavBarTitle: View {
         var body: some View {
-            StrokeText(
-                text: "포동포동",
-                width: 0.6,
-                fontColor: Color.primaryColor,
-                strokeColor: Color(hex: "FFB403")
-            ).font(.npsfontBold26)
+            Image("logoIcon")
+                .frame(width: 97, height: 35)
+//            StrokeText(
+//                text: "포동포동",
+//                width: 0.6,
+//                fontColor: Color.primaryColor,
+//                strokeColor: Color(hex: "FFB403"),
+//            ).font(.npsfontBold26)
         }
     }
     
@@ -27,16 +29,14 @@ extension PartyListView {
         let bellButtonAction: () -> Void
         
         var body: some View {
-            HStack(spacing: 16) {
+            HStack(spacing: 8) {
                 Button(action: searchButtonAction) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 24))
-                        .foregroundColor(.secondary)
+                    Image("searchIcon")
+                        .frame(width: 28, height: 28)
                 }
                 Button(action: bellButtonAction) {
-                    Image(systemName: "bell")
-                        .font(.system(size: 24))
-                        .foregroundColor(.secondary)
+                    Image("bellIcon")
+                        .frame(width: 28, height: 28)
                 }
             }
         }
@@ -62,4 +62,8 @@ struct StrokeText: View {
                 .foregroundColor(fontColor)
         }
     }
+}
+
+#Preview {
+    PartyListView()
 }

@@ -18,7 +18,10 @@ extension PartyCreateView {
                 Text("약속 (선택)")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
-                    .font(.pretendardMedium16)
+                    .font(.pretendardMedium14)
+                    .foregroundColor(.gray60)
+                    .padding(.bottom, 8)
+                
                 // TODO: 날짜, 시간, 장소 로직 입력
                 TextFieldView(
                     text: $selectedDate,
