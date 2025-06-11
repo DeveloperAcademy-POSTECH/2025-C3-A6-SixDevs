@@ -19,6 +19,8 @@
 	<string>$(TestChannel)</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>BMJUA-Regular.ttf</string>
+		<string>NPSfont-Bold.ttf</string>
 		<string>Pretendard-Regular.ttf</string>
 		<string>Pretendard-Bold.ttf</string>
 		<string>Pretendard-ExtraBold.ttf</string>

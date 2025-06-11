@@ -13,9 +13,12 @@ extension PartyListView {
     
     struct PartyListNavBarTitle: View {
         var body: some View {
-            Text("포동포동")
-                .font(.pretendardSemibold24)
-                .foregroundColor(.primaryColor)
+            StrokeText(
+                text: "포동포동",
+                width: 0.6,
+                fontColor: Color.primaryColor,
+                strokeColor: Color(hex: "FFB403"),
+            ).font(.npsfontBold26)
         }
     }
     
@@ -36,6 +39,27 @@ extension PartyListView {
                         .foregroundColor(.secondary)
                 }
             }
+        }
+    }
+}
+
+struct StrokeText: View {
+    let text: String
+    let width: CGFloat
+    let fontColor: Color
+    let strokeColor: Color
+
+    var body: some View {
+        ZStack{
+            ZStack{
+                Text(text).offset(x:  width, y:  width)
+                Text(text).offset(x: -width, y: -width)
+                Text(text).offset(x: -width, y:  width)
+                Text(text).offset(x:  width, y: -width)
+            }
+            .foregroundColor(strokeColor)
+            Text(text)
+                .foregroundColor(fontColor)
         }
     }
 }
