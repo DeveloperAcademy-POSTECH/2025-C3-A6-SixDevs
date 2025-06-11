@@ -21,7 +21,6 @@ struct KeywordRegistrationView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                
                 Button {
                     router.pop()
                 } label: {
@@ -30,9 +29,6 @@ struct KeywordRegistrationView: View {
                         .frame(width: 36, height: 36)
                 }
             }
-            
-            
-
         }
     }
 }
