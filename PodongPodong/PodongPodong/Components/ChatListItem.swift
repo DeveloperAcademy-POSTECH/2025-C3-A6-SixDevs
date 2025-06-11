@@ -74,7 +74,7 @@ struct ChatListItem: View {
                 .padding(EdgeInsets(top: 2, leading: 8, bottom: 2, trailing: 8))
                 .background(
                     Capsule()
-                        .fill(unreadMessageCount > 0 ? Color.red00 : Color.clear)
+                        .fill(unreadMessageCount > 0 ? Color.red10 : Color.clear)
                 )
         }
     }
