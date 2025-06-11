@@ -39,6 +39,9 @@ extension Font {
         return .custom(type.value, size: size)
     }
     
+    
+    
+    
     // Bold
     static var pretendardBold14: Font { .pretend(type: .bold, size: 14) }
     static var pretendardBold16: Font { .pretend(type: .bold, size: 16) }
@@ -70,6 +73,7 @@ extension Font {
     static var pretendardRegular12: Font { .pretend(type: .regular, size: 12) }
     static var pretendardRegular13: Font { .pretend(type: .regular, size: 13) }
     static var pretendardRegular18: Font { .pretend(type: .regular, size: 18) }
+
     
     // Light
     static var pretendardLight14: Font   { .pretend(type: .light, size: 14) }
@@ -78,4 +82,45 @@ extension Font {
     static var pretendardExtraBold24: Font { .pretend(type: .extraBold, size: 24) }
     
     
+}
+
+
+extension Font {
+    enum BMJUA {
+        case regular
+        
+        var value: String {
+            switch self {
+            case .regular:
+                return "BMJUA"
+            }
+        }
+    }
+    
+    static func bmjua(type: BMJUA, size: CGFloat) -> Font {
+        return .custom(type.value, size: size)
+    }
+    
+    static var bmjuadRegular28: Font { .bmjua(type: .regular, size: 28) }
+}
+
+
+
+extension Font {
+    enum NPSFont {
+        case bold
+        
+        var value: String {
+            switch self {
+            case .bold:
+                return "NPS-font-Bold"
+            }
+        }
+    }
+    
+    static func npsfont(type: NPSFont, size: CGFloat) -> Font {
+        return .custom(type.value, size: size)
+    }
+    
+    static var npsfontBold26: Font { .npsfont(type: .bold, size: 26) }
 }
