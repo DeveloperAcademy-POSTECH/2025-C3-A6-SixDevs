@@ -22,6 +22,7 @@ extension PartyDetailViewModel {
         }
 
         do {
+            guard let user = user else { return }
             let currentUser = user
 
             party.waitingMembers.append(currentUser)
@@ -41,6 +42,7 @@ extension PartyDetailViewModel {
         guard isParticipant, var party = party else { return }
 
         do {
+            guard let user = user else { return }
             let currentUser = user
 
             party.member.removeAll { $0.id == currentUser.id }
@@ -60,6 +62,7 @@ extension PartyDetailViewModel {
         guard isWaitingMember, var party = party else { return }
 
         do {
+            guard let user = user else { return }
             let currentUser = user
 
             party.waitingMembers.removeAll { $0.id == currentUser.id }
@@ -84,6 +87,7 @@ extension PartyDetailViewModel {
         guard !trimmedContent.isEmpty else { return }
 
         do {
+            guard let user = user else { return }
             let currentUser = user
             let comment = PartyComment(
                 user: currentUser,

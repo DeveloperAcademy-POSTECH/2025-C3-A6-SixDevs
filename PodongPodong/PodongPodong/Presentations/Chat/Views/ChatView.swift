@@ -36,7 +36,7 @@ struct ChatView: View {
             listItem: {
                 .init()
                 .rowView { config in
-                    let isMyMessage = config.message.sender?.userId == "rlawlsgur716"
+                    let isMyMessage = config.message.sender?.userId == KeychainManager.shared.load(account: KeychainAccount.userID.rawValue, service: Bundle.identifier) ?? ""
                     let profileImageURL = config.message.sender?.profileURL
                     
                     HStack(alignment: .bottom, spacing: 6) {

@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - ChatViewModel
 private struct ChatListViewModelKey: EnvironmentKey {
-    static let defaultValue = ChatListViewModel(userId: "rlawlsgur716") // FIXME: - 수정해야함
+    static let defaultValue = ChatListViewModel(userId: KeychainManager.shared.load(account: KeychainAccount.userID.rawValue, service: Bundle.identifier) ?? "") // FIXME: - 수정해야함
 }
 
 // MARK: - MyPageViewModel

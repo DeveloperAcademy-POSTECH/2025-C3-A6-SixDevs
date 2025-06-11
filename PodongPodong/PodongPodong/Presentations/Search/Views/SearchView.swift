@@ -11,7 +11,9 @@ struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     @State private var filterContentHeight: CGFloat = 250
     @FocusState private var isTextFieldFocused: Bool
-
+    @Environment(\.dismiss) private var dismiss
+    
+    
     var body: some View {
         ZStack {
             Color.clear.ignoresSafeArea()
@@ -21,6 +23,7 @@ struct SearchView: View {
                 }
 
             VStack(spacing: 0) {
+
                 // 1. 상단 검색바 (내비게이션, 검색 텍스트필드)
                 SearchHeaderView(text: $viewModel.searchText)
                     .focused($isTextFieldFocused)
@@ -65,6 +68,19 @@ struct SearchView: View {
                         parties: viewModel.partyList
                     )
                 }
+                
+                    
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(Color.black)
+                            .frame(width: 36, height: 36)
+                    }
+                }
             }
             
             // 5. 필터 바텀 시트
@@ -76,6 +92,9 @@ struct SearchView: View {
                 .presentationDetents([.height(filterContentHeight)])
                 .presentationDragIndicator(.visible)
             }
+            
+            .navigationTitle("검색")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 

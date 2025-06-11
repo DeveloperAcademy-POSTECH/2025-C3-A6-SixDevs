@@ -65,7 +65,7 @@ final class MyPageViewModel {
             do {
                 try await FirebaseAuthManager.shared.currentUserSignOut() // 파이어베이스 로그아웃
                 KeychainManager.shared.delete(account: KeychainAccount.userID.rawValue, service: Bundle.identifier) // 키체인 정보 제거
-                
+                UserDefaults.standard.set(nil, forKey: UserDefaults.userKey) // 로그아웃 userDefault 초기화
                 self.isComplete = true
             } catch {
                 print("error: \(error.localizedDescription)")

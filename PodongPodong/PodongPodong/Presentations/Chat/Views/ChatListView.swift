@@ -67,5 +67,5 @@ struct ChatListView: View {
 #Preview {
     ChatListView()
         .environmentObject(MainNavigationRouter())
-        .environment(ChatListViewModel(userId: "rlawlsgur716"))
+        .environment(ChatListViewModel(userId: "rlawlsgur7"))
 }
