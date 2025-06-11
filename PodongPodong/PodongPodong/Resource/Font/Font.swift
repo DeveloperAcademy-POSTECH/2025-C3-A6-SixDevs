@@ -61,6 +61,7 @@ extension Font {
     static var pretendardMedium8: Font  { .pretend(type: .medium, size: 8) }
     static var pretendardMedium12: Font  { .pretend(type: .medium, size: 12) }
     static var pretendardMedium14: Font  { .pretend(type: .medium, size: 14) }
+    static var pretendardMedium15: Font  { .pretend(type: .medium, size: 15) }
     static var pretendardMedium16: Font  { .pretend(type: .medium, size: 16) }
     static var pretendardMedium18: Font  { .pretend(type: .medium, size: 18) }
     
