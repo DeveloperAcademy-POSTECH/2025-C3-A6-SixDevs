@@ -24,6 +24,9 @@ final class MyPageViewModel {
     var isComplete = false // 로그아웃
     var isCompleteWithdrawal = false // 회원탈퇴
     
+    
+    var myPageProfile: [User.ProfileImage] = User.ProfileImage.allCases
+    
     // MARK: - 프리뷰에서는 loadUserInfo()이 안되도록 설정
     init() {
         #if DEBUG

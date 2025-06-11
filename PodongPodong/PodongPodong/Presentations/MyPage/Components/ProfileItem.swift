@@ -11,10 +11,10 @@ struct ProfileItem: View {
     let image: String
     
     var body: some View {
-        Circle()
+        Image(image)
     }
 }
 
-#Preview {
-    ProfileItem(image: "")
+#Preview(traits: .sizeThatFitsLayout) {
+    ProfileItem(image: "profileImage1")
 }
