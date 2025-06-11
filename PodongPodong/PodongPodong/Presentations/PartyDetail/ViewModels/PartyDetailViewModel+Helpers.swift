@@ -16,30 +16,17 @@ extension PartyDetailViewModel {
             return
         }
 
-        let currentUserID = getCurrentUserID()
-
-        if party.writen.id == currentUserID {
+        if party.writen.id == user.id {
             currentUserRole = .host
-        } else if party.member.contains(where: { $0.id == currentUserID }) {
+        } else if party.member.contains(where: { $0.id == user.id }) {
             currentUserRole = .member
         } else if party.waitingMembers.contains(where: {
-            $0.id == currentUserID
+            $0.id == user.id
         }) {
             currentUserRole = .waitingMember
         } else {
             currentUserRole = .guest
         }
-    }
-
-    // 현재 로그인한 사용자 정보 가져오기
-    func getCurrentUser() -> User {
-        // TODO: - 유저 받아오기
-        return DummyData.user
-    }
-
-    // 현재 로그인한 사용자 ID 가져오기
-    func getCurrentUserID() -> UUID {
-        return getCurrentUser().id
     }
     
     var commentCount: Int {
@@ -55,17 +42,17 @@ extension PartyDetailViewModel {
 
     var isHost: Bool {
         guard let party = party else { return false }
-        return party.writen.id == getCurrentUserID()
+        return party.writen.id == user.id
     }
 
     var isParticipant: Bool {
         guard let party = party else { return false }
-        return party.member.contains { $0.id == getCurrentUserID() }
+        return party.member.contains { $0.id == user.id }
     }
 
     var isWaitingMember: Bool {
         guard let party = party else { return false }
-        return party.waitingMembers.contains { $0.id == getCurrentUserID() }
+        return party.waitingMembers.contains { $0.id == user.id }
     }
 
     var isRecruitmentComplete: Bool {

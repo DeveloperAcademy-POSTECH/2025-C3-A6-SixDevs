@@ -11,8 +11,6 @@ struct PartyDetailView: View {
     @Environment(\.dismiss) private var dismiss
 
     let party: Party
-    // TODO: - 유저 받아오기
-    let currentUser: User = DummyData.user
     @StateObject private var viewModel: PartyDetailViewModel
 
     @State private var showingMoreOptions = false

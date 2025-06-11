@@ -73,9 +73,9 @@ extension PartyListItem{
     }
     
     private var myPartyStatus: MyPartyStatus? {
-        if party.waitingMembers.contains(where: { $0.email == user.email} ) { return .waiting }
-        if party.member.contains(where: { $0.email == user.email} ) { return .joined }
-        if party.writen.email == user.email { return .created }
+        if party.waitingMembers.contains(where: { $0.id == user.id} ) { return .waiting }
+        if party.member.contains(where: { $0.id == user.id} ) { return .joined }
+        if party.writen.id == user.id { return .created }
         
         return nil
     }

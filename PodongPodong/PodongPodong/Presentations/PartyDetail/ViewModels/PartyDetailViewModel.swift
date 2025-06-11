@@ -34,6 +34,8 @@ class PartyDetailViewModel: ObservableObject {
     @Published var currentUserRole: UserRole = .guest
     @Published var comments: [PartyComment] = []
     @Published var showingActionAlert: Bool = false
+    // TODO: - 유저 받아오기
+    @Published var user: User = DummyData.user
 
     // MARK: - Internal Properties
     let firestoreManager = FirestoreManager.shared
