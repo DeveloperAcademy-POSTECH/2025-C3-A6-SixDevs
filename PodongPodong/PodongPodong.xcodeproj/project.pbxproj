@@ -297,7 +297,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PodongPodong/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "포동포동";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "사용하시겠습니까?";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근을 허용하시겠습니까?";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "사용하시겠습니까";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "파일 접근을 허용하시겠습니까?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치 정보를 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "음성 메시지 녹음 및 전송을 위해 마이크 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -335,7 +340,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PodongPodong/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "포동포동";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "사용하시겠습니까?";
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근을 허용하시겠습니까?";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "사용하시겠습니까";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "파일 접근을 허용하시겠습니까?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치 정보를 허용하시겠습니까?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "음성 메시지 녹음 및 전송을 위해 마이크 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 접근을 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
